@@ -1,0 +1,90 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.modalContent {
+    background-color: #ffd700;
+    border: 4px solid #000000;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 2px solid #000000;
+}
+
+.modalTitle {
+    margin: 0;
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000000;
+    padding: 0;
+    line-height: 1;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.modalBody {
+    padding: 20px;
+    color: #000000;
+    font-size: 16px;
+}
+
+/* Improved touch target sizes for mobile */
+.closeButton {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    .modalContent {
+        width: 80%;
+        max-width: 500px;
+    }
+
+    .modalTitle {
+        font-size: 24px;
+    }
+
+    .closeButton {
+        font-size: 28px;
+    }
+
+    .modalBody {
+        font-size: 18px;
+    }
+}

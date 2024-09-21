@@ -14,11 +14,11 @@ const routes: RouteObject[] = [
     element: <div>404</div>,
   },
   {
-    path: "/",
+    path: "/:eventName",
     element: <Login />,
   },
   {
-    path: "/bingo",
+    path: "/:eventName/:ticketCode",
     element: <BingoGrid />,
   },
   {

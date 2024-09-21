@@ -1,3 +1,9 @@
+const buildURL = (basePath: string) => (endpoint: string) =>
+  `${basePath}${endpoint}`;
+
+const hoogoURL = buildURL("/hoogo");
+
 export const commonUrls = {
-  postLogin: "/login",
+  getBingoMatrix: (eventName: string, ticketCode: string) =>
+    hoogoURL(`/${eventName}/get-bingo-matrix/${ticketCode}/`),
 };

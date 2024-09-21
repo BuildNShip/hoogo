@@ -15,3 +15,18 @@ export const getBingoMatrix = async (
     return error;
   }
 };
+
+export const postUserInput = async (
+  eventName: string | undefined,
+  ticketCode: string | undefined
+) => {
+  try {
+    const response = await publicGateway.post(
+      commonUrls.userInput(eventName as string, ticketCode as string)
+    );
+
+    return response.data.response;
+  } catch (error) {
+    return error;
+  }
+};

@@ -3,7 +3,8 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
-import WinnerPage from "./pages/Admin/WinnerPage/WinnerPage";
+import WinnerPage from "./pages/Admin/BingoLeaderboard/BingoLeaderboard";
+import BingoCard from "./pages/Admin/BingoCard/BingoCard";
 const routes: RouteObject[] = [
   {
     path: "*",
@@ -12,6 +13,10 @@ const routes: RouteObject[] = [
   {
     path: "/admin/leaderboard",
     element: <WinnerPage />,
+  },
+  {
+    path: "/admin/leaderboard/:playerName",
+    element: <BingoCard />,
   },
 ];
 

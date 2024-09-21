@@ -48,7 +48,7 @@ const BingoGrid = () => {
 
   return (
     <div>
-      {letters && cells && letters.length === 0 && cells.length === 0 ? (
+      {letters && cells && letters.length > 0 && cells.length > 0 ? (
         <GridComponent letters={letters} cells={cells} showNames={true} />
       ) : (
         <p className={styles.noData}>No data available for this ticket code</p>

@@ -8,7 +8,7 @@ import { Routes } from "./router";
 
 const toasterProps = {
   containerStyle: {
-    fontFamily: "Inter, sans-serif",
+    fontFamily: "Nunito, sans-serif",
   },
   toastOptions: {
     style: {

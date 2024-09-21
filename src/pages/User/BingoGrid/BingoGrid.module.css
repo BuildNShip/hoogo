@@ -1,0 +1,12 @@
+.noData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #000;
+  border-radius: 5px;
+  padding: 0.5rem;
+}

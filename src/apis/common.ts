@@ -1,9 +1,11 @@
+import toast from "react-hot-toast";
 import { publicGateway } from "../../services/apiGateways";
 import { commonUrls } from "../../services/urls";
 
 export const getBingoMatrix = async (
   eventName: string | undefined,
-  ticketCode: string | undefined
+  ticketCode: string | undefined,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     const response = await publicGateway.get(
@@ -12,6 +14,8 @@ export const getBingoMatrix = async (
 
     return response.data.response;
   } catch (error) {
+    toast.error("Error in fetching the bingo matrix");
+    setLoading(false);
     return error;
   }
 };
@@ -27,6 +31,7 @@ export const postUserInput = async (
 
     return response.data.response;
   } catch (error) {
+    toast.error("Error in submitting the input");
     return error;
   }
 };

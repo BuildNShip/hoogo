@@ -5,7 +5,6 @@ import styles from "./Login.module.css";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { postUserInput } from "../../../apis/common";
 const Login = () => {
   const { eventName } = useParams();
   const navigate = useNavigate();
@@ -14,13 +13,7 @@ const Login = () => {
     if (ticketCode === undefined) {
       toast.error("Please enter ticket code");
     } else {
-      postUserInput(eventName, ticketCode).then((response) => {
-        if (response === "success") {
-          navigate("/" + eventName + "/" + ticketCode);
-        } else {
-          toast.error("Invalid ticket code");
-        }
-      });
+      navigate("/" + eventName + "/" + ticketCode);
     }
   };
 

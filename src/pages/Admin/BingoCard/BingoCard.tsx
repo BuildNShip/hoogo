@@ -1,52 +1,66 @@
-import React from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "./BingoCard.module.css";
+import { useEffect, useState } from "react";
+import { getBingoMatrix } from "../../../apis/common";
 
 interface BingoItem {
   name: string;
-  caption: string;
-  imageUrl: string;
+  liner: string;
+  image: string;
 }
 
 const BingoCard = () => {
-  const { playerName } = useParams();
+  const { playerName, eventName } = useParams();
+
   const gridSize = 5;
   const dummyImageUrl = "https://via.placeholder.com/150";
+  const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
 
-  // Generate dummy data for the grid
-  const generateDummyData = (): BingoItem[] => {
-    return Array(gridSize * gridSize)
-      .fill(null)
-      .map((_, index) => ({
-        name: `Person ${index + 1}`,
-        caption: `Caption ${index + 1}`,
-        imageUrl: dummyImageUrl,
-      }));
-  };
+  useEffect(() => {
+    getBingoMatrix(eventName, playerName).then((data) => {
+      setBingoAnswers(data.answer);
+    });
+    // generateDummyData();
+  }, [eventName, playerName]);
 
-  const bingoItems = generateDummyData();
+  // const generateDummyData = () => {
+  //   const dummyData: BingoItem[][] = [];
+  //   for (let i = 0; i < gridSize; i++) {
+  //     const row: BingoItem[] = [];
+  //     for (let j = 0; j < gridSize; j++) {
+  //       row.push({
+  //         name: `Name ${i}${j}`,
+  //         liner: "B",
+  //         image: dummyImageUrl,
+  //       });
+  //     }
+  //     dummyData.push(row);
+  //   }
+  //   setBingoAnswers(dummyData);
+  // };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>{playerName}'s BINGO Card</h1>
       <div className={styles.grid}>
-        {bingoItems.map((item, index) => (
-          <div key={index} className={styles.cell}>
-            <img
-              src={item.imageUrl}
-              alt={`Selfie of ${item.name}`}
-              className={styles.image}
-            />
-            <div className={styles.overlay}>
-              <h3 className={styles.name}>{item.name}</h3>
-              <p className={styles.caption}>{item.caption}</p>
-            </div>
+        {bingoAnswers.map((item, index) => (
+          <div key={index} className={styles.row}>
+            {item.map((cell, cellIndex) => (
+              <div key={cellIndex} className={styles.cell}>
+                <img
+                  src={cell.image ? cell.image : dummyImageUrl}
+                  alt={cell.name}
+                  className={styles.image}
+                />
+                <div className={styles.overlay}>
+                  <p className={styles.name}>{cell.name}</p>
+                  <p className={styles.liner}>{cell.liner}</p>
+                </div>
+              </div>
+            ))}
           </div>
         ))}
+        <h1 className={styles.title}>{playerName}'s BINGO Card</h1>
       </div>
-      <Link to="/" className={styles.backLink}>
-        Back to Leaderboard
-      </Link>
     </div>
   );
 };

@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
+import { websocketUrls } from "../../../../services/urls";
 
 interface Player {
   name: string;
-  bingo: boolean[];
+  score: boolean[];
 }
 
 const BingoLeaderboard = () => {
-  const [players, setPlayers] = useState<Player[]>([
-    { name: "Alice", bingo: [false, false, false, false, false] },
-    { name: "Bob", bingo: [false, false, false, false, false] },
-    { name: "Charlie", bingo: [false, false, false, false, false] },
-  ]);
+  const { eventName } = useParams();
+  const [players, setPlayers] = useState<Player[]>([]);
 
-  const toggleLetter = (playerIndex: number, letterIndex: number) => {
-    const newPlayers = [...players];
-    newPlayers[playerIndex].bingo[letterIndex] =
-      !newPlayers[playerIndex].bingo[letterIndex];
-    setPlayers(newPlayers);
-  };
+  useEffect(() => {
+    if (!eventName) return;
+    const socket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
+
+    socket.onmessage = (event) => {
+      const updatedPlayers: Player[] = JSON.parse(event.data).response;
+      setPlayers((prev) => [...prev, ...updatedPlayers]);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -32,9 +33,9 @@ const BingoLeaderboard = () => {
       </h1>
       <div className={styles.leaderboard}>
         {players.map((player, playerIndex) => (
-          <div key={player.name} className={styles.playerRow}>
+          <div key={playerIndex} className={styles.playerRow}>
             <Link
-              to={`/admin/leaderboard/${player.name}`}
+              to={`/${eventName}/admin/leaderboard/${player.name}`}
               className={styles.nameLink}
             >
               {player.name}
@@ -43,9 +44,8 @@ const BingoLeaderboard = () => {
               {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
                 <button
                   key={letter}
-                  onClick={() => toggleLetter(playerIndex, letterIndex)}
                   className={`${styles.letterButton} ${
-                    player.bingo[letterIndex] ? styles.strikethrough : ""
+                    player.score[letterIndex] ? styles.strikethrough : ""
                   }`}
                 >
                   {letter}

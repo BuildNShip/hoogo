@@ -22,11 +22,11 @@ const routes: RouteObject[] = [
     element: <BingoGrid />,
   },
   {
-    path: "/admin/leaderboard",
+    path: "/:eventName/admin/leaderboard",
     element: <WinnerPage />,
   },
   {
-    path: "/admin/leaderboard/:playerName",
+    path: "/:eventName/admin/leaderboard/:playerName",
     element: <BingoCard />,
   },
 ];

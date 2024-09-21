@@ -5,8 +5,9 @@ import GridComponent from "./components/GridComponent/GridComponent";
 import { GridLoader } from "react-spinners";
 
 interface BingoCell {
+  image: string | undefined;
   name: string | undefined;
-  liner: string;
+  liner: string | undefined;
 }
 
 const BingoGrid = () => {
@@ -20,43 +21,7 @@ const BingoGrid = () => {
     ["U", "V", "W", "X", "Y"],
   ]);
 
-  const [cells, setCells] = useState<BingoCell[][]>([
-    [
-      { name: "John", liner: "A friendly neighbor" },
-      { name: "Jane", liner: "Loves gardening" },
-      { name: "Alice", liner: "Enjoys painting" },
-      { name: "Bob", liner: "Avid reader" },
-      { name: "Charlie", liner: "Tech enthusiast" },
-    ],
-    [
-      { name: "David", liner: "Fitness freak" },
-      { name: "Eve", liner: "Music lover" },
-      { name: "Frank", liner: "Foodie" },
-      { name: "Grace", liner: "Travel blogger" },
-      { name: "Hank", liner: "History buff" },
-    ],
-    [
-      { name: "Ivy", liner: "Nature lover" },
-      { name: "Jack", liner: "Sports fan" },
-      { name: "Kathy", liner: "Bookworm" },
-      { name: "Leo", liner: "Movie critic" },
-      { name: "Mona", liner: "Fashionista" },
-    ],
-    [
-      { name: "Nina", liner: "Yoga instructor" },
-      { name: "Oscar", liner: "Photographer" },
-      { name: "Paul", liner: "Chef" },
-      { name: "Quinn", liner: "Cyclist" },
-      { name: "Rita", liner: "Artist" },
-    ],
-    [
-      { name: "Sam", liner: "Gamer" },
-      { name: "Tina", liner: "Dancer" },
-      { name: "Uma", liner: "Writer" },
-      { name: "Vince", liner: "Entrepreneur" },
-      { name: "Walt", liner: "Musician" },
-    ],
-  ]);
+  const [cells, setCells] = useState<BingoCell[][]>([]);
 
   useEffect(() => {
     getBingoMatrix(eventName, ticketCode).then((data) => {
@@ -77,7 +42,7 @@ const BingoGrid = () => {
       />
     );
 
-  return <GridComponent cells={cells} letters={letters} showNames={true} />;
+  return <GridComponent cells={cells} letters={letters} />;
 };
 
 export default BingoGrid;

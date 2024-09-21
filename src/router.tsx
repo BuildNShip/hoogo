@@ -3,10 +3,15 @@ import {
   RouteObject,
   RouterProvider,
 } from "react-router-dom";
+import WinnerPage from "./pages/Admin/WinnerPage/WinnerPage";
 const routes: RouteObject[] = [
   {
     path: "*",
     element: <div>404</div>,
+  },
+  {
+    path: "/admin/leaderboard",
+    element: <WinnerPage />,
   },
 ];
 

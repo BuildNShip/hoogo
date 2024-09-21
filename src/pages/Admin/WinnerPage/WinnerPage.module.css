@@ -1,0 +1,58 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .headerRow {
+    background-color: #f3f4f6;
+  }
+  
+  .headerCell {
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .row:hover {
+    background-color: #f9fafb;
+  }
+  
+  .cell {
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .letterButton {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .letterButton:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .strikethrough {
+    background-color: #10b981;
+    color: white;
+    text-decoration: line-through;
+  }

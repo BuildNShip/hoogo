@@ -9,7 +9,7 @@ export const publicGateway = axios.create({
     "ngrok-skip-browser-warning": "69420",
     "Content-Type": "application/json",
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    Product: "Makemypass",
+    Product: "Hoogo",
     "Accept-Language": navigator.language,
   },
 });

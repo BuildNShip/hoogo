@@ -5,10 +5,21 @@ import {
 } from "react-router-dom";
 import WinnerPage from "./pages/Admin/BingoLeaderboard/BingoLeaderboard";
 import BingoCard from "./pages/Admin/BingoCard/BingoCard";
+import Login from "./pages/User/Login/Login";
+import BingoGrid from "./pages/User/BingoGrid/BingoGrid";
+
 const routes: RouteObject[] = [
   {
     path: "*",
     element: <div>404</div>,
+  },
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/bingo",
+    element: <BingoGrid />,
   },
   {
     path: "/admin/leaderboard",

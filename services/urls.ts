@@ -1,4 +1,3 @@
-export const commonApis = {
-  postLogin: (username: string, password: string) =>
-    `/login?username=${username}&password=${password}`,
+export const commonUrls = {
+  postLogin: "/login",
 };

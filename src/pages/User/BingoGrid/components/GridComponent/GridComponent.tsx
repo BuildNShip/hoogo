@@ -129,7 +129,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
 
                     <div className={styles.inputGroup}>
                       <label htmlFor="description" className={styles.label}>
-                        Description:
+                        Enter a one-liner
                       </label>
                       <textarea
                         id="description"

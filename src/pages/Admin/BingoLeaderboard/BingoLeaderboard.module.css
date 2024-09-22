@@ -6,6 +6,10 @@
 body {
   background-color: var(--yellow);
   font-family: "Arial #1d1d1d", "Helvetica Bold", sans-serif;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {

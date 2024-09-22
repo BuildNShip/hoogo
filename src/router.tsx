@@ -14,7 +14,9 @@ const routes: RouteObject[] = [
     element: (
       <div>
         <div className="center">
-          <button className="startButton">Start Game</button>
+          <a href="/ovveride">
+            <button className="startButton">Start Game</button>
+          </a>
         </div>
       </div>
     ),

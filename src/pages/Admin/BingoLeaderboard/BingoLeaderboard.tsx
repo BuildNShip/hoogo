@@ -39,6 +39,16 @@ const BingoLeaderboard = () => {
         else {
           setPlayers((prevPlayers) => [...prevPlayers, updatedPlayer]);
         }
+
+        setPlayers((prevPlayers) => {
+          const updatedPlayers = [...prevPlayers];
+          updatedPlayers.sort((a, b) => {
+            const aScore = a.score.filter(Boolean).length;
+            const bScore = b.score.filter(Boolean).length;
+            return bScore - aScore;
+          });
+          return updatedPlayers;
+        });
       }
     };
   }, []);

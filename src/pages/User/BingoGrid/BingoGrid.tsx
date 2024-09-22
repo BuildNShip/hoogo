@@ -47,7 +47,6 @@ const BingoGrid = () => {
     <>
       <Navbar />
       <GridComponent cells={cells} letters={letters} setCells={setCells} />
-      <Footer />
     </>
   );
 };

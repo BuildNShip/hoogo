@@ -40,6 +40,9 @@ const GridComponent: React.FC<BingoGridProps> = ({
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Handle form submission here
+    // console.log({ name, image, description });
+    console.log(selectedCell);
     if (selectedCell) {
       postUserInput(
         eventName,

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
+import { postUserInput } from "../../../../../apis/common";
+import { useParams } from "react-router-dom";
 
 interface BingoCell {
   name: string | undefined;
@@ -11,15 +13,16 @@ interface BingoCell {
 interface BingoGridProps {
   letters: string[][];
   cells: BingoCell[][];
+  setCells: React.Dispatch<React.SetStateAction<BingoCell[][]>>;
 }
 
 const GridComponent: React.FC<BingoGridProps> = ({
   cells,
-
+  setCells,
   letters,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { eventName, ticketCode } = useParams();
   const [selectedCell, setSelectedCell] = useState<number[]>();
   const [name, setName] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -37,6 +40,22 @@ const GridComponent: React.FC<BingoGridProps> = ({
     e.preventDefault();
     // Handle form submission here
     console.log({ name, image, description });
+    console.log(selectedCell);
+    if (selectedCell) {
+      postUserInput(
+        eventName,
+        ticketCode,
+        letters[selectedCell[0]][selectedCell[1]],
+        image,
+        name,
+        description,
+        selectedCell[0],
+        selectedCell[1],
+        setCells
+      );
+    }
+
+    setIsOpen(false);
   };
 
   return (
@@ -51,14 +70,25 @@ const GridComponent: React.FC<BingoGridProps> = ({
           {selectedCell !== undefined &&
           cells[selectedCell[0]][selectedCell[1]].name ? (
             <>
-              <div className={styles.personImage}>
-                <img src={cells[selectedCell[0]][selectedCell[1]].image} />
-              </div>
-              <div className={styles.personName}>
-                {cells[selectedCell[0]][selectedCell[1]].name}
-              </div>
-              <div className={styles.personLiner}>
-                {cells[selectedCell[0]][selectedCell[1]].liner}
+              <div className={styles.personContainer}>
+                <div className={styles.personImageContainer}>
+                  <img
+                    className={styles.personImage}
+                    src={cells[selectedCell[0]][selectedCell[1]].image}
+                  />
+                </div>
+                <div className={styles.personName}>
+                  {cells[selectedCell[0]][selectedCell[1]].name}
+                </div>
+                <div className={styles.personLiner}>
+                  {cells[selectedCell[0]][selectedCell[1]].liner}
+                </div>
+                <button
+                  className={styles.backButton}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Back
+                </button>
               </div>
             </>
           ) : (

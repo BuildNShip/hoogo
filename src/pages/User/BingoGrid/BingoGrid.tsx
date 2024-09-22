@@ -42,7 +42,7 @@ const BingoGrid = () => {
       />
     );
 
-  return <GridComponent cells={cells} letters={letters} />;
+  return <GridComponent cells={cells} letters={letters} setCells={setCells} />;
 };
 
 export default BingoGrid;

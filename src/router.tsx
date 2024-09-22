@@ -13,11 +13,7 @@ const routes: RouteObject[] = [
     path: "*",
     element: (
       <div>
-        <div className="center">
-          <a href="/override">
-            <button className="startButton">Start Game</button>
-          </a>
-        </div>
+        <h1>404 Not Found</h1>
       </div>
     ),
   },
@@ -34,7 +30,7 @@ const routes: RouteObject[] = [
     element: <WinnerPage />,
   },
   {
-    path: "/admin/leaderboard/:playerName",
+    path: "/:eventName/admin/leaderboard/:playerName",
     element: <BingoCard />,
   },
 ];

@@ -19,20 +19,22 @@ const Login = () => {
 
   return (
     <>
-      <div className={styles.container}>
-        <label className={styles.loginHeading}>
-          {eventName?.toUpperCase()}
-        </label>
-        <input
-          className={styles.loginInput}
-          type="text"
-          placeholder="Ticket Code"
-          value={ticketCode}
-          onChange={(e) => setTicketCode(e.target.value)}
-        />
-        <button className={styles.loginButton} onClick={() => onSubmit()}>
-          Login
-        </button>
+      <div className={styles.centerContainer}>
+        <div className={styles.container}>
+          <label className={styles.loginHeading}>
+            {eventName?.toUpperCase()}
+          </label>
+          <input
+            className={styles.loginInput}
+            type="text"
+            placeholder="Ticket Code"
+            value={ticketCode}
+            onChange={(e) => setTicketCode(e.target.value)}
+          />
+          <button className={styles.loginButton} onClick={() => onSubmit()}>
+            Login
+          </button>
+        </div>
       </div>
     </>
   );

@@ -30,6 +30,13 @@ body {
   text-align: center;
 }
 
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 /* Minimal heading */
 .loginHeading {
   font-size: 20px;

@@ -1,8 +1,6 @@
-import { useParams } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
-  const { eventName } = useParams();
   return (
     <>
       <div className={styles.navbarContainer}>

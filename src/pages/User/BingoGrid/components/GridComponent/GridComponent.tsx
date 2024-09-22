@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";

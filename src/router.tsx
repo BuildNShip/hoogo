@@ -26,7 +26,7 @@ const routes: RouteObject[] = [
     element: <WinnerPage />,
   },
   {
-    path: "/:eventName/admin/leaderboard/:playerName",
+    path: "/admin/leaderboard/:playerName",
     element: <BingoCard />,
   },
 ];

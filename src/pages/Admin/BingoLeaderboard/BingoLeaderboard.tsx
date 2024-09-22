@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
 import Navbar from "../../../components/Navbar/Navbar";
-import Footer from "../../../components/Footer/Footer";
 
 interface Player {
   name: string;

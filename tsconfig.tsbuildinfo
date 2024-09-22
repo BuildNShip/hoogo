@@ -1,1 +1,1 @@
-{"root":["./src/main.tsx","./src/router.tsx","./src/vite-env.d.ts","./src/apis/common.ts","./src/pages/admin/winnerpage/winnerpage.tsx"],"version":"5.6.2"}
+{"root":["./src/main.tsx","./src/router.tsx","./src/vite-env.d.ts","./src/apis/common.ts","./src/components/modal/modal.tsx","./src/pages/admin/bingocard/bingocard.tsx","./src/pages/admin/bingoleaderboard/bingoleaderboard.tsx","./src/pages/user/bingogrid/bingogrid.tsx","./src/pages/user/bingogrid/components/gridcomponent/gridcomponent.tsx","./src/pages/user/login/login.tsx"],"errors":true,"version":"5.6.2"}

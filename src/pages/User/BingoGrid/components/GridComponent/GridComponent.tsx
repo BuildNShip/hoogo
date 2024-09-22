@@ -39,7 +39,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission here
-    console.log({ name, image, description });
+    // console.log({ name, image, description });
     console.log(selectedCell);
     if (selectedCell) {
       postUserInput(
@@ -66,6 +66,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
             setIsOpen(false);
             setSelectedCell(undefined);
           }}
+          title=" "
         >
           {selectedCell !== undefined &&
           cells[selectedCell[0]][selectedCell[1]].name ? (
@@ -125,7 +126,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
 
                   <div className={styles.inputGroup}>
                     <label htmlFor="description" className={styles.label}>
-                      Description:
+                      One Liner of your mate:
                     </label>
                     <textarea
                       id="description"

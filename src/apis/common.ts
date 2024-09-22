@@ -63,8 +63,9 @@ export const postUserInput = async (
       };
       return newCells;
     });
+    window.location.reload();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    toast.error(error?.response?.data.msg || "User was not added");
+    toast.error(error?.response?.message.general[0] || "User was not added");
   }
 };

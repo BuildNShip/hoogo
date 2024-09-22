@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";
@@ -40,9 +40,6 @@ const GridComponent: React.FC<BingoGridProps> = ({
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log({ name, image, description });
-    console.log(selectedCell);
     if (selectedCell) {
       postUserInput(
         eventName,
@@ -149,21 +146,24 @@ const GridComponent: React.FC<BingoGridProps> = ({
           </Modal>
         )}
         <div className={styles.bingoGrid}>
-          {cells.map((cell1, index1) =>
-            cell1.map((cell, index2) => (
-              <div
-                key={`${index1}-${index2}`}
-                className={`${styles.bingoCell}`}
-                onClick={() => {
-                  toggleCell(index1, index2);
-                  setIsOpen(true);
-                }}
-              >
-                <span className={styles.letter}>{letters[index1][index2]}</span>
-                <span className={styles.name}>{cell.name}</span>
-              </div>
-            ))
-          )}
+          {cells &&
+            cells.map((cell1, index1) =>
+              cell1.map((cell, index2) => (
+                <div
+                  key={`${index1}-${index2}`}
+                  className={`${styles.bingoCell}`}
+                  onClick={() => {
+                    toggleCell(index1, index2);
+                    setIsOpen(true);
+                  }}
+                >
+                  <span className={styles.letter}>
+                    {letters[index1][index2]}
+                  </span>
+                  <span className={styles.name}>{cell.name}</span>
+                </div>
+              ))
+            )}
         </div>
       </div>
       <Footer />

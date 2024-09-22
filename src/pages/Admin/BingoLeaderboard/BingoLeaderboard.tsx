@@ -17,8 +17,21 @@ const BingoLeaderboard = () => {
     const socket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
 
     socket.onmessage = (event) => {
+      let playerAlreadyExists = false;
       let updatedPlayers: Player[] = JSON.parse(event.data).response;
-      updatedPlayers = [...players, ...updatedPlayers];
+
+      //check if the player already exists in the players array
+      updatedPlayers.forEach((updatedPlayer) => {
+        let playerIndex = players.findIndex(
+          (player) => player.name === updatedPlayer.name
+        );
+        if (playerIndex !== -1) {
+          playerAlreadyExists = true;
+          players[playerIndex] = updatedPlayer;
+        }
+      });
+      if (!playerAlreadyExists)
+        updatedPlayers = [...players, ...updatedPlayers];
       //combine the new players with the existing players and sort them based on the number of true values in the score array
       updatedPlayers.sort((a, b) => {
         const aScore = a.score.filter((score) => score).length;
@@ -32,39 +45,41 @@ const BingoLeaderboard = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>
-        OVERRIDE.PY
-        <br />
-        COMMUNITY
-        <br />
-        MEETUP - HOOGO
-      </h1>
-      <div className={styles.leaderboard}>
-        {players.map((player, playerIndex) => (
-          <div key={playerIndex} className={styles.playerRow}>
-            <Link
-              to={`/${eventName}/admin/leaderboard/${player.name}`}
-              className={styles.nameLink}
-            >
-              {player.name}
-            </Link>
-            <div className={styles.bingoLetters}>
-              {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
-                <button
-                  key={letter}
-                  className={`${styles.letterButton} ${
-                    player.score[letterIndex] ? styles.strikethrough : ""
-                  }`}
-                >
-                  {letter}
-                </button>
-              ))}
+      <div className={styles.center}>
+        <h1 className={styles.title}>
+          OVERRIDE.PY
+          <br />
+          COMMUNITY
+          <br />
+          MEETUP - HOOGO
+        </h1>
+        <div className={styles.leaderboard}>
+          {players.map((player, playerIndex) => (
+            <div key={playerIndex} className={styles.playerRow}>
+              <Link
+                to={`/${eventName}/admin/leaderboard/${player.name}`}
+                className={styles.nameLink}
+              >
+                {player.name}
+              </Link>
+              <div className={styles.bingoLetters}>
+                {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
+                  <button
+                    key={letter}
+                    className={`${styles.letterButton} ${
+                      player.score[letterIndex] ? styles.strikethrough : ""
+                    }`}
+                  >
+                    {letter}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <div className={styles.footer}>
-        PYGRAMMERS PRESENTS * PYGRAMMERS PRESENTS * PYGRAMMERS PRESENTS
+          ))}
+        </div>
+        <div className={styles.footer}>
+          PYGRAMMERS PRESENTS * PYGRAMMERS PRESENTS * PYGRAMMERS PRESENTS
+        </div>
       </div>
     </div>
   );

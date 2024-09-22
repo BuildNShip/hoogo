@@ -13,6 +13,9 @@ body {
   margin: 0 auto;
   padding: 40px 20px;
   color: #1d1d1d;
+
+  transform: scale(0.8); /* Adjust the scale value as needed */
+  transform-origin: top left; /* Adjust the origin as needed */
 }
 
 .title {
@@ -34,7 +37,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
-  border-top: 4px solid#1d1d1d;
+  border-top: 4px solid #1d1d1d;
 }
 
 .nameLink {
@@ -53,7 +56,7 @@ body {
 .letterButton {
   width: 40px;
   height: 40px;
-  border: 3px solid#1d1d1d;
+  border: 3px solid #1d1d1d;
   background-color: var(--yellow);
   color: #1d1d1d;
   font-size: 20px;
@@ -76,7 +79,7 @@ body {
 .footer {
   font-size: 14px;
   text-transform: uppercase;
-  border-top: 4px solid#1d1d1d;
+  border-top: 4px solid #1d1d1d;
   padding-top: 20px;
 }
 
@@ -85,4 +88,12 @@ body {
   text-decoration: none;
   font-weight: bold;
   cursor: pointer;
+}
+
+.center {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }

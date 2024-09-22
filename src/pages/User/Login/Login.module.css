@@ -1,6 +1,5 @@
 :root {
   --yellow: #ffd700;
-  --black: #000000;
   --white: #ffffff;
   --button-hover-color: #ff8800;
   --input-border-color: #000000;
@@ -14,10 +13,9 @@ body {
   padding: 0;
   height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: flex-start;
   background-color: var(--yellow);
-  font-family: "Arial Black", "Helvetica Bold", sans-serif;
+  font-family: "Arial #1d1d1d", "Helvetica Bold", sans-serif;
 }
 
 /* Minimal container styling */
@@ -25,7 +23,7 @@ body {
   width: 300px;
   padding: 20px;
   background-color: var(--yellow);
-  border: 2px solid var(--black);
+  border: 2px solid #1d1d1d;
   border-radius: 5px;
   text-align: center;
 }
@@ -34,14 +32,15 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 86vh;
+  width: 98vw;
 }
 
 /* Minimal heading */
 .loginHeading {
   font-size: 20px;
   font-weight: bold;
-  color: var(--black);
+  color: #1d1d1d;
   padding-bottom: 2rem;
 }
 
@@ -54,7 +53,7 @@ body {
   border: 1px solid var(--input-border-color);
   border-radius: 3px;
   background-color: var(--input-background-color);
-  color: var(--black);
+  color: #1d1d1d;
   margin-bottom: 15px;
   transition: border-color 0.2s ease;
 }
@@ -71,7 +70,7 @@ body {
   padding: 10px;
   font-size: 16px;
   font-weight: bold;
-  background-color: var(--black);
+  background-color: #1d1d1d;
   color: var(--yellow);
   border: none;
   border-radius: 3px;

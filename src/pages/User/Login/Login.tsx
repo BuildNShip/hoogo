@@ -5,6 +5,8 @@ import styles from "./Login.module.css";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Footer/Footer";
 const Login = () => {
   const { eventName } = useParams();
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const Login = () => {
 
   return (
     <>
+      <Navbar />
       <div className={styles.centerContainer}>
         <div className={styles.container}>
           <label className={styles.loginHeading}>
@@ -36,6 +39,7 @@ const Login = () => {
           </button>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

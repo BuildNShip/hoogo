@@ -1,0 +1,33 @@
+.logo {
+  max-width: 5rem;
+}
+
+.navbarContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: calc(100% - 4rem);
+}
+
+.navbarContainer a {
+  text-decoration: none;
+  color: #1d1d1d;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #1d1d1d;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+}

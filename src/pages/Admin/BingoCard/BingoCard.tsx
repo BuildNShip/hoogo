@@ -11,54 +11,42 @@ interface BingoItem {
 
 const BingoCard = () => {
   const { playerName, eventName } = useParams();
-  const dummyImageUrl = "/logo.png";
+  const dummyImageUrl = "/logoplace.png";
   const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
 
   useEffect(() => {
     getBingoMatrix(eventName, playerName).then((data) => {
       setBingoAnswers(data.answer);
     });
-    // generateDummyData();
   }, [eventName, playerName]);
-
-  // const generateDummyData = () => {
-  //   const dummyData: BingoItem[][] = [];
-  //   for (let i = 0; i < gridSize; i++) {
-  //     const row: BingoItem[] = [];
-  //     for (let j = 0; j < gridSize; j++) {
-  //       row.push({
-  //         name: `Name ${i}${j}`,
-  //         liner: "B",
-  //         image: dummyImageUrl,
-  //       });
-  //     }
-  //     dummyData.push(row);
-  //   }
-  //   setBingoAnswers(dummyData);
-  // };
 
   return (
     <div className={styles.container}>
       <div className={styles.grid}>
         {bingoAnswers.map((item, index) => (
-          <div key={index} className={styles.row}>
-            {item.map((cell, cellIndex) => (
-              <div key={cellIndex} className={styles.cell}>
-                <img
-                  src={cell.image ? cell.image : dummyImageUrl}
-                  alt={cell.name}
-                  className={styles.image}
-                />
-                <div className={styles.overlay}>
-                  <p className={styles.name}>{cell.name}</p>
-                  <p className={styles.liner}>{cell.liner}</p>
+          <>
+            <div key={index} className={styles.row}>
+              {item.map((cell, cellIndex) => (
+                <div key={cellIndex} className={styles.cell}>
+                  <img
+                    src={cell.image ? cell.image : dummyImageUrl}
+                    alt={cell.name}
+                    className={styles.image}
+                  />
+                  {cell.name && cell.liner && (
+                    <div className={styles.overlay}>
+                      <p className={styles.name}>{cell.name.length}</p>
+                      <p className={styles.liner}>{cell.liner}</p>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+            <br />
+          </>
         ))}
-        <h1 className={styles.title}>{playerName}'s BINGO Card</h1>
       </div>
+      <h1 className={styles.title}>{playerName}'s BINGO Card</h1>
     </div>
   );
 };

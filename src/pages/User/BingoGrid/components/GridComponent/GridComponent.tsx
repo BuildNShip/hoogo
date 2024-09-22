@@ -3,8 +3,6 @@ import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";
 import { useParams } from "react-router-dom";
-import Navbar from "../../../../../components/Navbar/Navbar";
-import Footer from "../../../../../components/Footer/Footer";
 
 interface BingoCell {
   name: string | undefined;
@@ -62,7 +60,6 @@ const GridComponent: React.FC<BingoGridProps> = ({
 
   return (
     <>
-      <Navbar />
       <div className={styles.container}>
         {isOpen && (
           <Modal
@@ -169,7 +166,6 @@ const GridComponent: React.FC<BingoGridProps> = ({
             )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

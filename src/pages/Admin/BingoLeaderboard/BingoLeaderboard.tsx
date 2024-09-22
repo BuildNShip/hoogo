@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
+import Navbar from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Footer/Footer";
 
 interface Player {
   name: string;
@@ -36,6 +38,7 @@ const BingoLeaderboard = () => {
 
   return (
     <div className={styles.container}>
+      <Navbar />
       <div className={styles.center}>
         <h1 className={styles.title}>
           OVERRIDE.PY

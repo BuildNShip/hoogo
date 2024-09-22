@@ -3,6 +3,8 @@ import { getBingoMatrix } from "../../../apis/common";
 import { useParams } from "react-router-dom";
 import GridComponent from "./components/GridComponent/GridComponent";
 import { GridLoader } from "react-spinners";
+import Navbar from "../../../components/Navbar/Navbar";
+import Footer from "../../../components/Footer/Footer";
 
 interface BingoCell {
   image: string | undefined;
@@ -41,7 +43,13 @@ const BingoGrid = () => {
       />
     );
 
-  return <GridComponent cells={cells} letters={letters} setCells={setCells} />;
+  return (
+    <>
+      <Navbar />
+      <GridComponent cells={cells} letters={letters} setCells={setCells} />
+      <Footer />
+    </>
+  );
 };
 
 export default BingoGrid;

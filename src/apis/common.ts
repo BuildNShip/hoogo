@@ -36,6 +36,7 @@ export const postUserInput = async (
   indexj: number,
   setCells: React.Dispatch<React.SetStateAction<BingoCell[][]>>
 ) => {
+  const toastId = toast.loading("Adding Info...");
   try {
     const response = await publicGateway.post(
       commonUrls.userInput(eventName as string, ticketCode as string),
@@ -53,7 +54,9 @@ export const postUserInput = async (
         },
       }
     );
-    toast.success(response.data.message || "Succesfully added Information");
+    toast.success(response.data.message || "Succesfully added Information", {
+      id: toastId,
+    });
     setCells((prev) => {
       const newCells = [...prev];
       newCells[indexi][indexj] = {
@@ -66,6 +69,8 @@ export const postUserInput = async (
     window.location.reload();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    toast.error(error?.response?.message.general[0] || "User was not added");
+    toast.error(error?.response?.message.general[0] || "User was not added", {
+      id: toastId,
+    });
   }
 };

@@ -23,14 +23,22 @@ const BingoLeaderboard = () => {
       if (Array.isArray(updatedPlayer)) {
         setPlayers(updatedPlayer);
       } else {
-        setPlayers((prevPlayers) => {
-          return prevPlayers.map((player) => {
-            if (player.name === updatedPlayer.name) {
-              return updatedPlayer;
-            }
-            return player;
+        let playerAlreadyExists = players.some(
+          (player) => player.name === updatedPlayer.name
+        );
+
+        if (playerAlreadyExists)
+          setPlayers((prevPlayers) => {
+            return prevPlayers.map((player) => {
+              if (player.name === updatedPlayer.name) {
+                return updatedPlayer;
+              }
+              return player;
+            });
           });
-        });
+        else {
+          setPlayers((prevPlayers) => [...prevPlayers, updatedPlayer]);
+        }
       }
     };
   }, []);

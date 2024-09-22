@@ -11,7 +11,13 @@ import BingoGrid from "./pages/User/BingoGrid/BingoGrid";
 const routes: RouteObject[] = [
   {
     path: "*",
-    element: <div>404</div>,
+    element: (
+      <div>
+        <div className="center">
+          <button className="startButton">Start Game</button>
+        </div>
+      </div>
+    ),
   },
   {
     path: "/:eventName",

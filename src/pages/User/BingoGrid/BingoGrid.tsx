@@ -3,11 +3,11 @@ import { getBingoMatrix } from "../../../apis/common";
 import { useParams } from "react-router-dom";
 import GridComponent from "./components/GridComponent/GridComponent";
 import { GridLoader } from "react-spinners";
-import styles from "./BingoGrid.module.css";
 
 interface BingoCell {
+  image: string | undefined;
   name: string | undefined;
-  liner: string;
+  liner: string | undefined;
 }
 
 const BingoGrid = () => {
@@ -17,11 +17,6 @@ const BingoGrid = () => {
   const [letters, setLetters] = useState<string[][]>([]);
 
   const [cells, setCells] = useState<BingoCell[][]>([]);
-
-  useEffect(() => {
-    console.log(letters);
-    console.log(cells);
-  }, [letters, cells]);
 
   useEffect(() => {
     setLoading(true);
@@ -46,22 +41,7 @@ const BingoGrid = () => {
       />
     );
 
-  return (
-    <div>
-      {letters && cells && letters.length > 0 && cells.length > 0 ? (
-        <GridComponent letters={letters} cells={cells} showNames={true} />
-      ) : (
-        <p className={styles.noData}>No data available for this ticket code</p>
-      )}
-    </div>
-  );
-
-  // return !loading && letters.length > 0 && cells.length > 0 ? (
-  //   // <GridComponent letters={letters} cells={cells} showNames={true} />
-  //   <p className={styles.noData}>No data available for this ticket code</p>
-  // ) : (
-  //   <p className={styles.noData}>No data available for this ticket code</p>
-  // );
+  return <GridComponent cells={cells} letters={letters} setCells={setCells} />;
 };
 
 export default BingoGrid;

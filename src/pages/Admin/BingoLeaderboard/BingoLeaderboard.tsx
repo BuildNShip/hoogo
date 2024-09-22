@@ -17,8 +17,16 @@ const BingoLeaderboard = () => {
     const socket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
 
     socket.onmessage = (event) => {
-      const updatedPlayers: Player[] = JSON.parse(event.data).response;
-      setPlayers((prev) => [...prev, ...updatedPlayers]);
+      let updatedPlayers: Player[] = JSON.parse(event.data).response;
+      updatedPlayers = [...players, ...updatedPlayers];
+      //combine the new players with the existing players and sort them based on the number of true values in the score array
+      updatedPlayers.sort((a, b) => {
+        const aScore = a.score.filter((score) => score).length;
+        const bScore = b.score.filter((score) => score).length;
+        return bScore - aScore;
+      });
+
+      setPlayers(updatedPlayers);
     };
   }, []);
 

@@ -7,6 +7,7 @@ import Navbar from "../../../components/Navbar/Navbar";
 interface Player {
   name: string;
   score: boolean[];
+  completed_at: Date | null;
 }
 
 const BingoLeaderboard = () => {
@@ -40,6 +41,25 @@ const BingoLeaderboard = () => {
           }
         });
       }
+
+      setPlayers((prevPlayers) => {
+        return [...prevPlayers].sort((a, b) => {
+          if (a.completed_at && b.completed_at) {
+            return (
+              new Date(a.completed_at).getTime() -
+              new Date(b.completed_at).getTime()
+            );
+          } else if (a.completed_at) {
+            return -1;
+          } else if (b.completed_at) {
+            return 1;
+          } else {
+            const aScore = a.score.filter(Boolean).length;
+            const bScore = b.score.filter(Boolean).length;
+            return bScore - aScore;
+          }
+        });
+      });
     };
   }, []);
 

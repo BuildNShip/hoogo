@@ -3,6 +3,7 @@ import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface BingoCell {
   name: string | undefined;
@@ -41,7 +42,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
     // Handle form submission here
     // console.log({ name, image, description });
     console.log(selectedCell);
-    if (selectedCell) {
+    if (selectedCell && image && name && description) {
       postUserInput(
         eventName,
         ticketCode,
@@ -53,6 +54,8 @@ const GridComponent: React.FC<BingoGridProps> = ({
         selectedCell[1],
         setCells
       );
+    } else {
+      toast.error("Please fill in all fields");
     }
 
     setIsOpen(false);

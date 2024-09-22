@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./BingoCard.module.css";
 import { useEffect, useState } from "react";
 import { getBingoMatrix } from "../../../apis/common";
@@ -11,8 +11,6 @@ interface BingoItem {
 
 const BingoCard = () => {
   const { playerName, eventName } = useParams();
-
-  const gridSize = 5;
   const dummyImageUrl = "https://via.placeholder.com/150";
   const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
 

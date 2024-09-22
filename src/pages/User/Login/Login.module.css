@@ -15,7 +15,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: var(--yellow);
   font-family: "Arial Black", "Helvetica Bold", sans-serif;
 }

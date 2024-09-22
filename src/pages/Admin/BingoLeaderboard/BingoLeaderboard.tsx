@@ -17,29 +17,20 @@ const BingoLeaderboard = () => {
     const socket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
 
     socket.onmessage = (event) => {
-      let playerAlreadyExists = false;
-      let updatedPlayers: Player[] = JSON.parse(event.data).response;
+      let updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
 
-      //check if the player already exists in the players array
-      updatedPlayers.forEach((updatedPlayer) => {
-        let playerIndex = players.findIndex(
-          (player) => player.name === updatedPlayer.name
-        );
-        if (playerIndex !== -1) {
-          playerAlreadyExists = true;
-          players[playerIndex] = updatedPlayer;
-        }
-      });
-      if (!playerAlreadyExists)
-        updatedPlayers = [...players, ...updatedPlayers];
-      //combine the new players with the existing players and sort them based on the number of true values in the score array
-      updatedPlayers.sort((a, b) => {
-        const aScore = a.score.filter((score) => score).length;
-        const bScore = b.score.filter((score) => score).length;
-        return bScore - aScore;
-      });
-
-      setPlayers(updatedPlayers);
+      if (Array.isArray(updatedPlayer)) {
+        setPlayers(updatedPlayer);
+      } else {
+        setPlayers((prevPlayers) => {
+          return prevPlayers.map((player) => {
+            if (player.name === updatedPlayer.name) {
+              return updatedPlayer;
+            }
+            return player;
+          });
+        });
+      }
     };
   }, []);
 

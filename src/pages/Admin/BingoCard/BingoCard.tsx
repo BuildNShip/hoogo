@@ -11,7 +11,7 @@ interface BingoItem {
 
 const BingoCard = () => {
   const { playerName, eventName } = useParams();
-  const dummyImageUrl = "https://via.placeholder.com/150";
+  const dummyImageUrl = "/logo.png";
   const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
 
   useEffect(() => {

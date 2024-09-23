@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     id: 4,
-    author: 'Mohamed Aslam',
+    author: 'Ashiq Ali N K',
     text: 'The game was fun and helped me connect with people, especially with all the selfies! With a bit more planning, the lag and bugs could’ve been avoided.',
   }
 ];

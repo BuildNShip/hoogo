@@ -26,7 +26,7 @@ const HoogoLanding: React.FC = () => {
             <span>★★★★★</span> 124 players build connections faster
           </div>
           <a
-            href="https://wa.me/916238450178"
+            href="https://wa.me/918606358178"
             target="_blank"
             rel="noopener noreferrer"
           >

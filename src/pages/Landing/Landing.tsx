@@ -27,7 +27,7 @@ const HoogoLanding: React.FC = () => {
                     <div className={styles.rating}>
                         <span>★★★★★</span> 124 players build connections faster
                     </div>
-                    <a href="https://wa.me/918606358178" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/+916238450178?text=I'm%20interested%20in%20Hoogo" target="_blank" rel="noopener noreferrer">
                         <button className={styles.ctaButton}>Get Hoogo For Free</button>
                     </a>
                     <div className={styles.offer}>

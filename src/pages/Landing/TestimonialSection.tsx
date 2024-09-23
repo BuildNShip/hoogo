@@ -21,6 +21,11 @@ const testimonials = [
     id: 4,
     author: 'Ashiq Ali N K',
     text: 'The game was fun and helped me connect with people, especially with all the selfies! With a bit more planning, the lag and bugs could’ve been avoided.',
+  },
+  {
+    id: 5,
+    author: "Anirudhan Vinod",
+    text: "Loved how the Hoogo team brought this idea to life! Perfect as a networking icebreaker. No bugs, and I connected with 7-8 new friends smoothly. Kudos to the team!"
   }
 ];
 

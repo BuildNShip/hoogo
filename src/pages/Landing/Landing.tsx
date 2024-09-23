@@ -22,7 +22,7 @@ const HoogoLanding: React.FC = () => {
                     </h1>
                     <p className={styles.subtitle}>
                         The ultimate tool for community meetups and team-building events. Create,
-                        play, and share your Hoogo games faster than ever.
+                        play, and make networking faster and fun.
                     </p>
                     <div className={styles.rating}>
                         <span>★★★★★</span> 124 players build connections faster

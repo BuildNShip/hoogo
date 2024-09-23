@@ -37,7 +37,7 @@ const HoogoLanding: React.FC = () => {
                     <div className={styles.offer}></div>
                 </main>
                 <div className={styles.imageGrid}>
-                    {/* Replace with actual Hoogo game board images */}
+                   
                     <img
                         src="/landingimage.png"
                         alt="Hoogo Game Board 1"

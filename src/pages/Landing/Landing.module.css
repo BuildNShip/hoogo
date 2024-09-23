@@ -8,6 +8,38 @@
   font-family: "Arial", sans-serif;
   padding: 2rem;
   box-sizing: border-box;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.floatingImages {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floatingImage {
+  position: absolute;
+  max-width: 100px;
+  opacity: 0.2;
+  animation: float 20s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
 }
 
 .row {
@@ -17,6 +49,7 @@
   flex-wrap: wrap;
   padding: 0 4rem;
   min-height: 70vh;
+  z-index: 3;
 }
 
 .header {
@@ -25,6 +58,7 @@
   align-items: center;
   margin-bottom: 4rem;
   padding: 0 4rem;
+  z-index: 3;
 }
 
 .main {

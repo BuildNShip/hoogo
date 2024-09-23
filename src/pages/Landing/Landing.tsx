@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./Landing.module.css";
+import FloatingImages from "./FloatingImages";
 
 const HoogoLanding: React.FC = () => {
   return (
     <div className={styles.container}>
+      <FloatingImages />
       <header className={styles.header}>
         <div className={styles.logo}>
           <span className={styles.logoIcon}></span> Hoogo

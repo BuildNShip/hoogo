@@ -6,7 +6,7 @@ const Footer = () => {
     <>
       <div className={styles.footer}>
         <a href="https://buildnship.in/">
-          <img src="/blogo1.png" alt="logo" />
+          <img src="/logod.png" alt="logo" />
         </a>
         <div className={styles.social_container}>
           <a href="https://twitter.com/buildnship/">

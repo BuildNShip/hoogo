@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Landing.module.css";
 import FloatingImages from "./FloatingImages";
 import TestimonialSection from "./TestimonialSection";
+import Footer from "../../components/Footer/Footer";
 
 const HoogoLanding: React.FC = () => {
     return (
@@ -45,6 +46,8 @@ const HoogoLanding: React.FC = () => {
                 </div>
             </div>
             <TestimonialSection />
+
+            <Footer />
         </div>
     );
 };

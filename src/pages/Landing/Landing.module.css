@@ -274,7 +274,9 @@
   background-color: #1a1a1a;
   color: #ffffff;
   padding: 2rem 2rem;
+   margin-top: 2rem;
   font-family: "Arial", sans-serif;
+  z-index: 3;
 }
 
 .sectionTitle {
@@ -294,7 +296,7 @@
 }
 
 .testimonialCard {
-  background-color: #2a2a2a;
+  background-color: #202020;
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;

@@ -2,9 +2,10 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  margin-top: 1rem;
   position: fixed;
   height: 3rem;
-  border-top: 2px solid #1d1d1d;
+  background-color: #1d1d1d;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +32,7 @@
 .footer .social_container a {
   height: 100%;
   width: max-content;
-  color: #1d1d1d;
+  color: #ffd700;
   display: flex;
   align-items: center;
 }

@@ -3,12 +3,12 @@ import styles from "./Landing.module.css";
 
 const FloatingImages = () => {
   const images = [
-    "/public/1.png",
-    "/public/2.png",
-    "/public/3.png",
-    "/public/7.png",
-    "/public/8.png",
-    "/public/9.png",
+    "/1.png",
+    "/2.png",
+    "/3.png",
+    "/7.png",
+    "/8.png",
+    "/9.png",
   ];
   interface ImagePosition {
     x: number;

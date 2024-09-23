@@ -2,7 +2,6 @@
   background-color: #1a1a1a;
   color: #ffffff;
   min-height: 100vh;
-  width: 100vw;
   display: flex;
   flex-direction: column;
   font-family: "Arial", sans-serif;
@@ -97,7 +96,7 @@
 .subtitle {
   font-size: 1.2rem;
   font-family: "Bricolage Grotesque", sans-serif;
-  font-weight: 300;
+
   max-width: 45rem;
   margin: 1rem 0;
 }
@@ -122,6 +121,11 @@
   margin-top: 1rem;
   font-size: 0.9rem;
   color: #ffd700;
+  font-weight: 400;
+
+  span {
+    color: #ffffff;
+  }
 }
 
 .socialProof {
@@ -251,5 +255,75 @@
 
   .rating {
     font-size: 0.9rem;
+  }
+}
+
+.preTitle{
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+
+  span{
+    color: #ffd700;
+  }
+}
+
+/* Testimonials.module.css */
+
+.testimonialSection {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 2rem 2rem;
+  font-family: "Arial", sans-serif;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+
+  span {
+    color: #ffd700;
+  }
+}
+
+.testimonialGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonialCard {
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.testimonialText {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+
+
+.authorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.authorName {
+  color: #ffd700;
+}
+
+@media (max-width: 768px) {
+  .testimonialGrid {
+    grid-template-columns: 1fr;
   }
 }

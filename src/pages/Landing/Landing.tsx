@@ -14,7 +14,7 @@ const HoogoLanding: React.FC = () => {
             </header>
             <div className={styles.row}>
                 <main className={styles.main}>
-                    <p className={styles.preTitle}>from the <span>makers of makemypass.com</span></p>
+                    <p className={styles.preTitle}>from the <span>community of BuildNShip</span></p>
                     <h1 className={styles.title}>
                         <span className={styles.highlight}>Play</span> human bingo <br />
                         <span className={styles.highlight}>in-minutes,</span>

@@ -3,7 +3,7 @@
   --white: #ffffff;
 }
 
-body {
+/* body {
   background-color: var(--yellow);
   font-family: "Arial #1d1d1d", "Helvetica Bold", sans-serif;
   width: 100vw;
@@ -11,7 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
+} */
 
 .container {
   max-width: 800px;

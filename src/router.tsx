@@ -7,6 +7,7 @@ import WinnerPage from "./pages/Admin/BingoLeaderboard/BingoLeaderboard";
 import BingoCard from "./pages/Admin/BingoCard/BingoCard";
 import Login from "./pages/User/Login/Login";
 import BingoGrid from "./pages/User/BingoGrid/BingoGrid";
+import HoogoLanding from "./pages/Landing/Landing";
 
 const routes: RouteObject[] = [
   {
@@ -16,6 +17,10 @@ const routes: RouteObject[] = [
         <h1>404 Not Found</h1>
       </div>
     ),
+  },
+  {
+    path: "/",
+    element: <HoogoLanding />,
   },
   {
     path: "/:eventName",

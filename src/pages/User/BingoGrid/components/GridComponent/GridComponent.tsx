@@ -4,6 +4,7 @@ import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { MdClose } from "react-icons/md";
 
 interface BingoCell {
     name: string | undefined;
@@ -68,18 +69,39 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                         {selectedCell !== undefined &&
                         cells[selectedCell[0]][selectedCell[1]].name ? (
                             <div className={styles.personContainer}>
-                                <div className={styles.personImageContainer}>
-                                    <img
-                                        className={styles.personImage}
-                                        src={cells[selectedCell[0]][selectedCell[1]].image}
-                                    />
+                                <div className={styles.floatingContainer}>
+                                    <div className={styles.floatingText}>
+                                        <p className={styles.personDescriptionHeader}>
+                                            About{" "}
+                                            <span>
+                                                {cells[selectedCell[0]][selectedCell[1]].name
+                                                    ?.split(" ")
+                                                    .map(
+                                                        (word) =>
+                                                            word.charAt(0).toUpperCase() +
+                                                            word.slice(1)
+                                                    )
+                                                    .join(" ")}
+                                            </span>
+                                        </p>
+                                        <div className={styles.personDescription}>
+                                            <div className={styles.personImageContainer}>
+                                                <img
+                                                    className={styles.personImage}
+                                                    src={
+                                                        cells[selectedCell[0]][selectedCell[1]]
+                                                            .image
+                                                    }
+                                                    alt={
+                                                        cells[selectedCell[0]][selectedCell[1]].name
+                                                    }
+                                                />
+                                            </div>
+                                            {cells[selectedCell[0]][selectedCell[1]].liner}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={styles.personName}>
-                                    {cells[selectedCell[0]][selectedCell[1]].name}
-                                </div>
-                                <div className={styles.personLiner}>
-                                    {cells[selectedCell[0]][selectedCell[1]].liner}
-                                </div>
+
                                 <button
                                     className={styles.backButton}
                                     onClick={() => setIsOpen(false)}
@@ -124,7 +146,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                     </p>
 
                                     {image ? (
-                                        <div>
+                                        <div className={styles.previewImageContainer}>
                                             <img
                                                 src={URL.createObjectURL(image)}
                                                 alt="Preview"
@@ -135,6 +157,18 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                                     marginTop: "10px",
                                                 }}
                                             />
+                                            <div
+                                                className={styles.closeButton}
+                                                title="
+                                                Remove Image
+                                            "
+                                            >
+                                                <MdClose
+                                                    onClick={() => {
+                                                        setImage(null);
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
                                     ) : (
                                         <input
@@ -182,8 +216,15 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                     }
                                 >
                                     Submit
+                                    {/* if the number of charaters of description is < 10 show the count needed
+                                     */}
+                                    {description.length < 10 && (
+                                        <span className={styles.count}>
+                                            ({10 - description.length} letters more)
+                                        </span>
+                                    )}
                                 </button>
-                                {image !== null && (
+                                {/* {image !== null && (
                                     <button
                                         className={styles.removeImage}
                                         onClick={(e) => {
@@ -193,7 +234,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                     >
                                         Remove Image
                                     </button>
-                                )}
+                                )} */}
                             </form>
                         )}
                     </Modal>
@@ -204,11 +245,15 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                             cell1.map((cell, index2) => (
                                 <div
                                     key={`${index1}-${index2}`}
-                                    className={`${styles.bingoCell}`}
+                                    className={`${styles.bingoCell} ${
+                                        cell.name ? styles.active : ""
+                                    }`}
                                     onClick={() => {
                                         toggleCell(index1, index2);
                                         setIsOpen(true);
                                         setName(letters[index1][index2]);
+                                        setImage(null);
+                                        setDescription("");
                                     }}
                                 >
                                     <span className={styles.letter}>{letters[index1][index2]}</span>

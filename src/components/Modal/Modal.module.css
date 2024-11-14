@@ -30,6 +30,13 @@
     margin: 1rem;
 }
 
+@media only screen and (max-width: 600px) {
+    .modalContent {
+        width: calc(100% - 2rem);
+        padding: 1rem;
+    }
+}
+
 .modalBody {
     width: 100%;
 }

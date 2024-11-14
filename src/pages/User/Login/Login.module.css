@@ -6,6 +6,7 @@
     height: 100vh;
     background-color: #1d1d1d;
     opacity: 1;
+    padding: 1rem;
 }
 
 .loginContainer {
@@ -13,13 +14,21 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 400px;
+    max-width: 400px;
+    width: calc(100% - 4rem);
     background-color: #202020;
     border-radius: 10px;
     padding: 2rem;
     color: white;
 
     border: 2px solid #2f2f2f;
+}
+
+@media only screen and (max-width: 600px) {
+    .loginContainer {
+        width: calc(100% - 3rem);
+        padding: 1.5rem;
+    }
 }
 
 .logoContainerHeader {
@@ -96,7 +105,6 @@
     color: white;
     opacity: 0.8;
     max-width: 25rem;
-    text-align: center;
     span {
         color: #ffd700;
     }

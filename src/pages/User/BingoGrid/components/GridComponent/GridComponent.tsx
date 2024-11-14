@@ -6,171 +6,220 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 interface BingoCell {
-  name: string | undefined;
-  liner: string | undefined;
-  image: string | undefined;
+    name: string | undefined;
+    liner: string | undefined;
+    image: string | undefined;
 }
 
 interface BingoGridProps {
-  letters: string[][];
-  cells: BingoCell[][];
-  setCells: React.Dispatch<React.SetStateAction<BingoCell[][]>>;
+    letters: string[][];
+    cells: BingoCell[][];
+    setCells: React.Dispatch<React.SetStateAction<BingoCell[][]>>;
 }
 
-const GridComponent: React.FC<BingoGridProps> = ({
-  cells,
-  setCells,
-  letters,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { eventName, ticketCode } = useParams();
-  const [selectedCell, setSelectedCell] = useState<number[]>();
-  const [name, setName] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-  const [description, setDescription] = useState("");
+const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const { eventName, ticketCode } = useParams();
+    const [selectedCell, setSelectedCell] = useState<number[]>();
+    const [name, setName] = useState("");
+    const [image, setImage] = useState<File | null>(null);
+    const [description, setDescription] = useState("");
 
-  const toggleCell = (index1: number, index2: number) => {
-    setSelectedCell([index1, index2]);
-  };
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
-    }
-  };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission here
-    // console.log({ name, image, description });
-    console.log(selectedCell);
-    if (selectedCell && image && name && description) {
-      postUserInput(
-        eventName,
-        ticketCode,
-        letters[selectedCell[0]][selectedCell[1]],
-        image,
-        name,
-        description,
-        selectedCell[0],
-        selectedCell[1],
-        setCells
-      );
-    } else {
-      toast.error("Please fill in all fields");
-    }
+    const toggleCell = (index1: number, index2: number) => {
+        setSelectedCell([index1, index2]);
+    };
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    };
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
 
-    setIsOpen(false);
-  };
+        if (selectedCell && image && name && description) {
+            postUserInput(
+                eventName,
+                ticketCode,
+                letters[selectedCell[0]][selectedCell[1]],
+                image,
+                name,
+                description,
+                selectedCell[0],
+                selectedCell[1],
+                setCells
+            );
+        } else {
+            toast.error("Please fill in all fields");
+        }
 
-  return (
-    <>
-      <div className={styles.container}>
-        {isOpen && (
-          <Modal
-            onClose={() => {
-              setIsOpen(false);
-              setSelectedCell(undefined);
-            }}
-          >
-            {selectedCell !== undefined &&
-            cells[selectedCell[0]][selectedCell[1]].name ? (
-              <>
-                <div className={styles.personContainer}>
-                  <div className={styles.personImageContainer}>
-                    <img
-                      className={styles.personImage}
-                      src={cells[selectedCell[0]][selectedCell[1]].image}
-                    />
-                  </div>
-                  <div className={styles.personName}>
-                    {cells[selectedCell[0]][selectedCell[1]].name}
-                  </div>
-                  <div className={styles.personLiner}>
-                    {cells[selectedCell[0]][selectedCell[1]].liner}
-                  </div>
-                  <button
-                    className={styles.backButton}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Back
-                  </button>
+        setIsOpen(false);
+    };
+
+    return (
+        <>
+            <div className={styles.container}>
+                {isOpen && (
+                    <Modal
+                        onClose={() => {
+                            setIsOpen(false);
+                            setSelectedCell(undefined);
+                        }}
+                    >
+                        {selectedCell !== undefined &&
+                        cells[selectedCell[0]][selectedCell[1]].name ? (
+                            <div className={styles.personContainer}>
+                                <div className={styles.personImageContainer}>
+                                    <img
+                                        className={styles.personImage}
+                                        src={cells[selectedCell[0]][selectedCell[1]].image}
+                                    />
+                                </div>
+                                <div className={styles.personName}>
+                                    {cells[selectedCell[0]][selectedCell[1]].name}
+                                </div>
+                                <div className={styles.personLiner}>
+                                    {cells[selectedCell[0]][selectedCell[1]].liner}
+                                </div>
+                                <button
+                                    className={styles.backButton}
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Back
+                                </button>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className={styles.form}>
+                                <div className={styles.inputGroup}>
+                                    <label htmlFor="name" className={styles.label}>
+                                        Name *
+                                    </label>
+                                    <p className={styles.inputFieldDescription}>
+                                        So, This name start with the Letter{" "}
+                                        <span>
+                                            {" "}
+                                            "
+                                            {selectedCell &&
+                                                letters[selectedCell[0]][selectedCell[1]]}
+                                            "
+                                        </span>
+                                    </p>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        value={name}
+                                        onChange={(e) => {
+                                            if (e.target.value.length >= 1) setName(e.target.value);
+                                        }}
+                                        className={styles.input}
+                                    />
+                                </div>
+
+                                <div className={styles.inputGroup}>
+                                    <label htmlFor="image" className={styles.label}>
+                                        Take a Selfie *
+                                    </label>
+
+                                    <p className={styles.inputFieldDescription}>
+                                        Capture your best smile 😄
+                                    </p>
+
+                                    {image ? (
+                                        <div>
+                                            <img
+                                                src={URL.createObjectURL(image)}
+                                                alt="Preview"
+                                                style={{
+                                                    width: "100px",
+                                                    height: "100px",
+                                                    objectFit: "cover",
+                                                    marginTop: "10px",
+                                                }}
+                                            />
+                                        </div>
+                                    ) : (
+                                        <input
+                                            type="file"
+                                            id="image"
+                                            accept="image/*"
+                                            capture="environment"
+                                            onChange={handleImageChange}
+                                            className={styles.fileInput}
+                                        />
+                                    )}
+                                </div>
+
+                                <div className={styles.inputGroup}>
+                                    <label htmlFor="description" className={styles.label}>
+                                        Tell us about your new friend
+                                    </label>
+                                    <p className={styles.inputFieldDescription}>
+                                        What all did you learn about this person? (Min 10
+                                        characters)
+                                    </p>
+                                    <textarea
+                                        id="description"
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        className={styles.textarea}
+                                        placeholder="When I met this person, I thought..."
+                                    />
+                                </div>
+
+                                <button
+                                    className={styles.submitButton}
+                                    type="submit"
+                                    style={
+                                        name.length > 1 && description.length > 10 && image !== null
+                                            ? {
+                                                  backgroundColor: "#ffd700",
+                                                  color: "#252525",
+                                                  opacity: 1,
+                                              }
+                                            : {
+                                                  backgroundColor: "#252525",
+                                                  cursor: "not-allowed",
+                                              }
+                                    }
+                                >
+                                    Submit
+                                </button>
+                                {image !== null && (
+                                    <button
+                                        className={styles.removeImage}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setImage(null);
+                                        }}
+                                    >
+                                        Remove Image
+                                    </button>
+                                )}
+                            </form>
+                        )}
+                    </Modal>
+                )}
+                <div className={styles.bingoGrid}>
+                    {cells &&
+                        cells.map((cell1, index1) =>
+                            cell1.map((cell, index2) => (
+                                <div
+                                    key={`${index1}-${index2}`}
+                                    className={`${styles.bingoCell}`}
+                                    onClick={() => {
+                                        toggleCell(index1, index2);
+                                        setIsOpen(true);
+                                        setName(letters[index1][index2]);
+                                    }}
+                                >
+                                    <span className={styles.letter}>{letters[index1][index2]}</span>
+                                    <span className={styles.name}>{cell.name}</span>
+                                </div>
+                            ))
+                        )}
                 </div>
-              </>
-            ) : (
-              <>
-                <div>
-                  {" "}
-                  <form onSubmit={handleSubmit} className={styles.form}>
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="name" className={styles.label}>
-                        Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className={styles.input}
-                      />
-                    </div>
-
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="image" className={styles.label}>
-                        Image:
-                      </label>
-                      <input
-                        type="file"
-                        id="image"
-                        accept="image/*"
-                        capture="environment"
-                        onChange={handleImageChange}
-                        className={styles.fileInput}
-                      />
-                    </div>
-
-                    <div className={styles.inputGroup}>
-                      <label htmlFor="description" className={styles.label}>
-                        Enter a one-liner
-                      </label>
-                      <textarea
-                        id="description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className={styles.textarea}
-                      />
-                    </div>
-
-                    <button type="submit" className={styles.submitButton}>
-                      Submit
-                    </button>
-                  </form>
-                </div>
-              </>
-            )}
-          </Modal>
-        )}
-        <div className={styles.bingoGrid}>
-          {cells &&
-            cells.map((cell1, index1) =>
-              cell1.map((cell, index2) => (
-                <div
-                  key={`${index1}-${index2}`}
-                  className={`${styles.bingoCell}`}
-                  onClick={() => {
-                    toggleCell(index1, index2);
-                    setIsOpen(true);
-                  }}
-                >
-                  <span className={styles.letter}>
-                    {letters[index1][index2]}
-                  </span>
-                  <span className={styles.name}>{cell.name}</span>
-                </div>
-              ))
-            )}
-        </div>
-      </div>
-    </>
-  );
+            </div>
+        </>
+    );
 };
 
 export default GridComponent;

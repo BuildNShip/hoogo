@@ -65,6 +65,12 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                             setIsOpen(false);
                             setSelectedCell(undefined);
                         }}
+                        title={
+                            selectedCell !== undefined &&
+                            cells[selectedCell[0]][selectedCell[1]].name
+                                ? `Tell us about ${cells[selectedCell[0]][selectedCell[1]].name}`
+                                : "Add a New Friend"
+                        }
                     >
                         {selectedCell !== undefined &&
                         cells[selectedCell[0]][selectedCell[1]].name ? (

@@ -18,11 +18,12 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    max-width: 400px;
-    width: calc(100% - 4rem);
+    max-width: 500px;
+    width: 100%;
     background-color: #202020;
     border-radius: 10px;
-    padding: 2rem;
+
+    padding-top: 0;
     color: white;
 
     border: 2px solid #2f2f2f;
@@ -30,13 +31,32 @@
     margin: 1rem;
 }
 
-@media only screen and (max-width: 600px) {
-    .modalContent {
-        width: calc(100% - 2rem);
-        padding: 1rem;
-    }
+.modalBody {
+    padding: 2rem;
+    padding-top: 1rem;
+
+    width: calc(100% - 4rem);
 }
 
-.modalBody {
-    width: 100%;
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 4rem);
+    padding: 0.5rem 2rem;
+    background-color: #252525;
+}
+
+.modalTitle {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
 }

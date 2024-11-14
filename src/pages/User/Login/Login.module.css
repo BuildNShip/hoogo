@@ -1,79 +1,114 @@
-:root {
-  --yellow: #ffd700;
-  --white: #ffffff;
-  --button-hover-color: #ff8800;
-  --input-border-color: #000000;
-  --input-background-color: #ffffff;
-  --input-focus-color: #333333;
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1d1d1d;
+    opacity: 1;
 }
 
-/* Centering the container on the screen */
-/* body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  background-color: var(--yellow);
-  font-family: "Arial #1d1d1d", "Helvetica Bold", sans-serif;
-} */
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 400px;
+    background-color: #202020;
+    border-radius: 10px;
+    padding: 2rem;
+    color: white;
 
-/* Minimal container styling */
-.container {
-  width: 300px;
-  padding: 20px;
-  background-color: var(--yellow);
-  border: 2px solid #1d1d1d;
-  border-radius: 5px;
-  text-align: center;
+    border: 2px solid #2f2f2f;
 }
 
-.centerContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 86vh;
-  width: 98vw;
+.logoContainerHeader {
+    width: calc(100% - 2rem);
 }
 
-/* Minimal heading */
-.loginHeading {
-  font-size: 20px;
-  font-weight: bold;
-  color: #1d1d1d;
-  padding-bottom: 2rem;
+.loginContainerHeaderText {
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 500;
 }
 
-/* Minimal input styling */
-.loginInput {
-  margin-top: 1rem;
-  width: 92%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid var(--input-border-color);
-  border-radius: 3px;
-  background-color: var(--input-background-color);
-  color: #1d1d1d;
-  margin-bottom: 15px;
-  transition: border-color 0.2s ease;
+.loginContainerDescription {
+    font-size: 0.85rem;
+    color: white;
 }
 
-/* Focus effect for input */
-.loginInput:focus {
-  border-color: var(--input-focus-color);
-  outline: none;
+.inputFieldContainer {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: calc(100% - 2rem);
+    margin-bottom: 1rem;
 }
 
-/* Minimal button styling */
+.inputFieldLabel {
+    font-size: 1rem;
+    color: #ffd700;
+}
+
+.inputFieldDescription {
+    font-size: 0.85rem;
+    color: white;
+}
+
+.inputField {
+    width: calc(100% - 4rem);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+.inputField:focus {
+    outline: none;
+    border: none;
+}
+
 .loginButton {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #1d1d1d;
-  color: var(--yellow);
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+    width: calc(100% - 3rem);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-weight: 600;
+    background-color: #252525;
+    font-size: 1rem;
+    color: #ffffff;
+    opacity: 0.6;
+    margin-top: 0;
+    padding: 0.5rem 1rem;
+    width: calc(100% - 1rem);
+}
+
+.funFact {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: white;
+    opacity: 0.8;
+    max-width: 25rem;
+    text-align: center;
+    span {
+        color: #ffd700;
+    }
+}
+
+.pageHeaderText {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1rem;
+
+    span {
+        color: #ffd700;
+    }
 }

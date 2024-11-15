@@ -9,7 +9,7 @@ export const publicGateway = axios.create({
         "ngrok-skip-browser-warning": "69420",
         "Content-Type": "application/json",
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        Product: "Hoogo",
+        Product: "hoogo",
         "Accept-Language": navigator.language,
     },
 });

@@ -1,7 +1,6 @@
-// import React from "react";
 import { useState } from "react";
-import styles from "./Login.module.css";
-// import { postLogin } from "../../../apis/common";
+import styles from "./StartGame.module.css";
+
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +9,7 @@ import { validateTicketCode } from "../../../apis/common";
 import { BeatLoader } from "react-spinners";
 import Navbar from "../../../components/Navbar/Navbar";
 
-const Login = () => {
+const StartGame = () => {
     const { eventName } = useParams();
     const navigate = useNavigate();
     const [ticketCode, setTicketCode] = useState<string>();
@@ -99,4 +98,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default StartGame;

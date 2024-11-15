@@ -19,10 +19,11 @@ export const websocketUrls = {
 };
 
 export const buildVerse = {
-    login: buildVerseURL("/login/"),
-    getAccessToken: buildVerseURL("/get-access-token/"),
     generateOTP: buildVerseURL("/generate-otp/"),
     preRegister: buildVerseURL("/pre-register/"),
+
+    login: buildVerseURL("/login/"),
+    getAccessToken: buildVerseURL("/get-access-token/"),
     register: buildVerseURL("/register/"),
     updateProfile: buildVerseURL("/update-profile/"),
     profileInfo: buildVerseURL("/profile-info/"),

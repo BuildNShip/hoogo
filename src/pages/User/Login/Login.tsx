@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer/Footer";
 import { validateTicketCode } from "../../../apis/common";
 import { BeatLoader } from "react-spinners";
+import Navbar from "../../../components/Navbar/Navbar";
 
 const Login = () => {
     const { eventName } = useParams();
@@ -29,6 +30,7 @@ const Login = () => {
 
     return (
         <>
+            <Navbar />
             <div className={styles.mainContainer}>
                 <p className={styles.pageHeaderText}>
                     Hi, <span>Elevate 2024</span> Participants 👋
@@ -89,7 +91,7 @@ const Login = () => {
 
                 <p className={styles.funFact}>
                     <span>Fun Fact:</span> The very first version of this game was built the day
-                    before its very first event.
+                    before its very first debut.
                 </p>
             </div>
             <Footer />

@@ -1,3 +1,4 @@
+import { NavigateFunction } from "react-router-dom";
 import { privateGateway, publicGateway } from "../../services/apiGateways";
 import { buildVerse, commonUrls } from "../../services/urls";
 import { FormDataType } from "../pages/Authentication/types";
@@ -137,6 +138,7 @@ export const register = async (
   email: string,
   name: string,
   otp: string,
+  navigate: NavigateFunction,
   setFormData: React.Dispatch<React.SetStateAction<FormDataType>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
@@ -160,7 +162,7 @@ export const register = async (
           response.data.response.profile_pic_url
         );
         setTimeout(() => {
-          onboardUser();
+          onboardUser(setIsLoading, navigate);
         }, 1000);
       }
     })
@@ -217,6 +219,7 @@ export const register = async (
 export const login = async (
   email: string,
   otp: string,
+  navigate: NavigateFunction,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setFormData: React.Dispatch<React.SetStateAction<FormDataType>>
 ) => {
@@ -240,7 +243,7 @@ export const login = async (
           response.data.response.profile_pic_url
         );
         setTimeout(() => {
-          onboardUser();
+          onboardUser(setIsLoading, navigate);
         }, 1000);
       }
     })
@@ -275,6 +278,16 @@ export const login = async (
     .finally(() => setIsLoading(false));
 };
 
-export const onboardUser = async () => {
-  privateGateway.post(commonUrls.onboardUser);
+export const onboardUser = async (
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  navigate: NavigateFunction
+) => {
+  privateGateway
+    .post(commonUrls.onboardUser)
+    .then((response) => {
+      if (response.data.statusCode === 200) {
+        navigate("/user/dashboard");
+      }
+    })
+    .finally(() => setIsLoading(false));
 };

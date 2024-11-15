@@ -5,9 +5,11 @@ import Footer from "../../components/Footer/Footer";
 import { BeatLoader } from "react-spinners";
 import { generateOTP, login, register } from "../../apis/auth";
 import { FormDataType } from "./types";
+import { useNavigate } from "react-router-dom";
 
 const Authentication = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormDataType>({
     email: {
       value: "",
@@ -41,6 +43,7 @@ const Authentication = () => {
         formData.email.value,
         formData.name.value,
         formData.otp.value,
+        navigate,
         setFormData,
         setIsLoading
       );
@@ -48,6 +51,7 @@ const Authentication = () => {
       login(
         formData.email.value,
         formData.otp.value,
+        navigate,
         setIsLoading,
         setFormData
       );
@@ -88,14 +92,14 @@ const Authentication = () => {
                 type="email"
                 className={styles.inputField}
                 placeholder="your@email.com"
-                value={formData.email.value}
+                value={formData.email?.value}
                 onChange={handleInputChange}
-                disabled={formData.email.disabled}
+                disabled={formData.email?.disabled}
               />
               {
                 // Show the error message if the email field is empty
                 formData.email.error && (
-                  <p className={styles.errorText}>{formData.email.error}</p>
+                  <p className={styles.errorText}>{formData?.email?.error}</p>
                 )
               }
             </div>
@@ -108,14 +112,14 @@ const Authentication = () => {
                   type="text"
                   className={styles.inputField}
                   placeholder="John Doe"
-                  value={formData.name.value}
+                  value={formData.name?.value}
                   onChange={handleInputChange}
-                  disabled={formData.name.disabled}
+                  disabled={formData.name?.disabled}
                 />
                 {
                   // Show the error message if the name field is empty
                   formData.name.error && (
-                    <p className={styles.errorText}>{formData.name.error}</p>
+                    <p className={styles.errorText}>{formData?.name?.error}</p>
                   )
                 }
               </div>
@@ -129,15 +133,15 @@ const Authentication = () => {
                   type="password"
                   className={styles.inputField}
                   placeholder="••••••••"
-                  value={formData.password.value}
+                  value={formData.password?.value}
                   onChange={handleInputChange}
-                  disabled={formData.password.disabled}
+                  disabled={formData.password?.disabled}
                 />
                 {
                   // Show the error message if the password field is empty
                   formData.password.error && (
                     <p className={styles.errorText}>
-                      {formData.password.error}
+                      {formData?.password?.error}
                     </p>
                   )
                 }
@@ -153,22 +157,22 @@ const Authentication = () => {
                   name="otp"
                   type="text"
                   className={styles.inputField}
-                  placeholder="000000"
-                  value={formData.otp.value}
+                  placeholder="Enter OTP"
+                  value={formData.otp?.value}
                   onChange={handleInputChange}
-                  disabled={formData.otp.disabled}
+                  disabled={formData.otp?.disabled}
                 />
                 {
                   // Show the error message if the OTP field is empty
                   formData.otp.error && (
-                    <p className={styles.errorText}>{formData.otp.error}</p>
+                    <p className={styles.errorText}>{formData?.otp?.error}</p>
                   )
                 }
               </div>
             )}
 
             {formData.generalError && (
-              <p className={styles.errorText}>{formData.generalError}</p>
+              <p className={styles.errorText}>{formData?.generalError}</p>
             )}
 
             <button className={styles.loginButton} onClick={handleSubmit}>

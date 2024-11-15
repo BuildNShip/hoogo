@@ -8,6 +8,7 @@ import Footer from "../../../components/Footer/Footer";
 import { getEventInfo, validateTicketCode } from "../../../apis/common";
 import { BeatLoader } from "react-spinners";
 import Navbar from "../../../components/Navbar/Navbar";
+import { EventType } from "./types";
 
 const StartGame = () => {
   const { eventName } = useParams();
@@ -15,13 +16,13 @@ const StartGame = () => {
   const [ticketCode, setTicketCode] = useState<string>();
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string>("");
-  const [eventInfo, setEventInfo] = useState<any>();
+  const [eventInfo, setEventInfo] = useState<EventType>();
 
   useEffect(() => {
     if (eventName) {
       getEventInfo(eventName, setEventInfo);
     }
-  });
+  }, []);
 
   const onSubmit = () => {
     if (ticketCode === undefined) {
@@ -29,7 +30,7 @@ const StartGame = () => {
         id: "ticketCode",
       });
     } else {
-      if (eventName)
+      if (eventName && eventInfo && eventInfo.mmp_id)
         validateTicketCode(
           eventName,
           ticketCode,
@@ -37,6 +38,7 @@ const StartGame = () => {
           setIsValidating,
           setError
         );
+      else navigate("/" + eventName + "/" + ticketCode);
     }
   };
 

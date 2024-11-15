@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { publicGateway } from "../../services/apiGateways";
 import { commonUrls } from "../../services/urls";
 import { NavigateFunction } from "react-router-dom";
+import { EventType } from "../pages/User/StartGame/types";
 
 interface BingoCell {
   image: string | undefined;
@@ -111,14 +112,16 @@ export const validateTicketCode = async (
 
 export const getEventInfo = async (
   eventName: string,
-  setEventInfo: React.Dispatch<React.SetStateAction<any>>
+  setEventInfo: React.Dispatch<React.SetStateAction<EventType | undefined>>
 ) => {
-  try {
-    const response = await publicGateway.get(
-      commonUrls.getEventInfo(eventName)
-    );
-    setEventInfo(response.data.response);
-  } catch (error) {
-    return error;
-  }
+  publicGateway
+    .get(commonUrls.getEventInfo(eventName))
+    .then((response) => {
+      setEventInfo(response.data.response);
+    })
+    .catch((error) => {
+      toast.error(
+        error?.response?.data.message.general[0] || "Invalid Event Name"
+      );
+    });
 };

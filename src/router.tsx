@@ -5,6 +5,7 @@ import BingoGrid from "./pages/User/BingoGrid/BingoGrid";
 import HoogoLanding from "./pages/Landing/Landing";
 import StartGame from "./pages/User/StartGame/StartGame";
 import Authentication from "./pages/Authentication/Authentication";
+import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 
 const routes: RouteObject[] = [
     {
@@ -22,6 +23,10 @@ const routes: RouteObject[] = [
     {
         path: "/login",
         element: <Authentication />,
+    },
+    {
+        path: "/user/dashboard",
+        element: <Dashboard />
     },
     {
         path: "/:eventName",

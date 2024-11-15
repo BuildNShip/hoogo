@@ -1,6 +1,6 @@
 export type EventType = {
     id: string;
-    mmp_id: string | null;
+    mmp_event_id: string | null;
     name: string;
     matrix: string[][];
     participant_count: number;

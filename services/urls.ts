@@ -15,6 +15,7 @@ export const commonUrls = {
   onboardUser: hoogoURL("/onboard-user/"),
   getEventInfo: (eventName: string) =>
     hoogoURL(`/event/${eventName}/get-info/`),
+  listUserEvents: hoogoURL("/user/list-events/"),
 };
 
 export const websocketUrls = {

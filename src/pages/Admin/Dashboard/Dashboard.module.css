@@ -1,1 +1,66 @@
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: #1d1d1d;
+  opacity: 1;
+  padding: 1rem;
+}
 
+.eventCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 400px;
+  width: calc(100% - 4rem);
+  background-color: #202020;
+  border-radius: 10px;
+  padding: 2rem;
+  color: white;
+  border: 2px solid #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.pageHeader {
+  font-size: 2rem;
+  color: white;
+  font-weight: 600;
+}
+
+.pageDescription {
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.eventName {
+  font-size: 1.2rem;
+  color: white;
+  font-weight: 500;
+}
+
+.createEventButton {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-weight: 600;
+  background-color: #252525;
+  font-size: 1rem;
+  color: #ffffff;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.createEventButton:hover {
+  background-color: #1d1d1d;
+}
+
+@media only screen and (max-width: 600px) {
+  .eventCard {
+    width: calc(100% - 3rem);
+    padding: 1.5rem;
+  }
+}

@@ -30,7 +30,7 @@ const StartGame = () => {
         id: "ticketCode",
       });
     } else {
-      if (eventName && eventInfo && eventInfo.mmp_id)
+      if (eventName && eventInfo && eventInfo.mmp_event_id)
         validateTicketCode(
           eventName,
           ticketCode,

@@ -26,19 +26,22 @@ export const getBingoMatrix = async (
 };
 
 export const postUserInput = async (
-    eventName: string | undefined,
-    ticketCode: string | undefined,
-    letter: string | undefined,
-    image: File | null,
-    name: string | null,
-    liner: string | null,
+    eventName: string,
+    ticketCode: string,
+    letter: string,
+    image: File,
+    name: string,
+    liner: string,
     indexi: number,
     indexj: number,
-    setCells: React.Dispatch<React.SetStateAction<BingoCell[][]>>
+    setCells: React.Dispatch<React.SetStateAction<BingoCell[][]>>,
+    setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>,
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-    try {
-        const response = await publicGateway.post(
-            commonUrls.userInput(eventName as string, ticketCode as string),
+    setIsSubmitting(true);
+    publicGateway
+        .post(
+            commonUrls.userInput(eventName, ticketCode),
             {
                 letter,
                 image,
@@ -52,20 +55,24 @@ export const postUserInput = async (
                     "Content-Type": "multipart/form-data",
                 },
             }
-        );
-        toast.success(response.data.message || "Succesfully added Information");
-        setCells((prev) => {
-            const newCells = [...prev];
-            newCells[indexi][indexj] = {
-                image: response.data.response.image,
-                name: response.data.response.name,
-                liner: response.data.response.liner,
-            };
-            return newCells;
+        )
+        .then((response) => {
+            toast.success(response.data.message.general[0] || "Successfully added Information");
+            setCells((prev) => {
+                const newCells = [...prev];
+                newCells[indexi][indexj] = {
+                    image: response.data.response.image,
+                    name: response.data.response.name,
+                    liner: response.data.response.liner,
+                };
+                return newCells;
+            });
+            setIsOpen(false);
+        })
+        .catch((error) => {
+            toast.error(error?.response?.message.general[0] || "User was not added");
+        })
+        .finally(() => {
+            setIsSubmitting(false);
         });
-        window.location.reload();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-        toast.error(error?.response?.message.general[0] || "User was not added");
-    }
 };

@@ -5,6 +5,7 @@ import { postUserInput } from "../../../../../apis/common";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
+import { BeatLoader } from "react-spinners";
 
 interface BingoCell {
     name: string | undefined;
@@ -25,19 +26,21 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
     const [name, setName] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [description, setDescription] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const toggleCell = (index1: number, index2: number) => {
         setSelectedCell([index1, index2]);
     };
-    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setImage(e.target.files[0]);
-        }
-    };
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
 
-        if (selectedCell && image && name && description) {
+    const handleSubmit = () => {
+        if (
+            selectedCell &&
+            image instanceof File &&
+            name &&
+            description &&
+            eventName &&
+            ticketCode
+        ) {
             postUserInput(
                 eventName,
                 ticketCode,
@@ -47,13 +50,13 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                 description,
                 selectedCell[0],
                 selectedCell[1],
-                setCells
+                setCells,
+                setIsSubmitting,
+                setIsOpen
             );
         } else {
             toast.error("Please fill in all fields");
         }
-
-        setIsOpen(false);
     };
 
     return (
@@ -68,7 +71,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                         title={
                             selectedCell !== undefined &&
                             cells[selectedCell[0]][selectedCell[1]].name
-                                ? `Tell us about ${cells[selectedCell[0]][selectedCell[1]].name}`
+                                ? `About Your Friend`
                                 : "Add a New Friend"
                         }
                     >
@@ -116,7 +119,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                 </button>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className={styles.form}>
+                            <div className={styles.form}>
                                 <div className={styles.inputGroup}>
                                     <label htmlFor="name" className={styles.label}>
                                         Name *
@@ -182,7 +185,11 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                             id="image"
                                             accept="image/*"
                                             capture="environment"
-                                            onChange={handleImageChange}
+                                            onChange={(e) => {
+                                                if (e.target.files && e.target.files.length > 0) {
+                                                    setImage(e.target.files[0]);
+                                                }
+                                            }}
                                             className={styles.fileInput}
                                         />
                                     )}
@@ -220,28 +227,34 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                                   cursor: "not-allowed",
                                               }
                                     }
+                                    onClick={() => {
+                                        if (
+                                            name.length > 1 &&
+                                            description.length > 10 &&
+                                            image !== null &&
+                                            !isSubmitting
+                                        ) {
+                                            handleSubmit();
+                                        } else {
+                                            toast.error("Please fill in all fields");
+                                        }
+                                    }}
+                                    disabled={isSubmitting}
                                 >
-                                    Submit
-                                    {/* if the number of charaters of description is < 10 show the count needed
-                                     */}
-                                    {description.length < 10 && (
-                                        <span className={styles.count}>
-                                            ({10 - description.length} letters more)
-                                        </span>
+                                    {isSubmitting ? (
+                                        <BeatLoader size={10} color="#252525" />
+                                    ) : (
+                                        <p>
+                                            Submit
+                                            {description.length < 10 && (
+                                                <span className={styles.count}>
+                                                    ({10 - description.length} letters more)
+                                                </span>
+                                            )}
+                                        </p>
                                     )}
                                 </button>
-                                {/* {image !== null && (
-                                    <button
-                                        className={styles.removeImage}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            setImage(null);
-                                        }}
-                                    >
-                                        Remove Image
-                                    </button>
-                                )} */}
-                            </form>
+                            </div>
                         )}
                     </Modal>
                 )}
@@ -263,7 +276,11 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                     }}
                                 >
                                     <span className={styles.letter}>{letters[index1][index2]}</span>
-                                    <span className={styles.name}>{cell.name}</span>
+                                    <span className={styles.name}>
+                                        {cell.name && cell.name.length > 5
+                                            ? `${cell.name.substring(0, 5)}...`
+                                            : cell.name}
+                                    </span>
                                 </div>
                             ))
                         )}

@@ -1,5 +1,5 @@
-import { publicGateway } from "../../services/apiGateways";
-import { buildVerse } from "../../services/urls";
+import { privateGateway, publicGateway } from "../../services/apiGateways";
+import { buildVerse, commonUrls } from "../../services/urls";
 import { FormDataType } from "../pages/Authentication/types";
 import toast from "react-hot-toast";
 
@@ -7,7 +7,6 @@ export const generateOTP = async (
     email: string,
     type: string,
     setFormData: React.Dispatch<React.SetStateAction<FormDataType>>,
-    setError: React.Dispatch<React.SetStateAction<string>>,
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     setIsLoading(true);
@@ -36,12 +35,25 @@ export const generateOTP = async (
                         showField: true,
                         disabled: false,
                     },
+                    apiName: "login",
                 });
         })
         .catch((error) => {
             if (error.response.data.statusCode === 1001) {
-                preRegister(email, setFormData, setError, setIsLoading);
+                preRegister(email, setFormData, setIsLoading);
             }
+            const errorFields: (keyof FormDataType)[] = ["email", "name", "password", "otp"];
+            errorFields.forEach((field) => {
+                if (error.response.data.message[field]) {
+                    setFormData((prev) => ({
+                        ...prev,
+                        [field]: {
+                            ...(typeof prev[field] === "object" ? prev[field] : {}),
+                            error: error.response.data.message[field][0],
+                        },
+                    }));
+                }
+            });
         })
         .finally(() => setIsLoading(false));
 };
@@ -49,7 +61,6 @@ export const generateOTP = async (
 export const preRegister = async (
     email: string,
     setFormData: React.Dispatch<React.SetStateAction<FormDataType>>,
-    setError: React.Dispatch<React.SetStateAction<string>>,
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
     setIsLoading(true);
@@ -79,10 +90,103 @@ export const preRegister = async (
                         showField: true,
                         disabled: false,
                     },
+                    apiName: "register",
                 });
         })
         .catch((error) => {
-            setError(error.response.data.message);
+            setFormData((prev) => ({
+                ...prev,
+                generalError: error.response.data.message.general[0],
+            }));
+            const errorFields: (keyof FormDataType)[] = ["email", "name", "password", "otp"];
+            errorFields.forEach((field) => {
+                if (error.response.data.message[field]) {
+                    setFormData((prev) => ({
+                        ...prev,
+                        [field]: {
+                            ...(typeof prev[field] === "object" ? prev[field] : {}),
+                            error: error.response.data.message[field][0],
+                        },
+                    }));
+                }
+            });
         })
         .finally(() => setIsLoading(false));
+};
+
+export const register = async (
+    email: string,
+    name: string,
+    otp: string,
+    setFormData: React.Dispatch<React.SetStateAction<FormDataType>>,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+    setIsLoading(true);
+    return publicGateway
+        .post(buildVerse.register, { email, name, otp })
+        .then((response) => {
+            if (response.data.statusCode === 200) {
+                toast.success(response.data.message.general[0]);
+                onboardUser();
+            }
+        })
+        .catch((error) => {
+            setFormData((prev) => ({
+                ...prev,
+                generalError: error.response.data.message.general[0],
+            }));
+            const errorFields: (keyof FormDataType)[] = ["email", "name", "password", "otp"];
+            errorFields.forEach((field) => {
+                if (error.response.data.message[field]) {
+                    setFormData((prev) => ({
+                        ...prev,
+                        [field]: {
+                            ...(typeof prev[field] === "object" ? prev[field] : {}),
+                            error: error.response.data.message[field][0],
+                        },
+                    }));
+                }
+            });
+        })
+        .finally(() => setIsLoading(false));
+};
+
+export const login = async (
+    email: string,
+    otp: string,
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    setFormData: React.Dispatch<React.SetStateAction<FormDataType>>
+) => {
+    setIsLoading(true);
+    return publicGateway
+        .post(buildVerse.login, { email, otp })
+        .then((response) => {
+            if (response.data.statusCode === 200) {
+                toast.success(response.data.message.general[0]);
+                onboardUser();
+            }
+        })
+        .catch((error) => {
+            setFormData((prev) => ({
+                ...prev,
+                generalError: error.response.data.message.general[0],
+            }));
+            const errorFields: (keyof FormDataType)[] = ["email", "name", "password", "otp"];
+            errorFields.forEach((field) => {
+                if (error.response.data.message[field]) {
+                    setFormData((prev) => ({
+                        ...prev,
+                        [field]: {
+                            ...(typeof prev[field] === "object" ? prev[field] : {}),
+                            error: error.response.data.message[field][0],
+                        },
+                    }));
+                }
+            });
+        })
+        .finally(() => setIsLoading(false));
+};
+
+export const onboardUser = async () => {
+    privateGateway.post(commonUrls.onboardUser);
 };

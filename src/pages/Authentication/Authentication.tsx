@@ -3,12 +3,11 @@ import styles from "./Authentication.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { BeatLoader } from "react-spinners";
-import { generateOTP } from "../../apis/auth";
+import { generateOTP, login, register } from "../../apis/auth";
 import { FormDataType } from "./types";
 
 const Authentication = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string>("");
     const [formData, setFormData] = useState<FormDataType>({
         email: {
             value: "",
@@ -30,11 +29,23 @@ const Authentication = () => {
             showField: false,
             disabled: false,
         },
+        apiName: "generateOTP",
+        generalError: "",
     });
 
     const handleSubmit = () => {
-        if (formData.email.value && !formData.otp.showField && !formData.password.showField) {
-            generateOTP(formData.email.value, "Login", setFormData, setError, setIsLoading);
+        if (formData.apiName === "generateOTP") {
+            generateOTP(formData.email.value, "Login", setFormData, setIsLoading);
+        } else if (formData.apiName === "register") {
+            register(
+                formData.email.value,
+                formData.name.value,
+                formData.otp.value,
+                setFormData,
+                setIsLoading
+            );
+        } else if (formData.apiName === "login") {
+            login(formData.email.value, formData.otp.value, setIsLoading, setFormData);
         }
     };
 
@@ -76,6 +87,12 @@ const Authentication = () => {
                                 onChange={handleInputChange}
                                 disabled={formData.email.disabled}
                             />
+                            {
+                                // Show the error message if the email field is empty
+                                formData.email.error && (
+                                    <p className={styles.errorText}>{formData.email.error}</p>
+                                )
+                            }
                         </div>
 
                         {formData.name.showField && (
@@ -90,6 +107,12 @@ const Authentication = () => {
                                     onChange={handleInputChange}
                                     disabled={formData.name.disabled}
                                 />
+                                {
+                                    // Show the error message if the name field is empty
+                                    formData.name.error && (
+                                        <p className={styles.errorText}>{formData.name.error}</p>
+                                    )
+                                }
                             </div>
                         )}
 
@@ -105,6 +128,14 @@ const Authentication = () => {
                                     onChange={handleInputChange}
                                     disabled={formData.password.disabled}
                                 />
+                                {
+                                    // Show the error message if the password field is empty
+                                    formData.password.error && (
+                                        <p className={styles.errorText}>
+                                            {formData.password.error}
+                                        </p>
+                                    )
+                                }
                             </div>
                         )}
                         {formData.otp.showField && (
@@ -122,9 +153,14 @@ const Authentication = () => {
                                     onChange={handleInputChange}
                                     disabled={formData.otp.disabled}
                                 />
+                                {
+                                    // Show the error message if the OTP field is empty
+                                    formData.otp.error && (
+                                        <p className={styles.errorText}>{formData.otp.error}</p>
+                                    )
+                                }
                             </div>
                         )}
-                        {error && <p className={styles.errorText}>{error}</p>}
 
                         <button className={styles.loginButton} onClick={handleSubmit}>
                             {isLoading ? (

@@ -11,6 +11,7 @@ export const commonUrls = {
     getLeaderboard: (eventName: string) => hoogoURL(`/${eventName}/leaderboard/`),
     validateTicket: (eventName: string, ticketCode: string) =>
         hoogoURL(`/${eventName}/validate/${ticketCode}/`),
+    onboardUser: hoogoURL("/common/onboard-user/"),
 };
 
 export const websocketUrls = {
@@ -21,10 +22,10 @@ export const websocketUrls = {
 export const buildVerse = {
     generateOTP: buildVerseURL("/generate-otp/"),
     preRegister: buildVerseURL("/pre-register/"),
-
+    register: buildVerseURL("/register/"),
     login: buildVerseURL("/login/"),
     getAccessToken: buildVerseURL("/get-access-token/"),
-    register: buildVerseURL("/register/"),
+
     updateProfile: buildVerseURL("/update-profile/"),
     profileInfo: buildVerseURL("/profile-info/"),
     setUserData: (token: string) => buildVerseURL(`/set-user-data/${token}`),

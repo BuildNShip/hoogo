@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
-import Navbar from "../../../components/Navbar/Navbar";
-
+import Footer from "../../../components/Footer/Footer";
 interface Player {
     name: string;
     score: boolean[];
@@ -65,16 +64,14 @@ const BingoLeaderboard = () => {
 
     return (
         <div className={styles.container}>
-            <Navbar />
+            <img src="/live.gif" alt="logo" className={styles.liveGif} />
             <div className={styles.center}>
-                <h1 className={styles.title}>
-                    OVERRIDE.PY
-                    <br />
-                    COMMUNITY
-                    <br />
-                    MEETUP - HOOGO
-                </h1>
-                <div className={styles.leaderboard}>
+                <p className={styles.leaderboardHeadingText}>Elevate'24 Bingo Leaderboard</p>
+                <p className={styles.leaderboardHeadingDescription}>
+                    Click on a name to view the player's bingo card. The leaderboard is sorted based
+                    on completion time.
+                </p>
+                <div className={styles.playerRowContainer}>
                     {players.map((player, playerIndex) => (
                         <div key={playerIndex} className={styles.playerRow}>
                             <Link
@@ -98,10 +95,8 @@ const BingoLeaderboard = () => {
                         </div>
                     ))}
                 </div>
-                <div className={styles.footer}>
-                    PYGRAMMERS PRESENTS * PYGRAMMERS PRESENTS * PYGRAMMERS PRESENTS
-                </div>
             </div>
+            <Footer />
         </div>
     );
 };

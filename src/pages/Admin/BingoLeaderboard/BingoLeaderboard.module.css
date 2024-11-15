@@ -1,104 +1,163 @@
-:root {
-  --yellow: #ffd700;
-  --white: #ffffff;
-}
-
-/* body {
-  background-color: var(--yellow);
-  font-family: "Arial #1d1d1d", "Helvetica Bold", sans-serif;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-} */
-
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  color: #1d1d1d;
-
-  transform: scale(0.8); /* Adjust the scale value as needed */
-  transform-origin: top left; /* Adjust the origin as needed */
-}
-
-.title {
-  font-size: 48px;
-  font-weight: 900;
-  margin-bottom: 40px;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  line-height: 1;
-  text-align: left;
-}
-
-.leaderboard {
-  background-color: var(--yellow);
-}
-
-.playerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-  border-top: 4px solid #1d1d1d;
-}
-
-.nameLink {
-  color: #1d1d1d;
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.bingoLetters {
-  display: flex;
-  gap: 10px;
-}
-
-.letterButton {
-  width: 40px;
-  height: 40px;
-  border: 3px solid #1d1d1d;
-  background-color: var(--yellow);
-  color: #1d1d1d;
-  font-size: 20px;
-  font-weight: 900;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.letterButton:hover {
-  background-color: #1d1d1d;
-  color: var(--yellow);
-}
-
-.strikethrough {
-  background-color: #1d1d1d;
-  color: var(--yellow);
-  text-decoration: line-through;
-}
-
-.footer {
-  font-size: 14px;
-  text-transform: uppercase;
-  border-top: 4px solid #1d1d1d;
-  padding-top: 20px;
-}
-
-.nameLink {
-  color: var(--rebecca-purple);
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #1d1d1d;
 }
 
 .center {
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
+    width: calc(100% - 2rem);
+    max-width: 560px;
+}
+
+.playerRowContainer {
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    padding-right: 0.25rem;
+}
+
+.title {
+    color: #ffd700;
+    font-size: 1.75rem;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.playerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+.playerRow:hover {
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.nameLink {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+}
+
+.nameLink:hover {
+    color: #ffd700;
+}
+
+.bingoLetters {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.letterButton {
+    width: 1.85rem;
+    height: 1.85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: 1.5px solid #464646;
+    color: #616161;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 3px;
+}
+
+.letterButton:hover {
+    border-color: rgba(255, 215, 0, 0.5);
+    color: rgba(255, 215, 0, 0.5);
+}
+
+.letterButton.strikethrough {
+    background-color: #ffd700;
+    border-color: #ffd700;
+    color: #252525;
+    transform: scale(0.95);
+}
+
+.footer {
+    margin-top: 2.5rem;
+    color: #ffd700;
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    animation: scrollText 20s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@media (min-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .playerRow {
+        padding: 0.6rem 0.75rem;
+    }
+
+    .letterButton {
+        width: 1.75rem;
+        height: 1.75rem;
+        font-size: 0.8rem;
+    }
+}
+
+.leaderboardHeadingText {
+    color: #ffd700;
+    font-size: 1.9rem;
+    line-height: 1.4;
+    font-weight: bold;
+    text-align: center;
+}
+
+.leaderboardHeadingDescription {
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 30rem;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.liveGif {
+    max-width: 4rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }

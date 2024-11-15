@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 75vh;
@@ -15,6 +16,17 @@
     width: 100%;
     max-width: 350px;
     /* Adjust based on desired mobile size */
+}
+
+.bingoLetters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 2rem;
+    font-weight: bold;
+    column-gap: 1.5rem;
 }
 
 .bingoCell {

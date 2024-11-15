@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";
@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
 import { BeatLoader } from "react-spinners";
+import Confetti from "react-confetti";
 
 interface BingoCell {
     name: string | undefined;
@@ -27,6 +28,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
     const [image, setImage] = useState<File | null>(null);
     const [description, setDescription] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [rowsBingo, setRowsBingo] = useState<boolean[]>([false, false, false, false, false]);
 
     const toggleCell = (index1: number, index2: number) => {
         setSelectedCell([index1, index2]);
@@ -116,6 +118,63 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
 
         return isBingo;
     };
+
+    useEffect(() => {
+        const rowsBingo = [false, false, false, false, false];
+        let rowIndex = 0;
+        //Check for rows
+        for (let i = 0; i < 5; i++) {
+            let rowFilled = true;
+            for (let j = 0; j < 5; j++) {
+                if (!cells[i][j].name) {
+                    rowFilled = false;
+                    break;
+                }
+            }
+            if (rowFilled && rowIndex < 5) {
+                rowsBingo[rowIndex++] = true;
+            }
+        }
+
+        //Check for columns
+
+        for (let i = 0; i < 5; i++) {
+            let colFilled = true;
+            for (let j = 0; j < 5; j++) {
+                if (!cells[j][i].name) {
+                    colFilled = false;
+                    break;
+                }
+            }
+            if (colFilled && rowIndex < 5) {
+                rowsBingo[rowIndex++] = true;
+            }
+        }
+
+        //Check for diagonals
+
+        let diag1Filled = true;
+        let diag2Filled = true;
+
+        for (let i = 0; i < 5; i++) {
+            if (!cells[i][i].name) {
+                diag1Filled = false;
+            }
+            if (!cells[i][4 - i].name) {
+                diag2Filled = false;
+            }
+        }
+
+        if (diag1Filled && rowIndex < 5) {
+            rowsBingo[rowIndex++] = true;
+        }
+
+        if (diag2Filled && rowIndex < 5) {
+            rowsBingo[rowIndex] = true;
+        }
+
+        setRowsBingo(rowsBingo);
+    }, [cells]);
 
     return (
         <>
@@ -316,7 +375,31 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                         )}
                     </Modal>
                 )}
+                {rowsBingo.filter((row) => row).length === 5 && (
+                    <Confetti
+                        width={window.innerWidth}
+                        height={window.innerHeight}
+                        recycle={false}
+                        numberOfPieces={500}
+                    />
+                )}
+                <div className={styles.bingoLetters}>
+                    {["B", "I", "N", "G", "O"].map((letter, index) => (
+                        <div
+                            key={index}
+                            className={styles.letter}
+                            style={{
+                                color: rowsBingo[index] ? "#ffd700" : "#ffffff",
+                                textDecoration: rowsBingo[index] ? "line-through white" : "none",
+                            }}
+                        >
+                            {letter}
+                        </div>
+                    ))}
+                </div>
                 <div className={styles.bingoGrid}>
+                    {/* Show the letters BINGO and cut each one out when each of the bingo is hit */}
+
                     {cells &&
                         cells.map((cell1, index1) =>
                             cell1.map((cell, index2) => (

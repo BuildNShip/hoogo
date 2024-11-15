@@ -13,7 +13,7 @@
 }
 
 .playerRowContainer {
-    max-height: 700px;
+    max-height: 650px;
     overflow-y: auto;
     overflow-x: hidden;
 

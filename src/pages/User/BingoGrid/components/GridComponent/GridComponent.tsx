@@ -59,6 +59,64 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
         }
     };
 
+    //For each cell i would to check whether the cell is part of a BINGO, that is
+    //whether the row, column or diagonal which includes that cell is completely
+    //filled with names
+
+    const isBingoAchieved = () => {
+        let isBingo = false;
+        //Check for rows
+        for (let i = 0; i < 5; i++) {
+            let rowFilled = true;
+            for (let j = 0; j < 5; j++) {
+                if (!cells[i][j].name) {
+                    rowFilled = false;
+                    break;
+                }
+            }
+            if (rowFilled) {
+                isBingo = true;
+                break;
+            }
+        }
+
+        //Check for columns
+        if (!isBingo) {
+            for (let i = 0; i < 5; i++) {
+                let colFilled = true;
+                for (let j = 0; j < 5; j++) {
+                    if (!cells[j][i].name) {
+                        colFilled = false;
+                        break;
+                    }
+                }
+                if (colFilled) {
+                    isBingo = true;
+                    break;
+                }
+            }
+        }
+
+        //Check for diagonals
+        if (!isBingo) {
+            let diag1Filled = true;
+            let diag2Filled = true;
+            for (let i = 0; i < 5; i++) {
+                if (!cells[i][i].name) {
+                    diag1Filled = false;
+                }
+                if (!cells[i][4 - i].name) {
+                    diag2Filled = false;
+                }
+            }
+            if (diag1Filled || diag2Filled) {
+                isBingo = true;
+            }
+        }
+
+        return isBingo;
+    };
+
     return (
         <>
             <div className={styles.container}>
@@ -265,8 +323,12 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                 <div
                                     key={`${index1}-${index2}`}
                                     className={`${styles.bingoCell} ${
-                                        cell.name ? styles.active : ""
-                                    }`}
+                                        cell.name
+                                            ? isBingoAchieved()
+                                                ? styles.bingoAchieved
+                                                : styles.active
+                                            : ""
+                                    } `}
                                     onClick={() => {
                                         toggleCell(index1, index2);
                                         setIsOpen(true);

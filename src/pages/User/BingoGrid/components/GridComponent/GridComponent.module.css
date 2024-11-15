@@ -46,6 +46,10 @@
     color: #ffd700;
 }
 
+.bingoAchieved {
+    background-color: #181818;
+}
+
 .selected {
     background-color: #ffd700;
 }

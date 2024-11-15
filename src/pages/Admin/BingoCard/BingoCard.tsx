@@ -59,6 +59,7 @@ const BingoCard = () => {
                 </Modal>
             )}
             <div className={styles.grid}>
+                <p className={styles.playerName}>{playerName}'s BINGO Card for Elevate'24</p>
                 {bingoAnswers.map((item, index) => (
                     <>
                         <div key={index} className={styles.row}>

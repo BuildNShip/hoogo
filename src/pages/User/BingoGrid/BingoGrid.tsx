@@ -15,9 +15,7 @@ interface BingoCell {
 const BingoGrid = () => {
     const { eventName, ticketCode } = useParams();
     const [loading, setLoading] = useState(true);
-
     const [letters, setLetters] = useState<string[][]>([]);
-
     const [cells, setCells] = useState<BingoCell[][]>([]);
 
     useEffect(() => {

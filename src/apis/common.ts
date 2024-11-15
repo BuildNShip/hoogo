@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { publicGateway } from "../../services/apiGateways";
 import { commonUrls } from "../../services/urls";
+import { NavigateFunction } from "react-router-dom";
 
 interface BingoCell {
     image: string | undefined;
@@ -74,5 +75,29 @@ export const postUserInput = async (
         })
         .finally(() => {
             setIsSubmitting(false);
+        });
+};
+
+export const validateTicketCode = async (
+    eventName: string,
+    ticketCode: string,
+    navigate: NavigateFunction,
+    setIsValidating: React.Dispatch<React.SetStateAction<boolean>>,
+    setError: React.Dispatch<React.SetStateAction<string>>
+) => {
+    setIsValidating(true);
+    return publicGateway
+        .post(commonUrls.validateTicket(eventName, ticketCode))
+        .then((response) => {
+            navigate("/" + eventName + "/" + ticketCode);
+        })
+        .catch((error) => {
+            toast.error(error?.response?.data.message.general[0] || "Invalid Ticket Code", {
+                id: "ticketCode",
+            });
+            setError(error?.response?.data.message.general[0] || "Invalid Ticket Code");
+        })
+        .finally(() => {
+            setIsValidating(false);
         });
 };

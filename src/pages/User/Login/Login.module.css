@@ -120,3 +120,9 @@
         color: #ffd700;
     }
 }
+
+.errorText {
+    color: #e94545;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}

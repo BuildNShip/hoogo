@@ -6,11 +6,15 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer/Footer";
+import { validateTicketCode } from "../../../apis/common";
+import { BeatLoader } from "react-spinners";
 
 const Login = () => {
     const { eventName } = useParams();
     const navigate = useNavigate();
     const [ticketCode, setTicketCode] = useState<string>();
+    const [isValidating, setIsValidating] = useState(false);
+    const [error, setError] = useState<string>("");
 
     const onSubmit = () => {
         if (ticketCode === undefined) {
@@ -18,7 +22,8 @@ const Login = () => {
                 id: "ticketCode",
             });
         } else {
-            navigate("/" + eventName + "/" + ticketCode);
+            if (eventName)
+                validateTicketCode(eventName, ticketCode, navigate, setIsValidating, setError);
         }
     };
 
@@ -45,8 +50,14 @@ const Login = () => {
                             type="text"
                             placeholder="MMPXXXXXXXX"
                             value={ticketCode}
-                            onChange={(e) => setTicketCode(e.target.value)}
+                            onChange={(e) => {
+                                setTicketCode(e.target.value);
+                                if (error) {
+                                    setError("");
+                                }
+                            }}
                         />
+                        {error && <p className={styles.errorText}>{error}</p>}
                     </div>
                     <button
                         className={styles.loginButton}
@@ -60,7 +71,19 @@ const Login = () => {
                         }
                         onClick={onSubmit}
                     >
-                        Login
+                        {isValidating ? (
+                            <div className={styles.loaderContainer}>
+                                <BeatLoader
+                                    color="#252525"
+                                    loading
+                                    size={8}
+                                    aria-label="Loading Spinner"
+                                    data-testid="loader"
+                                />
+                            </div>
+                        ) : (
+                            "Start Game"
+                        )}
                     </button>
                 </div>
 

@@ -64,6 +64,10 @@ const BingoLeaderboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    console.log(players);
+  }, [players]);
+
   return (
     <div className={styles.container}>
       <img src="/live.gif" alt="logo" className={styles.liveGif} />

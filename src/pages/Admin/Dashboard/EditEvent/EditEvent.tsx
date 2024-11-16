@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./EditEvent.module.css";
 import toast from "react-hot-toast";
 import Footer from "../../../../components/Footer/Footer";
@@ -65,7 +65,7 @@ const EditEvent = () => {
         {eventInfo?.matrix?.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <input
-              key={`${rowIndex}-${colIndex}`}
+              key={`${cell}-${rowIndex}-${colIndex}`}
               type="text"
               maxLength={1}
               className={styles.gridInput}

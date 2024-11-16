@@ -73,9 +73,9 @@ const Dashboard = () => {
 
                 <button
                   className={styles.createEventButton}
-                  // onClick={() => {
-                  //   navigate(`/user/dashboard/edit/${event.name}`);
-                  // }}
+                  onClick={() => {
+                    navigate(`/dashboard/${event.name}/`);
+                  }}
                 >
                   Manage
                 </button>

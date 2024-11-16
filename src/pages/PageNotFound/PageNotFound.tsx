@@ -13,10 +13,12 @@ const PageNotFound = () => {
             <h1 className={styles.pageHeaderText}>
               4<span>0</span>4
             </h1>
-            <p className={styles.loginContainerHeaderText}>Page Not Found</p>
-            <p className={styles.loginContainerDescription}>
-              The page you're looking for doesn't exist or has been moved.
-            </p>
+            <div>
+              <p className={styles.loginContainerHeaderText}>Page Not Found</p>
+              <p className={styles.loginContainerDescription}>
+                The page you're looking for doesn't exist or has been moved.
+              </p>
+            </div>
           </div>
 
           <div className={styles.inputFieldContainer}>
@@ -29,8 +31,8 @@ const PageNotFound = () => {
           </div>
 
           <p className={styles.funFact}>
-            It seems like you've entered the wrong URL. Kindly check the URL and
-            try again.
+            It seems like you've entered the wrong URL or there isn't such an
+            event. Kindly check the URL and try again.
           </p>
         </div>
         <Footer />

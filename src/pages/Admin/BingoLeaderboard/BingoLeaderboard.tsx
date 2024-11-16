@@ -90,7 +90,7 @@ const BingoLeaderboard = () => {
                 {players.map((player, playerIndex) => (
                   <div key={playerIndex} className={styles.playerRow}>
                     <Link
-                      to={`/${eventName}/admin/leaderboard/${player.user_code}`}
+                      to={`/dashboard/${eventName}/leaderboard/${player.user_code}`}
                       className={styles.nameLink}
                     >
                       {player.user_name || player.user_code}

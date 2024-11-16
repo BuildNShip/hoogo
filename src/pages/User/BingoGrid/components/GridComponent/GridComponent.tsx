@@ -68,7 +68,22 @@ const GridComponent: React.FC<BingoGridProps> = ({
         setIsOpen
       );
     } else {
-      toast.error("Please fill in all fields");
+      if (!name || name.length === 1) {
+        toast.error("Name is required and should be more than one letter", {
+          id: "name",
+        });
+      } else if (!image) {
+        toast.error("Image is required", {
+          id: "image",
+        });
+      } else if (
+        (description.length < 10,
+        {
+          id: "description",
+        })
+      ) {
+        toast.error("Description should be at least 10 characters long");
+      }
     }
   };
 
@@ -365,7 +380,27 @@ const GridComponent: React.FC<BingoGridProps> = ({
                     ) {
                       handleSubmit();
                     } else {
-                      toast.error("Please fill in all fields");
+                      if (!name || name.length === 1) {
+                        toast.error(
+                          "Name is required and should be more than one letter",
+                          {
+                            id: "name",
+                          }
+                        );
+                      } else if (!image) {
+                        toast.error("Image is required", {
+                          id: "image",
+                        });
+                      } else if (
+                        (description.length < 10,
+                        {
+                          id: "description",
+                        })
+                      ) {
+                        toast.error(
+                          "Description should be at least 10 characters long"
+                        );
+                      }
                     }
                   }}
                   disabled={isSubmitting}

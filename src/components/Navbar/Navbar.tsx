@@ -7,14 +7,14 @@ const Navbar = () => {
     <>
       <div className={styles.navbarContainer}>
         <p className={styles.navbarBrandingText}>Hoogo</p>
-        <button
+        {/* <button
           className={styles.navbarCTAButton}
           onClick={() => {
             navigate("/login");
           }}
         >
           Create Hoogo
-        </button>
+        </button> */}
       </div>
     </>
   );

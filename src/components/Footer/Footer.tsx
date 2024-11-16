@@ -1,25 +1,26 @@
-import { FaGithub, FaInstagram, FaTelegram, FaTwitter } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
 import styles from "./Footer.module.css";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <>
       <div className={styles.footer}>
-        <a href="https://buildnship.in/">
+        <a href="https://makemypass.com/">
           <img src="/logod.png" alt="logo" />
         </a>
         <div className={styles.social_container}>
-          <a href="https://twitter.com/buildnship/">
-            <FaTwitter size={25} />
+          <a href="https://www.instagram.com/makemypass/">
+            <FaInstagram size={20} />
           </a>
-          <a href="https://instagram.com/buildnship?igshid=YmMyMTA2M2Y=">
-            <FaInstagram size={25} />
+          <a href="https://www.linkedin.com/company/makemypass/">
+            <FaLinkedinIn size={20} />
           </a>
-          <a href="https://github.com/BuildNShip">
-            <FaGithub size={25} />
-          </a>
-          <a href="https://t.me/buildnship">
-            <FaTelegram size={25} />
+          <a href="https://x.com/makemypass_x">
+            <FaXTwitter size={20} />
           </a>
         </div>
       </div>

@@ -343,7 +343,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
                   className={styles.submitButton}
                   type="submit"
                   style={
-                    name.length > 1 && description.length > 10 && image !== null
+                    name.length > 1 && description.length >= 10 && image !== null
                       ? {
                           backgroundColor: "#ffd700",
                           color: "#252525",
@@ -357,7 +357,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
                   onClick={() => {
                     if (
                       name.length > 1 &&
-                      description.length > 10 &&
+                      description.length >= 10 &&
                       image !== null &&
                       !isSubmitting
                     ) {
@@ -373,7 +373,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
                   ) : (
                     <p>
                       Submit
-                      {description.length <= 10 && (
+                      {description.length < 10 && (
                         <span className={styles.count}>
                           ({10 - description.length} letters more)
                         </span>

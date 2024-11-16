@@ -119,7 +119,14 @@ export const getEventInfo = async (
   publicGateway
     .get(commonUrls.getEventInfo(eventName))
     .then((response) => {
-      setEventInfo(response.data.response);
+      const eventInfo = response.data.response;
+      if (eventInfo.matrix.length === 0) {
+        const matrix = Array.from({ length: 5 }, () =>
+          Array.from({ length: 5 }, () => "")
+        );
+        eventInfo.matrix = matrix;
+      }
+      setEventInfo(eventInfo);
     })
     .catch((error) => {
       toast.error(

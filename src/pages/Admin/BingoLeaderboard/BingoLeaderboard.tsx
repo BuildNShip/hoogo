@@ -71,6 +71,9 @@ const BingoLeaderboard = () => {
   return (
     <div className={styles.container}>
       <img src="/live.gif" alt="logo" className={styles.liveGif} />
+      {players.length > 0 && (
+        <p className={styles.participantCount}>{players.length} people</p>
+      )}
       <div className={styles.center}>
         <p className={styles.leaderboardHeadingText}>
           Elevate'24 Bingo Leaderboard

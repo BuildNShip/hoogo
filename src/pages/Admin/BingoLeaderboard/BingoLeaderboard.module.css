@@ -1,163 +1,174 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    background-color: #1d1d1d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #1d1d1d;
 }
 
 .center {
-    width: calc(100% - 2rem);
-    max-width: 560px;
+  width: calc(100% - 2rem);
+  max-width: 560px;
 }
 
 .playerRowContainer {
-    max-height: 650px;
-    overflow-y: auto;
-    overflow-x: hidden;
+  max-height: 650px;
+  overflow-y: auto;
+  overflow-x: hidden;
 
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 
-    padding-right: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .title {
-    color: #ffd700;
-    font-size: 1.75rem;
-    line-height: 1.4;
-    margin-bottom: 3rem;
-    text-align: center;
-    letter-spacing: 0.05em;
+  color: #ffd700;
+  font-size: 1.75rem;
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  text-align: center;
+  letter-spacing: 0.05em;
 }
 
 .playerRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 4px;
-    transition: transform 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  transition: transform 0.2s ease;
 }
 
 .playerRow:hover {
-    transform: translateX(4px);
-    background: rgba(255, 255, 255, 0.04);
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .nameLink {
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
-    transition: color 0.2s ease;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
 }
 
 .nameLink:hover {
-    color: #ffd700;
+  color: #ffd700;
 }
 
 .bingoLetters {
-    display: flex;
-    gap: 0.4rem;
+  display: flex;
+  gap: 0.4rem;
 }
 
 .letterButton {
-    width: 1.85rem;
-    height: 1.85rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: none;
-    border: 1.5px solid #464646;
-    color: #616161;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: 3px;
+  width: 1.85rem;
+  height: 1.85rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: 1.5px solid #464646;
+  color: #616161;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-radius: 3px;
 }
 
 .letterButton:hover {
-    border-color: rgba(255, 215, 0, 0.5);
-    color: rgba(255, 215, 0, 0.5);
+  border-color: rgba(255, 215, 0, 0.5);
+  color: rgba(255, 215, 0, 0.5);
 }
 
 .letterButton.strikethrough {
-    background-color: #ffd700;
-    border-color: #ffd700;
-    color: #252525;
-    transform: scale(0.95);
+  background-color: #ffd700;
+  border-color: #ffd700;
+  color: #252525;
+  transform: scale(0.95);
 }
 
 .footer {
-    margin-top: 2.5rem;
-    color: #ffd700;
-    font-size: 0.8rem;
-    text-align: center;
-    opacity: 0.7;
-    letter-spacing: 0.1em;
-    animation: scrollText 20s linear infinite;
-    white-space: nowrap;
+  margin-top: 2.5rem;
+  color: #ffd700;
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.7;
+  letter-spacing: 0.1em;
+  animation: scrollText 20s linear infinite;
+  white-space: nowrap;
 }
 
 @keyframes scrollText {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 @media (min-width: 768px) {
-    .title {
-        font-size: 2rem;
-    }
+  .title {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .title {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-    }
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
 
-    .playerRow {
-        padding: 0.6rem 0.75rem;
-    }
+  .playerRow {
+    padding: 0.6rem 0.75rem;
+  }
 
-    .letterButton {
-        width: 1.75rem;
-        height: 1.75rem;
-        font-size: 0.8rem;
-    }
+  .letterButton {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.8rem;
+  }
 }
 
 .leaderboardHeadingText {
-    color: #ffd700;
-    font-size: 1.9rem;
-    line-height: 1.4;
-    font-weight: bold;
-    text-align: center;
+  color: #ffd700;
+  font-size: 1.9rem;
+  line-height: 1.4;
+  font-weight: bold;
+  text-align: center;
 }
 
 .leaderboardHeadingDescription {
-    color: #fff;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin-bottom: 3rem;
-    text-align: center;
-    max-width: 30rem;
-    margin: auto;
-    margin-bottom: 1rem;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 30rem;
+  margin: auto;
+  margin-bottom: 1rem;
 }
 
 .liveGif {
-    max-width: 4rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+  max-width: 4rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.participantCount {
+  color: #fff;
+  font-size: 0.9rem;
+
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+
+  opacity: 0.7;
 }

@@ -3,6 +3,7 @@ import { listUserEvents } from "../../../apis/user";
 import styles from "./Dashboard.module.css";
 import Footer from "../../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../../components/Navbar/Navbar";
 
 const Dashboard = () => {
   const [events, setEvents] = useState<any[]>();
@@ -12,36 +13,35 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className={styles.dashboardContainer}>
-      <p className={styles.pageHeader}>Dashboard</p>
-      <p className={styles.pageDescription}>
-        Welcome to the dashboard! Here you can manage your events.
-      </p>
-      {events &&
-        events.map((event) => (
-          <div key={event.id} className={styles.eventCard}>
-            <h2 className={styles.eventName}>{event.name}</h2>
+    <>
+      <Navbar />
+      <div className={styles.dashboardContainer}>
+        <p className={styles.pageHeader}>
+          Your <span>Hoogos</span>
+        </p>
+        <p className={styles.pageDescription}>
+          Welcome to the dashboard! Here you can manage your events.
+        </p>
+        <div className={styles.eventCardContainer}>
+          {events &&
+            events.map((event) => (
+              <div key={event.id} className={styles.eventCard}>
+                <h2 className={styles.eventName}>{event.name}</h2>
 
-            <button
-              className={styles.createEventButton}
-              onClick={() => {
-                navigate(`/user/dashboard/edit/${event.name}`);
-              }}
-            >
-              Edit Event
-            </button>
-          </div>
-        ))}
-      <button
-        className={styles.createEventButton}
-        onClick={() => {
-          navigate("/user/dashboard/create");
-        }}
-      >
-        Create New Event
-      </button>
-      <Footer />
-    </div>
+                <button
+                  className={styles.createEventButton}
+                  // onClick={() => {
+                  //   navigate(`/user/dashboard/edit/${event.name}`);
+                  // }}
+                >
+                  Manage
+                </button>
+              </div>
+            ))}
+        </div>
+        <Footer />
+      </div>
+    </>
   );
 };
 

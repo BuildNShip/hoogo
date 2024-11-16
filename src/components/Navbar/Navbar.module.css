@@ -16,13 +16,13 @@
 
 .navbarCTAButton {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+    border-radius: 3.6px; /* Reduced by 10% */
     font-weight: 600;
     background-color: #ffd700;
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduced by 10% */
     color: #1d1d1d;
     margin-top: 0;
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.9rem; /* Reduced by 10% */
     transition: background-color 0.3s;
 }
 

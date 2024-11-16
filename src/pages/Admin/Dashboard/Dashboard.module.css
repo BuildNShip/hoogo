@@ -1,8 +1,8 @@
 .dashboardContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   height: 90vh;
   background-color: #1d1d1d;
   opacity: 1;
@@ -14,32 +14,36 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  max-width: 400px;
-  width: calc(100% - 2rem);
+  max-width: 300px;
+  width: calc(100% - 1rem);
   background-color: #202020;
-  border-radius: 10px;
-  padding: 1rem;
+  border-radius: 8px;
+  padding: 0.5rem;
   color: white;
-  border: 2px solid #2f2f2f;
-  margin-bottom: 1rem;
+  border: 1px solid #2f2f2f;
+  margin-bottom: 0.5rem;
 }
 
 .pageHeader {
-  font-size: 2rem;
+  font-size: 1.25rem;
   color: white;
   font-weight: 600;
+
+  span {
+    color: #ffd700;
+  }
 }
 
 .pageDescription {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: white;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   margin-bottom: 1rem;
 }
 
 .eventName {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: white;
   font-weight: 500;
 }
@@ -49,7 +53,7 @@
   border-radius: 4px;
   font-weight: 600;
   background-color: #252525;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #ffffff;
   padding: 0.5rem 1rem;
 }
@@ -63,4 +67,14 @@
     width: calc(100% - 2rem);
     padding: 1rem;
   }
+}
+
+.eventCardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  gap: 0.5rem;
+  padding: 1rem 0;
 }

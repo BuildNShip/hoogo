@@ -228,7 +228,7 @@ export const login = async (
     .post(buildVerse.login, { email, otp })
     .then((response) => {
       if (response.data.statusCode === 200) {
-        toast.success(response.data.message.general[0]);
+        toast.success("Login Successful");
         localStorage.setItem(
           "accessToken",
           response.data.response.access_token
@@ -286,7 +286,7 @@ export const onboardUser = async (
     .post(commonUrls.onboardUser)
     .then((response) => {
       if (response.data.statusCode === 200) {
-        navigate("/user/dashboard");
+        navigate("/dashboard");
       }
     })
     .finally(() => setIsLoading(false));

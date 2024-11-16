@@ -12,6 +12,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import CreateEvent from "./pages/Admin/Dashboard/CreateEvent/CreateEvent";
 import EditEvent from "./pages/Admin/Dashboard/EditEvent/EditEvent";
+import AuthCheck from "./components/AuthCheck";
 
 const routes: RouteObject[] = [
   {
@@ -31,18 +32,6 @@ const routes: RouteObject[] = [
     element: <Authentication />,
   },
   {
-    path: "/user/dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "/user/dashboard/create",
-    element: <CreateEvent />,
-  },
-  {
-    path: "/user/dashboard/edit/:eventName",
-    element: <EditEvent />,
-  },
-  {
     path: "/:eventName",
     element: <StartGame />,
   },
@@ -51,13 +40,33 @@ const routes: RouteObject[] = [
     element: <BingoGrid />,
   },
   {
-    path: "/:eventName/admin/leaderboard",
-    element: <WinnerPage />,
+    path: "/",
+    element: <AuthCheck />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      // /dashboard/:eventName Yet to Develop
+      {
+        path: "/dashboard/:eventName/leaderboard",
+        element: <WinnerPage />,
+      },
+      {
+        path: "/dashboard/:eventName/leaderboard/:ticketCode",
+        element: <BingoCard />,
+      },
+    ],
   },
-  {
-    path: "/:eventName/admin/leaderboard/:playerName",
-    element: <BingoCard />,
-  },
+
+  // {
+  //   path: "/user/dashboard/create",
+  //   element: <CreateEvent />,
+  // },
+  // {
+  //   path: "/user/dashboard/edit/:eventName",
+  //   element: <EditEvent />,
+  // },
 ];
 
 const router = createBrowserRouter(routes);

@@ -3,8 +3,10 @@ import styles from "./Landing.module.css";
 import FloatingImages from "./FloatingImages";
 import TestimonialSection from "./TestimonialSection";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 const HoogoLanding: React.FC = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -34,13 +36,15 @@ const HoogoLanding: React.FC = () => {
             <div className={styles.rating}>
               <span>★★★★★</span> 124 players build connections faster
             </div>
-            <a
-              href="https://wa.me/+916238450178?text=I'm%20interested%20in%20Hoogo"
-              target="_blank"
-              rel="noopener noreferrer"
+
+            <button
+              className={styles.ctaButton}
+              onClick={() => {
+                navigate("/dashboard");
+              }}
             >
-              <button className={styles.ctaButton}>Get Hoogo For Free</button>
-            </a>
+              Start Playing
+            </button>
           </main>
           <div className={styles.imageGrid}>
             <img

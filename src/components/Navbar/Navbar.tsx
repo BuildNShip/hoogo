@@ -1,20 +1,20 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <>
       <div className={styles.navbarContainer}>
         <p className={styles.navbarBrandingText}>Hoogo</p>
-        {/* <button
+        <button
           className={styles.navbarCTAButton}
           onClick={() => {
             navigate("/login");
           }}
         >
           Create Hoogo
-        </button> */}
+        </button>
       </div>
     </>
   );

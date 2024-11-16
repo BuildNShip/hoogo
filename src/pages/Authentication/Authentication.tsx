@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Authentication.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -67,6 +67,13 @@ const Authentication = () => {
       },
     });
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -186,6 +193,10 @@ const Authentication = () => {
                     data-testid="loader"
                   />
                 </div>
+              ) : formData.apiName === "generateOTP" ? (
+                "Generate OTP"
+              ) : formData.apiName === "register" ? (
+                "Register"
               ) : (
                 "Login"
               )}

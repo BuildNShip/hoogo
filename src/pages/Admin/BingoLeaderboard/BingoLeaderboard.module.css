@@ -55,6 +55,11 @@
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   transition: color 0.2s ease;
+
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .nameLink:hover {
@@ -187,4 +192,15 @@
   margin-top: 1rem;
   opacity: 0.7;
   text-align: center;
+}
+
+.completedAtText {
+  color: #fff;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }

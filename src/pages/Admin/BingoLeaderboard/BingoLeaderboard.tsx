@@ -4,6 +4,8 @@ import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
 import Footer from "../../../components/Footer/Footer";
 import { PacmanLoader } from "react-spinners";
+import { IoIosTime } from "react-icons/io";
+import { formatTime } from "../../../functions";
 interface Player {
   user_name: string;
   user_code: string;
@@ -65,10 +67,6 @@ const BingoLeaderboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(players);
-  }, [players]);
-
   return (
     <div className={styles.container}>
       <img src="/live.gif" alt="logo" className={styles.liveGif} />
@@ -94,7 +92,14 @@ const BingoLeaderboard = () => {
                       className={styles.nameLink}
                     >
                       {player.user_name || player.user_code}
+                      {player.completed_at && (
+                        <div className={styles.completedAtText}>
+                          <IoIosTime />
+                          <p>{formatTime(new Date(player.completed_at))}</p>
+                        </div>
+                      )}
                     </Link>
+
                     <div className={styles.bingoLetters}>
                       {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
                         <button

@@ -46,7 +46,7 @@ const StartGame = () => {
         <Navbar />
         <div className={styles.mainContainer}>
           <p className={styles.pageHeaderText}>
-            Hi, <span>Elevate 2024</span> Participants 👋
+            Hi, <span>{eventInfo?.name}</span> Participants 👋
           </p>
           <div className={styles.loginContainer}>
             <div className={styles.logoContainerHeader}>
@@ -102,12 +102,15 @@ const StartGame = () => {
                 "Start Game"
               )}
             </button>
-          </div>
 
-          <p className={styles.funFact}>
-            <span>Fun Fact:</span> The very first version of this game was built
-            the day before its very first debut & this version yesterday.
-          </p>
+            {eventInfo.mmp_event_id && (
+              <p className={styles.makemypassConnectedMessage}>
+                This event is <span>connected with makemypass.com</span>, Kindly
+                enter the <span>ticket code in your pass</span> to start the
+                game.
+              </p>
+            )}
+          </div>
         </div>
         <Footer />
       </>

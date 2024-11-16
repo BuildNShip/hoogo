@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { CreateEventTypes } from "../../pages/Admin/Dashboard/types";
 
-const Navbar = () => {
+const Navbar = ({
+  setCreateEvent,
+}: {
+  setCreateEvent?: React.Dispatch<
+    React.SetStateAction<CreateEventTypes | undefined>
+  >;
+}) => {
   const navigate = useNavigate();
   return (
     <>
@@ -10,7 +17,8 @@ const Navbar = () => {
         <button
           className={styles.navbarCTAButton}
           onClick={() => {
-            navigate("/login");
+            if (setCreateEvent) setCreateEvent({ name: "", showModal: true });
+            else navigate("/login");
           }}
         >
           Create Hoogo

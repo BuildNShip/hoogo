@@ -11,6 +11,7 @@ import StartGame from "./pages/User/StartGame/StartGame";
 import Authentication from "./pages/Authentication/Authentication";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import CreateEvent from "./pages/Admin/Dashboard/CreateEvent/CreateEvent";
+import EditEvent from "./pages/Admin/Dashboard/EditEvent/EditEvent";
 
 const routes: RouteObject[] = [
   {
@@ -36,6 +37,10 @@ const routes: RouteObject[] = [
   {
     path: "/user/dashboard/create",
     element: <CreateEvent />,
+  },
+  {
+    path: "/user/dashboard/edit/:eventName",
+    element: <EditEvent />,
   },
   {
     path: "/:eventName",

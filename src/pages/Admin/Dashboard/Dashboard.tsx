@@ -25,7 +25,7 @@ const Dashboard = () => {
             <button
               className={styles.createEventButton}
               onClick={() => {
-                navigate(`/user/dashboard/update/${event.name}`);
+                navigate(`/user/dashboard/edit/${event.name}`);
               }}
             >
               Edit Event

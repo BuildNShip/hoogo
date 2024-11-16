@@ -25,8 +25,15 @@
   max-width: 350px;
 }
 
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #ffd700;
+  text-align: center;
+}
+
 .label {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
   font-size: 0.9rem;
   font-weight: 500;
   color: #ffd700;
@@ -70,22 +77,6 @@
 
 .gridInput:focus {
   border-color: #ffd700;
-}
-
-.submitButton {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #252525;
-  background-color: #ffd700;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.submitButton:hover {
-  background-color: #ffc107;
 }
 
 .updateButton {

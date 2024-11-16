@@ -1,15 +1,28 @@
+import { NavigateFunction } from "react-router-dom";
 import { privateGateway } from "../../services/apiGateways";
 import { commonUrls } from "../../services/urls";
 
-export const createEvent = (
-  name: string,
-  mmp_id: string,
-  matrix: string[][]
-) => {
+export const createEvent = (name: string, navigate: NavigateFunction) => {
   privateGateway
     .post(commonUrls.createEvent, {
       name,
-      mmp_id,
+    })
+    .then(() => {
+      navigate(`/${name}`);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const updateEvent = (
+  eventId: string,
+  matrix: string[][],
+  mmpEventId?: string | null
+) => {
+  privateGateway
+    .patch(commonUrls.updateEvent(eventId), {
+      mmp_event_id: mmpEventId,
       matrix,
     })
     .then((response) => {

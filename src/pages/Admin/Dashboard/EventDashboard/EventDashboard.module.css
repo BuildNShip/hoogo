@@ -1,178 +1,189 @@
 .dashboardContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 2rem;
-    background-color: #1e1e1e;
-    color: #fff;
-    min-height: 100vh;
-  }
-  
-  .eventTitle {
-    font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.eventTitle {
+  font-size: 2rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.eventDetails {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+  strong {
     color: #ffd700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
-  
-  .eventDetails {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-  }
-  
-  .publicLinkContainer {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .publicLink {
-    font-size: 1rem;
-    color: #fff;
-    margin-right: 0.5rem;
-  }
-  
-  .copyButton {
-    padding: 6px 12px;
-    font-size: 0.9rem;
-    background-color: #ffd700;
-    color: #252525;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .copyButton:hover {
-    background-color: #ffc107;
-  }
-  
-  .gridContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  
-  .gridHeader {
-    font-size: 1.5rem;
-    color: #ffd700;
-    margin-bottom: 1rem;
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin-bottom: 1rem;
-  }
-  
-  .gridCell {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: #ffd700;
-    background-color: #2b2b2b;
-    border: 1.5px solid #444;
-    border-radius: 4px;
-  }
-  
-  .gridInput {
-    width: 45px;
-    height: 45px;
-    text-align: center;
-    font-size: 1.2rem;
-    color: #ffd700;
-    background-color: #2b2b2b;
-    border: 1.5px solid #444;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.2s ease;
-  }
-  
-  .gridInput:focus {
-    border-color: #ffd700;
-  }
-  
-  .generateButton {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #ffd700;
-    color: #252525;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    margin-top: 1rem;
-  }
-  
-  .generateButton:hover {
-    background-color: #ffc107;
-  }
-  
-  .buttonContainer {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-  
-  .editButton {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    background-color: #252525;
-    color: #ffd700;
-    border: 1px solid #ffd700;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  
-  .editButton:hover {
-    background-color: #ffd700;
-    color: #252525;
-  }
-  
-  .modalContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .modalInput {
-    padding: 10px;
-    width: 100%;
-    max-width: 300px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    border: 1.5px solid #444;
-    border-radius: 4px;
-    background-color: #2b2b2b;
-    color: #fff;
-    outline: none;
-  }
-  
-  .modalInput:focus {
-    border-color: #ffd700;
-  }
-  
-  .saveButton {
-    padding: 8px 16px;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #ffd700;
-    color: #252525;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .saveButton:hover {
-    background-color: #ffc107;
-  }
-  
+}
+
+.publicLinkContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.publicLink {
+  font-size: 1rem;
+  color: #fff;
+  width: 100%;
+  background-color: #2b2b2b;
+  border: 4px 0 0 4px;
+  padding: 6px 12px;
+}
+
+.copyButton {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  background-color: #ffd700;
+  color: #252525;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.copyButton:hover {
+  background-color: #ffc107;
+}
+
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.gridHeader {
+  font-size: 1.5rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.gridCell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #ffd700;
+  background-color: #2b2b2b;
+  border: 1.5px solid #444;
+  border-radius: 4px;
+}
+
+.gridInput {
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ffd700;
+  background-color: #2b2b2b;
+  border: 1.5px solid #444;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.gridInput:focus {
+  border-color: #ffd700;
+}
+
+.generateButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #ffd700;
+  color: #252525;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.generateButton:hover {
+  background-color: #ffc107;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.editButton {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #ffc107;
+  background-color: #252525;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.editButton:hover {
+  background-color: #1d1d1d;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalInput {
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border: 1.5px solid #444;
+  border-radius: 4px;
+  background-color: #2b2b2b;
+  color: #fff;
+  outline: none;
+}
+
+.modalInput:focus {
+  border-color: #ffd700;
+}
+
+.saveButton {
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #ffd700;
+  color: #252525;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.saveButton:hover {
+  background-color: #ffc107;
+}

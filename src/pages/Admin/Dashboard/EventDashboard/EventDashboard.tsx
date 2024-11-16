@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { getEventInfo } from "../../../../apis/common";
 import { updateEvent } from "../../../../apis/admin";
 import Modal from "../../../../components/Modal/Modal";
+import Footer from "../../../../components/Footer/Footer";
 
 // Event Type Definition
 type EventType = {
@@ -56,9 +57,6 @@ const EventDashboard = () => {
     <div className={styles.dashboardContainer}>
       <h1 className={styles.eventTitle}>{eventInfo?.name}</h1>
       <div className={styles.eventDetails}>
-        <p>
-          <strong>Event ID:</strong> {eventInfo?.mmp_event_id}
-        </p>
         <p>
           <strong>Created At:</strong>{" "}
           {new Date(eventInfo?.created_at!).toLocaleDateString()}
@@ -211,6 +209,7 @@ const EventDashboard = () => {
           </div>
         </Modal>
       )}
+      <Footer />
     </div>
   );
 };

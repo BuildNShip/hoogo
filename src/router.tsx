@@ -12,6 +12,7 @@ import Authentication from "./pages/Authentication/Authentication";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AuthCheck from "./components/AuthCheck";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import EventDashboard from "./pages/Admin/Dashboard/EventDashboard/EventDashboard";
 
 const routes: RouteObject[] = [
   {
@@ -50,6 +51,10 @@ const routes: RouteObject[] = [
       {
         path: "/dashboard/:eventName/leaderboard/:ticketCode",
         element: <BingoCard />,
+      },
+      {
+        path: "/dashboard/:eventName/",
+        element: <EventDashboard />,
       },
     ],
   },

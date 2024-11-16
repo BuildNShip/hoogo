@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <>
       <div className={styles.navbarContainer}>

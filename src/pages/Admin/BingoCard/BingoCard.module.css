@@ -1,172 +1,172 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #252525;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1d1d1d;
 }
 
 .grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    max-width: 600px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 600px;
+  width: 100%;
 }
 
 .row {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
 }
 
 .cell {
-    aspect-ratio: 1;
-    position: relative;
-    width: calc(20% - 0.4rem);
-    overflow: hidden;
-    border-radius: 4px;
-    transition: transform 0.3s ease;
+  aspect-ratio: 1;
+  position: relative;
+  width: calc(20% - 0.4rem);
+  overflow: hidden;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
 }
 
 .cell:hover {
-    transform: scale(1.02);
-    border-color: #ffd700;
+  transform: scale(1.02);
+  border-color: #ffd700;
 }
 
 .image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: filter 0.3s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
 }
 
 .cell:hover .image {
-    filter: brightness(0.7);
+  filter: brightness(0.7);
 }
 
 @media (min-width: 768px) {
-    .container {
-        padding: 3rem;
-    }
+  .container {
+    padding: 3rem;
+  }
 
-    .cell {
-        border-width: 3px;
-    }
+  .cell {
+    border-width: 3px;
+  }
 
-    .overlay {
-        padding: 1rem;
-    }
+  .overlay {
+    padding: 1rem;
+  }
 
-    .name {
-        font-size: 1rem;
-    }
+  .name {
+    font-size: 1rem;
+  }
 
-    .liner {
-        font-size: 0.9rem;
-    }
+  .liner {
+    font-size: 0.9rem;
+  }
 
-    .title {
-        font-size: 2rem;
-    }
+  .title {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 1rem;
-    }
+  .container {
+    padding: 1rem;
+  }
 
-    .row {
-        gap: 0.25rem;
-    }
+  .row {
+    gap: 0.25rem;
+  }
 
-    .cell {
-        border-width: 1px;
-    }
+  .cell {
+    border-width: 1px;
+  }
 
-    .overlay {
-        padding: 0.5rem;
-    }
+  .overlay {
+    padding: 0.5rem;
+  }
 
-    .name {
-        font-size: 0.8rem;
-        margin-bottom: 0.15rem;
-    }
+  .name {
+    font-size: 0.8rem;
+    margin-bottom: 0.15rem;
+  }
 
-    .liner {
-        font-size: 0.7rem;
-        -webkit-line-clamp: 1;
-    }
+  .liner {
+    font-size: 0.7rem;
+    -webkit-line-clamp: 1;
+  }
 
-    .title {
-        font-size: 1.5rem;
-    }
+  .title {
+    font-size: 1.5rem;
+  }
 }
 
 .personContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .floatingContainer {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 .floatingText {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .personDescriptionHeader {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
-    margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .personDescriptionHeader span {
-    color: #fff;
+  color: #fff;
 }
 
 .personDescription {
-    text-align: justify;
+  text-align: justify;
 }
 
 .personImageContainer {
-    flex-shrink: 0;
-    margin-right: 1rem;
-    float: left;
+  flex-shrink: 0;
+  margin-right: 1rem;
+  float: left;
 }
 
 .personImage {
-    max-width: 150px;
-    height: auto;
+  max-width: 150px;
+  height: auto;
 }
 
 .backButton {
-    width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    font-weight: 600;
-    background-color: #ffd700;
-    font-size: 1rem;
-    color: #252525;
-    margin-top: 0;
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-weight: 600;
+  background-color: #ffd700;
+  font-size: 1rem;
+  color: #252525;
+  margin-top: 0;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
 }
 
 .playerName {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-    color: white;
-    text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: white;
+  text-align: center;
 }

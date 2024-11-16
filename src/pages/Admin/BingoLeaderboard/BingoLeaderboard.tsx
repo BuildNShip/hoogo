@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
 import Footer from "../../../components/Footer/Footer";
+import { PacmanLoader } from "react-spinners";
 interface Player {
   user_name: string;
   user_code: string;
@@ -78,34 +79,57 @@ const BingoLeaderboard = () => {
         <p className={styles.leaderboardHeadingText}>
           Elevate'24 Bingo Leaderboard
         </p>
-        <p className={styles.leaderboardHeadingDescription}>
-          Click on a name to view the player's bingo card. The leaderboard is
-          sorted based on completion time.
-        </p>
-        <div className={styles.playerRowContainer}>
-          {players.map((player, playerIndex) => (
-            <div key={playerIndex} className={styles.playerRow}>
-              <Link
-                to={`/${eventName}/admin/leaderboard/${player.user_code}`}
-                className={styles.nameLink}
-              >
-                {player.user_name || player.user_code}
-              </Link>
-              <div className={styles.bingoLetters}>
-                {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
-                  <button
-                    key={letter}
-                    className={`${styles.letterButton} ${
-                      player.score[letterIndex] ? styles.strikethrough : ""
-                    }`}
-                  >
-                    {letter}
-                  </button>
+        <>
+          {players.length > 0 ? (
+            <>
+              <p className={styles.leaderboardHeadingDescription}>
+                Click on a name to view the player's bingo card. The leaderboard
+                is sorted based on completion time.
+              </p>
+              <div className={styles.playerRowContainer}>
+                {players.map((player, playerIndex) => (
+                  <div key={playerIndex} className={styles.playerRow}>
+                    <Link
+                      to={`/${eventName}/admin/leaderboard/${player.user_code}`}
+                      className={styles.nameLink}
+                    >
+                      {player.user_name || player.user_code}
+                    </Link>
+                    <div className={styles.bingoLetters}>
+                      {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
+                        <button
+                          key={letter}
+                          className={`${styles.letterButton} ${
+                            player.score[letterIndex]
+                              ? styles.strikethrough
+                              : ""
+                          }`}
+                        >
+                          {letter}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
-            </div>
-          ))}
-        </div>
+            </>
+          ) : (
+            <>
+              <div className={styles.loaderContainer}>
+                <PacmanLoader
+                  color="#ffd700"
+                  loading
+                  size={25}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </div>
+              <p className={styles.loadingText}>
+                Waiting for participants to join...
+              </p>
+            </>
+          )}
+        </>
       </div>
       <Footer />
     </div>

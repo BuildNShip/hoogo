@@ -343,7 +343,9 @@ const GridComponent: React.FC<BingoGridProps> = ({
                   className={styles.submitButton}
                   type="submit"
                   style={
-                    name.length > 1 && description.length >= 10 && image !== null
+                    name.length > 1 &&
+                    description.length >= 10 &&
+                    image !== null
                       ? {
                           backgroundColor: "#ffd700",
                           color: "#252525",
@@ -385,65 +387,82 @@ const GridComponent: React.FC<BingoGridProps> = ({
             )}
           </Modal>
         )}
-        {rowsBingo.filter((row) => row).length === 5 && (
-          <Confetti
-            width={window.innerWidth}
-            height={window.innerHeight}
-            recycle={false}
-            numberOfPieces={500}
-          />
-        )}
-        <div className={styles.bingoLetters}>
-          {["B", "I", "N", "G", "O"].map((letter, index) => (
-            <div
-              key={index}
-              className={styles.letter}
-              style={{
-                color: rowsBingo[index] ? "#ffd700" : "#ffffff",
-                textDecoration: rowsBingo[index]
-                  ? "line-through white"
-                  : "none",
-              }}
-            >
-              {letter}
-            </div>
-          ))}
-        </div>
-        <div className={styles.bingoGrid}>
-          {/* Show the letters BINGO and cut each one out when each of the bingo is hit */}
-
-          {cells &&
-            cells.map((cell1, index1) =>
-              cell1.map((cell, index2) => (
+        {letters.length !== 0 && (
+          <>
+            {rowsBingo.filter((row) => row).length === 5 && (
+              <Confetti
+                width={window.innerWidth}
+                height={window.innerHeight}
+                recycle={false}
+                numberOfPieces={500}
+              />
+            )}
+            <div className={styles.bingoLetters}>
+              {["B", "I", "N", "G", "O"].map((letter, index) => (
                 <div
-                  key={`${index1}-${index2}`}
-                  className={`${styles.bingoCell} ${
-                    cell.name
-                      ? isBingoAchieved()
-                        ? styles.bingoAchieved
-                        : styles.active
-                      : ""
-                  } `}
-                  onClick={() => {
-                    toggleCell(index1, index2);
-                    setIsOpen(true);
-                    setName(letters[index1][index2]);
-                    setImage(null);
-                    setDescription("");
+                  key={index}
+                  className={styles.letter}
+                  style={{
+                    color: rowsBingo[index] ? "#ffd700" : "#ffffff",
+                    textDecoration: rowsBingo[index]
+                      ? "line-through white"
+                      : "none",
                   }}
                 >
-                  <span className={styles.letter}>
-                    {letters[index1][index2]}
-                  </span>
-                  <span className={styles.name}>
-                    {cell.name && cell.name.length > 5
-                      ? `${cell.name.substring(0, 5)}...`
-                      : cell.name}
-                  </span>
+                  {letter}
                 </div>
-              ))
-            )}
-        </div>
+              ))}
+            </div>
+            <div className={styles.bingoGrid}>
+              {/* Show the letters BINGO and cut each one out when each of the bingo is hit */}
+
+              {cells &&
+                cells.map((cell1, index1) =>
+                  cell1.map((cell, index2) => (
+                    <div
+                      key={`${index1}-${index2}`}
+                      className={`${styles.bingoCell} ${
+                        cell.name
+                          ? isBingoAchieved()
+                            ? styles.bingoAchieved
+                            : styles.active
+                          : ""
+                      } `}
+                      onClick={() => {
+                        toggleCell(index1, index2);
+                        setIsOpen(true);
+                        setName(letters[index1][index2]);
+                        setImage(null);
+                        setDescription("");
+                      }}
+                    >
+                      <span className={styles.letter}>
+                        {letters[index1][index2]}
+                      </span>
+                      <span className={styles.name}>
+                        {cell.name && cell.name.length > 5
+                          ? `${cell.name.substring(0, 5)}...`
+                          : cell.name}
+                      </span>
+                    </div>
+                  ))
+                )}
+            </div>
+          </>
+        )}
+        {
+          // Show a loader if the cells are not loaded
+          letters.length === 0 && (
+            <>
+              <p className={styles.helperTextHeader}>
+                It seems, like no grid has been loaded.
+              </p>
+              <p className={styles.helperTextDescription}>
+                Kindly wait for the grid to load, or Contact Event Organizer
+              </p>
+            </>
+          )
+        }
       </div>
     </>
   );

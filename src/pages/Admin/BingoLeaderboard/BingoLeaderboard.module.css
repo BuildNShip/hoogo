@@ -172,3 +172,19 @@
 
   opacity: 0.7;
 }
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-left: -5rem;
+}
+
+.loadingText {
+  color: #fff;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  opacity: 0.7;
+  text-align: center;
+}

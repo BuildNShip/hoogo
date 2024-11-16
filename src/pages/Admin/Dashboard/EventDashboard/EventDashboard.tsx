@@ -54,162 +54,177 @@ const EventDashboard = () => {
   };
 
   return (
-    <div className={styles.dashboardContainer}>
-      <h1 className={styles.eventTitle}>{eventInfo?.name}</h1>
-      <div className={styles.eventDetails}>
-        <p>
-          <strong>Created At:</strong>{" "}
-          {new Date(eventInfo?.created_at!).toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Participants:</strong> {eventInfo?.participant_count}
-        </p>
-      </div>
+    <div className={styles.backgroundContainer}>
+      <div className={styles.outerContainer}>
+        <div className={styles.dashboardContainer}>
+          <h1 className={styles.eventTitle}>{eventInfo?.name}</h1>
+          <div className={styles.eventDetails}>
+            <p>
+              <strong>Created At:</strong>{" "}
+              {new Date(eventInfo?.created_at!).toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Participants:</strong> {eventInfo?.participant_count}
+            </p>
+          </div>
 
-      {/* Public Link Section */}
-      <div className={styles.publicLinkContainer}>
-        <p className={styles.publicLink}>https://myevent.com/{eventInfo?.id}</p>
-        <button
-          className={styles.copyButton}
-          onClick={() =>
-            navigator.clipboard.writeText(
-              `https://myevent.com/${eventInfo?.id}`
-            )
-          }
-        >
-          Copy
-        </button>
-      </div>
-
-      {/* Bingo Grid Section */}
-      <div className={styles.gridContainer}>
-        <h2 className={styles.gridHeader}>Bingo Grid</h2>
-        <div className={styles.grid}>
-          {eventInfo?.matrix.map((row, rowIndex) =>
-            row.map((cell, colIndex) => (
-              <div key={`${rowIndex}-${colIndex}`} className={styles.gridCell}>
-                {cell}
-              </div>
-            ))
-          )}
-        </div>
-        <button className={styles.generateButton} onClick={generateRandomGrid}>
-          Generate Random Grid
-        </button>
-      </div>
-
-      {/* Edit Buttons */}
-      <div className={styles.buttonContainer}>
-        <button
-          className={styles.editButton}
-          onClick={() => setIsEditNameModalOpen(true)}
-        >
-          Edit Event Name
-        </button>
-        <button
-          className={styles.editButton}
-          onClick={() => setIsEditMmpIdModalOpen(true)}
-        >
-          Edit MMP Event ID
-        </button>
-        <button
-          className={styles.editButton}
-          onClick={() => setIsEditGridModalOpen(true)}
-        >
-          Edit Bingo Grid
-        </button>
-      </div>
-
-      {/* Modals */}
-      {isEditNameModalOpen && (
-        <Modal
-          title="Edit Event Name"
-          onClose={() => setIsEditNameModalOpen(false)}
-        >
-          <div className={styles.modalContent}>
-            <input
-              type="text"
-              value={eventInfo?.name}
-              onChange={(e) =>
-                setEventInfo({ ...eventInfo!, name: e.target.value })
-              }
-              className={styles.modalInput}
-            />
+          {/* Public Link Section */}
+          <div className={styles.publicLinkContainer}>
+            <p className={styles.publicLink}>
+              https://myevent.com/{eventInfo?.id}
+            </p>
             <button
-              className={styles.saveButton}
-              onClick={() => {
-                handleUpdate();
-                setIsEditNameModalOpen(false);
-              }}
+              className={styles.copyButton}
+              onClick={() =>
+                navigator.clipboard.writeText(
+                  `https://myevent.com/${eventInfo?.id}`
+                )
+              }
             >
-              Save
+              Copy
             </button>
           </div>
-        </Modal>
-      )}
 
-      {isEditMmpIdModalOpen && (
-        <Modal
-          title="Edit MMP Event ID"
-          onClose={() => setIsEditMmpIdModalOpen(false)}
-        >
-          <div className={styles.modalContent}>
-            <input
-              type="text"
-              value={eventInfo?.mmp_event_id || ""}
-              onChange={(e) =>
-                setEventInfo({ ...eventInfo!, mmp_event_id: e.target.value })
-              }
-              className={styles.modalInput}
-            />
-            <button
-              className={styles.saveButton}
-              onClick={() => {
-                handleUpdate();
-                setIsEditMmpIdModalOpen(false);
-              }}
-            >
-              Save
-            </button>
-          </div>
-        </Modal>
-      )}
-
-      {isEditGridModalOpen && (
-        <Modal
-          title="Edit Bingo Grid"
-          onClose={() => setIsEditGridModalOpen(false)}
-        >
-          <div className={styles.modalContent}>
+          {/* Bingo Grid Section */}
+          <div className={styles.gridContainer}>
+            <h2 className={styles.gridHeader}>Bingo Grid</h2>
             <div className={styles.grid}>
               {eventInfo?.matrix.map((row, rowIndex) =>
                 row.map((cell, colIndex) => (
-                  <input
+                  <div
                     key={`${rowIndex}-${colIndex}`}
-                    type="text"
-                    value={cell}
-                    maxLength={1}
-                    onChange={(e) =>
-                      handleGridChange(e.target.value, rowIndex, colIndex)
-                    }
-                    className={styles.gridInput}
-                  />
+                    className={styles.gridCell}
+                  >
+                    {cell}
+                  </div>
                 ))
               )}
             </div>
             <button
-              className={styles.saveButton}
-              onClick={() => {
-                handleUpdate();
-                setIsEditGridModalOpen(false);
-              }}
+              className={styles.generateButton}
+              onClick={generateRandomGrid}
             >
-              Save
+              Generate Random Grid
             </button>
           </div>
-        </Modal>
-      )}
-      <Footer />
+
+          {/* Edit Buttons */}
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.editButton}
+              onClick={() => setIsEditNameModalOpen(true)}
+            >
+              Edit Event Name
+            </button>
+            <button
+              className={styles.editButton}
+              onClick={() => setIsEditMmpIdModalOpen(true)}
+            >
+              Edit MMP Event ID
+            </button>
+            <button
+              className={styles.editButton}
+              onClick={() => setIsEditGridModalOpen(true)}
+            >
+              Edit Bingo Grid
+            </button>
+          </div>
+
+          {/* Modals */}
+          {isEditNameModalOpen && (
+            <Modal
+              title="Edit Event Name"
+              onClose={() => setIsEditNameModalOpen(false)}
+            >
+              <div className={styles.modalContent}>
+                <input
+                  type="text"
+                  value={eventInfo?.name}
+                  onChange={(e) =>
+                    setEventInfo({ ...eventInfo!, name: e.target.value })
+                  }
+                  className={styles.modalInput}
+                />
+                <button
+                  className={styles.saveButton}
+                  onClick={() => {
+                    handleUpdate();
+                    setIsEditNameModalOpen(false);
+                  }}
+                >
+                  Save
+                </button>
+              </div>
+            </Modal>
+          )}
+
+          {isEditMmpIdModalOpen && (
+            <Modal
+              title="Edit MMP Event ID"
+              onClose={() => setIsEditMmpIdModalOpen(false)}
+            >
+              <div className={styles.modalContent}>
+                <input
+                  type="text"
+                  value={eventInfo?.mmp_event_id || ""}
+                  onChange={(e) =>
+                    setEventInfo({
+                      ...eventInfo!,
+                      mmp_event_id: e.target.value,
+                    })
+                  }
+                  className={styles.modalInput}
+                />
+                <button
+                  className={styles.saveButton}
+                  onClick={() => {
+                    handleUpdate();
+                    setIsEditMmpIdModalOpen(false);
+                  }}
+                >
+                  Save
+                </button>
+              </div>
+            </Modal>
+          )}
+
+          {isEditGridModalOpen && (
+            <Modal
+              title="Edit Bingo Grid"
+              onClose={() => setIsEditGridModalOpen(false)}
+            >
+              <div className={styles.modalContent}>
+                <div className={styles.grid}>
+                  {eventInfo?.matrix.map((row, rowIndex) =>
+                    row.map((cell, colIndex) => (
+                      <input
+                        key={`${rowIndex}-${colIndex}`}
+                        type="text"
+                        value={cell}
+                        maxLength={1}
+                        onChange={(e) =>
+                          handleGridChange(e.target.value, rowIndex, colIndex)
+                        }
+                        className={styles.gridInput}
+                      />
+                    ))
+                  )}
+                </div>
+                <button
+                  className={styles.saveButton}
+                  onClick={() => {
+                    handleUpdate();
+                    setIsEditGridModalOpen(false);
+                  }}
+                >
+                  Save
+                </button>
+              </div>
+            </Modal>
+          )}
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 };

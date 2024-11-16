@@ -1,9 +1,19 @@
+.backgroundContainer {
+  background-color: #1d1d1d;
+}
+
+.outerContainer {
+  max-width: 70rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .mainContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 88vh;
+  height: 79vh;
   background-color: #1d1d1d;
   opacity: 1;
   padding: 1rem;

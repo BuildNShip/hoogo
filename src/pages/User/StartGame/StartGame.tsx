@@ -42,78 +42,84 @@ const StartGame = () => {
 
   if (eventInfo?.name) {
     return (
-      <>
-        <Navbar />
-        <div className={styles.mainContainer}>
-          <p className={styles.pageHeaderText}>
-            Hi, <span>{eventInfo?.name}</span> Participants 👋
-          </p>
-          <div className={styles.loginContainer}>
-            <div className={styles.logoContainerHeader}>
-              <p className={styles.loginContainerHeaderText}>
-                Welcome To Hoogo
-              </p>
-              <p className={styles.loginContainerDescription}>
-                Create, play, and make networking faster and fun.
-              </p>
-            </div>
-            <div className={styles.inputFieldContainer}>
-              <p className={styles.inputFieldLabel}>Ticket Code *</p>
-              <p className={styles.inputFieldDescription}>
-                Kindly refer your ticket for the code.
-              </p>
-              <input
-                className={styles.inputField}
-                type="text"
-                placeholder="MMPXXXXXXXX"
-                value={ticketCode}
-                onChange={(e) => {
-                  setTicketCode(e.target.value);
-                  if (error) {
-                    setError("");
-                  }
-                }}
-              />
-              {error && <p className={styles.errorText}>{error}</p>}
-            </div>
-            <button
-              className={styles.loginButton}
-              style={
-                ticketCode && ticketCode?.length > 0
-                  ? { backgroundColor: "#ffd700", color: "#252525", opacity: 1 }
-                  : {
-                      backgroundColor: "#252525",
-                      cursor: "not-allowed",
+      <div className={styles.backgroundContainer}>
+        <div className={styles.outerContainer}>
+          <Navbar />
+          <div className={styles.mainContainer}>
+            <p className={styles.pageHeaderText}>
+              Hi, <span>{eventInfo?.name}</span> Participants 👋
+            </p>
+            <div className={styles.loginContainer}>
+              <div className={styles.logoContainerHeader}>
+                <p className={styles.loginContainerHeaderText}>
+                  Welcome To Hoogo
+                </p>
+                <p className={styles.loginContainerDescription}>
+                  Create, play, and make networking faster and fun.
+                </p>
+              </div>
+              <div className={styles.inputFieldContainer}>
+                <p className={styles.inputFieldLabel}>Ticket Code *</p>
+                <p className={styles.inputFieldDescription}>
+                  Kindly refer your ticket for the code.
+                </p>
+                <input
+                  className={styles.inputField}
+                  type="text"
+                  placeholder="MMPXXXXXXXX"
+                  value={ticketCode}
+                  onChange={(e) => {
+                    setTicketCode(e.target.value);
+                    if (error) {
+                      setError("");
                     }
-              }
-              onClick={onSubmit}
-            >
-              {isValidating ? (
-                <div className={styles.loaderContainer}>
-                  <BeatLoader
-                    color="#252525"
-                    loading
-                    size={8}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                  />
-                </div>
-              ) : (
-                "Start Game"
-              )}
-            </button>
+                  }}
+                />
+                {error && <p className={styles.errorText}>{error}</p>}
+              </div>
+              <button
+                className={styles.loginButton}
+                style={
+                  ticketCode && ticketCode?.length > 0
+                    ? {
+                        backgroundColor: "#ffd700",
+                        color: "#252525",
+                        opacity: 1,
+                      }
+                    : {
+                        backgroundColor: "#252525",
+                        cursor: "not-allowed",
+                      }
+                }
+                onClick={onSubmit}
+              >
+                {isValidating ? (
+                  <div className={styles.loaderContainer}>
+                    <BeatLoader
+                      color="#252525"
+                      loading
+                      size={8}
+                      aria-label="Loading Spinner"
+                      data-testid="loader"
+                    />
+                  </div>
+                ) : (
+                  "Start Game"
+                )}
+              </button>
 
-            {eventInfo.mmp_event_id && (
-              <p className={styles.makemypassConnectedMessage}>
-                This event is <span>connected with makemypass.com</span>, Kindly
-                enter the <span>ticket code in your pass</span> to start the
-                game.
-              </p>
-            )}
+              {eventInfo.mmp_event_id && (
+                <p className={styles.makemypassConnectedMessage}>
+                  This event is <span>connected with makemypass.com</span>,
+                  Kindly enter the <span>ticket code in your pass</span> to
+                  start the game.
+                </p>
+              )}
+            </div>
           </div>
+          <Footer />
         </div>
-        <Footer />
-      </>
+      </div>
     );
   } else {
     return <PageNotFound />;

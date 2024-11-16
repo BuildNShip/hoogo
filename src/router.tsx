@@ -13,15 +13,12 @@ import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import CreateEvent from "./pages/Admin/Dashboard/CreateEvent/CreateEvent";
 import EditEvent from "./pages/Admin/Dashboard/EditEvent/EditEvent";
 import AuthCheck from "./components/AuthCheck";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const routes: RouteObject[] = [
   {
     path: "*",
-    element: (
-      <div>
-        <h1>404 Not Found</h1>
-      </div>
-    ),
+    element: <PageNotFound />,
   },
   {
     path: "/",

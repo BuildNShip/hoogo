@@ -71,7 +71,9 @@ const BingoLeaderboard = () => {
     <div className={styles.container}>
       <img src="/live.gif" alt="logo" className={styles.liveGif} />
       {players.length > 0 && (
-        <p className={styles.participantCount}>{players.length} people</p>
+        <p className={styles.participantCount}>
+          <span>{players.length}</span> people
+        </p>
       )}
       <div className={styles.center}>
         <p className={styles.leaderboardHeadingText}>

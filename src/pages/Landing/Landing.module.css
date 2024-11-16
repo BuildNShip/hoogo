@@ -1,14 +1,14 @@
 .container {
-  background-color: #1a1a1a;
+  background-color: #1d1d1d;
   color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: "Arial", sans-serif;
-  padding: 2rem;
   box-sizing: border-box;
-
+  padding: 2rem 0;
   position: relative;
+  font-family: "Unbounded", sans-serif;
   overflow: hidden;
 }
 
@@ -89,7 +89,7 @@
 
 .highlight {
   background-color: #ffd700;
-  color: #1a1a1a;
+  color: #1d1d1d;
   padding: 0 0.5rem;
 }
 
@@ -103,7 +103,7 @@
 
 .ctaButton {
   background-color: #ffd700;
-  color: #1a1a1a;
+  color: #1d1d1d;
   border: none;
   padding: 0.75rem 2rem;
   font-size: 1.1rem;
@@ -258,12 +258,12 @@
   }
 }
 
-.preTitle{
+.preTitle {
   font-size: 0.9rem;
   font-weight: 300;
   margin-bottom: 1rem;
 
-  span{
+  span {
     color: #ffd700;
   }
 }
@@ -271,10 +271,10 @@
 /* Testimonials.module.css */
 
 .testimonialSection {
-  background-color: #1a1a1a;
+  background-color: #1d1d1d;
   color: #ffffff;
   padding: 2rem 2rem;
-   margin-top: 2rem;
+  margin-top: 2rem;
   font-family: "Arial", sans-serif;
   z-index: 3;
 }
@@ -310,8 +310,6 @@
   line-height: 1.5;
   margin-bottom: 1rem;
 }
-
-
 
 .authorAvatar {
   width: 40px;

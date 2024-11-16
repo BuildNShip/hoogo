@@ -30,11 +30,11 @@ const routes: RouteObject[] = [
     element: <Authentication />,
   },
   {
-    path: "/:eventName/user/dashboard",
+    path: "/user/dashboard",
     element: <Dashboard />,
   },
   {
-    path: "/:eventName/admin/dashboard/create",
+    path: "/user/dashboard/create",
     element: <CreateEvent />,
   },
   {

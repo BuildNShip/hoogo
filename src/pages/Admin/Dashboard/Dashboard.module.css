@@ -11,14 +11,14 @@
 
 .eventCard {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   max-width: 400px;
-  width: calc(100% - 4rem);
+  width: calc(100% - 2rem);
   background-color: #202020;
   border-radius: 10px;
-  padding: 2rem;
+  padding: 1rem;
   color: white;
   border: 2px solid #2f2f2f;
   margin-bottom: 1rem;
@@ -34,6 +34,7 @@
   font-size: 1rem;
   color: white;
   font-weight: 500;
+  text-align: center;
   margin-bottom: 1rem;
 }
 
@@ -50,7 +51,6 @@
   background-color: #252525;
   font-size: 1rem;
   color: #ffffff;
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
 }
 
@@ -60,7 +60,7 @@
 
 @media only screen and (max-width: 600px) {
   .eventCard {
-    width: calc(100% - 3rem);
-    padding: 1.5rem;
+    width: calc(100% - 2rem);
+    padding: 1rem;
   }
 }

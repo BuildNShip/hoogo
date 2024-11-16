@@ -91,7 +91,9 @@ export const validateTicketCode = async (
   setIsValidating(true);
   return publicGateway
     .post(commonUrls.validateTicket(eventName, ticketCode))
-    .then(() => {
+    .then((response) => {
+      const userName = response.data.response.name;
+      if (userName) localStorage.setItem("userName", userName);
       navigate("/" + eventName + "/" + ticketCode);
     })
     .catch((error) => {

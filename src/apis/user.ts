@@ -11,6 +11,8 @@ export const listUserEvents = async (
       setEvents(response.data.response);
     })
     .catch((error) => {
-      toast.error(error?.response?.message.general[0] || "No events found");
+      toast.error(error?.response?.message.general[0] || "No events found", {
+        id: "listUserEvents",
+      });
     });
 };

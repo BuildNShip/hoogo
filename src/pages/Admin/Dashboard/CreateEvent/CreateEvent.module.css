@@ -3,9 +3,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  width: 100%;
-  min-height: 100vh;
+  padding: 1rem;
+  width: calc(100% - 2rem);
+  min-height: 96vh;
   background-color: #1e1e1e;
   color: #fff;
 }
@@ -86,18 +86,6 @@
 
 .submitButton:hover {
   background-color: #ffc107;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #1e1e1e;
-  color: #fff;
 }
 
 .title {

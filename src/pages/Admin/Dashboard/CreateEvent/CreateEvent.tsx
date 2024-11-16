@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./CreateEvent.module.css";
 import toast from "react-hot-toast";
 import { createEvent } from "../../../../apis/admin";
+import Footer from "../../../../components/Footer/Footer";
 
 const CreateEvent: React.FC = () => {
   const [eventName, setEventName] = useState("");
@@ -106,6 +107,8 @@ const CreateEvent: React.FC = () => {
           </button>
         </>
       )}
+
+      <Footer />
     </div>
   );
 };

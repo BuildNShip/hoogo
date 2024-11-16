@@ -373,7 +373,7 @@ const GridComponent: React.FC<BingoGridProps> = ({
                   ) : (
                     <p>
                       Submit
-                      {description.length < 10 && (
+                      {description.length <= 10 && (
                         <span className={styles.count}>
                           ({10 - description.length} letters more)
                         </span>

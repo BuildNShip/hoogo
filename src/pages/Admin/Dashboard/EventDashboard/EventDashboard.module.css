@@ -14,9 +14,8 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding: 2rem;
-  background-color: #1e1e1e;
+  background-color: #1d1d1d;
   color: #fff;
-  min-height: 100vh;
 }
 
 .eventThemeHeader {
@@ -173,10 +172,10 @@
 
 .gridDescription {
   font-size: 0.9rem;
-  max-width: 25rem;
   color: #fff;
   opacity: 0.8;
   margin-bottom: 1rem;
+  max-width: 20rem;
 }
 
 .actionsContainer {
@@ -195,6 +194,29 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin-bottom: 1rem;
+}
+
+.leaderboardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.leaderboardButton {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: #ffd700;
+  color: #252525;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+
+  margin: 0 auto;
 }
 
 .gridCell {
@@ -313,6 +335,22 @@
   background-color: #1d1d1d;
 }
 
+.editButtonSmall {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #ffc107;
+  background-color: #252525;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.editButtonSmall:hover {
+  background-color: #1d1d1d;
+}
+
 .modalContent {
   display: flex;
   flex-direction: column;
@@ -343,6 +381,7 @@
   margin-bottom: 1rem;
   margin-top: 0.25rem;
   font-weight: 400;
+  max-width: 20rem;
 }
 
 .centerModalGrid {
@@ -385,4 +424,12 @@
 
 .editIcon {
   margin-left: 0.5rem;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }

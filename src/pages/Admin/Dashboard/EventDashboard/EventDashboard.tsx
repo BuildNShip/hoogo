@@ -234,6 +234,17 @@ const EventDashboard = () => {
                 )}
               </div>
             </div>
+
+            <div className={styles.leaderboardContainer}>
+              <button
+                className={styles.leaderboardButton}
+                onClick={() =>
+                  navigate(`/dashboard/${eventInfo?.name}/leaderboard`)
+                }
+              >
+                Show Leaderboard
+              </button>
+            </div>
           </div>
 
           {/* Modals */}
@@ -313,7 +324,18 @@ const EventDashboard = () => {
               title="Edit Bingo Grid"
               onClose={() => setIsEditGridModalOpen(false)}
             >
-              <label className={styles.modalLabel}>Bingo Grid (5x5, A-Z)</label>
+              <div className={styles.row}>
+                <label className={styles.modalLabel}>
+                  Bingo Grid (5x5, A-Z)
+                </label>
+                <button
+                  className={styles.editButtonSmall}
+                  onClick={generateRandomGrid}
+                >
+                  Generate Grid (MakeMyPass)
+                </button>
+              </div>
+
               <p className={styles.modalLabelDescription}>
                 Edit the Bingo grid for the event. You can also generate a
                 random grid.
@@ -345,12 +367,6 @@ const EventDashboard = () => {
                     }}
                   >
                     Save
-                  </button>
-                  <button
-                    className={styles.editButton}
-                    onClick={generateRandomGrid}
-                  >
-                    Generate Random Grid
                   </button>
                 </div>
               </div>

@@ -11,7 +11,7 @@
 .dashboardContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 2rem;
   background-color: #1e1e1e;
@@ -119,11 +119,58 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
+  width: 100%;
+}
+
+.qrImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border: 3px solid #ffd700;
+  }
+}
+
+.copyQr {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background-color: #ffd700;
+  color: #252525;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+  min-width: 5rem
 }
 
 .gridHeader {
-  font-size: 1.5rem;
-  color: #ffd700;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.gridDescription {
+  font-size: 0.9rem;
+  max-width: 25rem;
+  color: #fff;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.actionsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -283,4 +330,96 @@
 
 .saveButton:hover {
   background-color: #ffc107;
+}
+
+.playerRowContainer {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-right: 0.25rem;
+}
+
+.playerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+  gap: 1rem;
+}
+
+.playerRow:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nameLink {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.nameLink:hover {
+  color: #ffd700;
+}
+
+.bingoLetters {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.letterButton {
+  width: 1.85rem;
+  height: 1.85rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: 1.5px solid #464646;
+  color: #616161;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-radius: 3px;
+}
+
+.letterButton:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  color: rgba(255, 215, 0, 0.5);
+}
+
+.letterButton.strikethrough {
+  background-color: #ffd700;
+  border-color: #ffd700;
+  color: #252525;
+  transform: scale(0.95);
+}
+
+.completedAtText {
+  color: #fff;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.mainDashboardContent {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

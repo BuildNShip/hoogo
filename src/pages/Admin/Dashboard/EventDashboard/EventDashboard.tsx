@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./EventDashboard.module.css";
 import toast from "react-hot-toast";
 import { getEventInfo } from "../../../../apis/common";
 import { updateEvent } from "../../../../apis/admin";
 import Modal from "../../../../components/Modal/Modal";
 import Footer from "../../../../components/Footer/Footer";
-import { formatDateTime } from "../../../../functions";
-import { PacmanLoader } from "react-spinners";
+import { formatDateTime, formatTime } from "../../../../functions";
+import { BeatLoader, PacmanLoader } from "react-spinners";
+import { IoIosTime } from "react-icons/io";
+import { Player } from "./types";
 
 // Event Type Definition
 type EventType = {
@@ -27,6 +29,9 @@ const EventDashboard = () => {
   const [isEditGridModalOpen, setIsEditGridModalOpen] = useState(false);
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [isQRLoaded, setIsQRLoaded] = useState(false);
+  const [isdownloading, setIsDownloading] = useState(false);
+
+  const [players, setPlayers] = useState<Player[]>([]);
 
   const navigate = useNavigate();
 
@@ -34,8 +39,55 @@ const EventDashboard = () => {
   useEffect(() => {
     if (eventName) {
       getEventInfo(eventName, setEventInfo);
+      setPlayers([
+        {
+          user_code: "player1",
+          user_name: "John Doe",
+          completed_at: new Date(),
+          score: [true, false, true, false, true],
+        },
+        {
+          user_code: "player2",
+          user_name: "Jane Smith",
+          completed_at: null,
+          score: [false, true, false, true, false],
+        },
+        {
+          user_code: "player3",
+          user_name: "Alice",
+          completed_at: new Date(),
+          score: [true, true, true, true, true],
+        },
+        {
+          user_code: "player4",
+          user_name: "Bob",
+          completed_at: null,
+          score: [false, false, false, false, false],
+        },
+      ]);
     }
   }, [eventName]);
+
+  const downloadQR = async (url: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute("download", `${eventInfo?.name}_qr.png`);
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      toast.error("Failed to download ticket");
+    } finally {
+      setIsDownloading && setIsDownloading(false);
+    }
+  };
 
   const handleUpdate = () => {
     updateEvent(eventInfo?.id!, eventInfo?.matrix!, eventInfo?.mmp_event_id!);
@@ -131,31 +183,8 @@ const EventDashboard = () => {
             </button>
           </div>
 
-          {/* Bingo Grid Section */}
-          <div className={styles.gridContainer}>
-            <h2 className={styles.gridHeader}>Bingo Grid</h2>
-            <div className={styles.grid}>
-              {eventInfo?.matrix.map((row, rowIndex) =>
-                row.map((cell, colIndex) => (
-                  <div
-                    key={`${rowIndex}-${colIndex}`}
-                    className={styles.gridCell}
-                  >
-                    {cell}
-                  </div>
-                ))
-              )}
-            </div>
-            <button
-              className={styles.generateButton}
-              onClick={generateRandomGrid}
-            >
-              Generate Random Grid
-            </button>
-          </div>
-
-          {/* Edit Buttons */}
-          <div className={styles.buttonContainer}>
+          <div className={styles.actionsContainer}>
+            <h2 className={styles.gridHeader}>Actions</h2>
             <button
               className={styles.editButton}
               onClick={() => setIsEditNameModalOpen(true)}
@@ -172,8 +201,71 @@ const EventDashboard = () => {
               className={styles.editButton}
               onClick={() => setIsEditGridModalOpen(true)}
             >
-              Edit Bingo Grid
+              Edit Grid
             </button>
+            <button className={styles.editButton} onClick={generateRandomGrid}>
+              Generate Random Grid
+            </button>
+          </div>
+          {/* Bingo Grid Section */}
+
+          <div className={styles.gridContainer}>
+            <h2
+              className={styles.gridHeader}
+              style={{
+                color: "#FFD700",
+              }}
+            >
+              Bingo Grid
+            </h2>
+            <p className={styles.gridDescription}>
+              This is current Bingo grid for the event.
+            </p>
+            <div className={styles.grid}>
+              {eventInfo?.matrix.map((row, rowIndex) =>
+                row.map((cell, colIndex) => (
+                  <div
+                    key={`${rowIndex}-${colIndex}`}
+                    className={styles.gridCell}
+                  >
+                    {cell}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          <div className={styles.playerRowContainer}>
+            {players.map((player, playerIndex) => (
+              <div key={playerIndex} className={styles.playerRow}>
+                <Link
+                  to={`/dashboard/${eventName}/leaderboard/${player.user_code}`}
+                  className={styles.nameLink}
+                >
+                  {player.user_name || player.user_code}
+
+                  {player.completed_at && (
+                    <div className={styles.completedAtText}>
+                      <IoIosTime />
+                      <p>{formatDateTime(new Date(player.completed_at))}</p>
+                    </div>
+                  )}
+                </Link>
+
+                <div className={styles.bingoLetters}>
+                  {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
+                    <button
+                      key={letter}
+                      className={`${styles.letterButton} ${
+                        player.score[letterIndex] ? styles.strikethrough : ""
+                      }`}
+                    >
+                      {letter}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Modals */}
@@ -272,42 +364,53 @@ const EventDashboard = () => {
           {isQRModalOpen && (
             <Modal title="QR Code" onClose={() => setIsQRModalOpen(false)}>
               <div className={styles.qrContainer}>
-                {!isQRLoaded ? (
-                  <div className={styles.qrLoaderContainer}>
-                    <PacmanLoader
-                      color="#FFD700"
-                      size={25}
-                      className={styles.pacmanLoader}
-                    />
-                    <p className={styles.loaderText}>
-                      Hang tight! Generating QR Code...
-                    </p>
-                  </div>
-                ) : (
-                  <div className={styles.qrImageContainer}>
-                    <img
-                      src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${
+                <div
+                  className={styles.qrLoaderContainer}
+                  style={{ display: isQRLoaded ? "none" : "flex" }}
+                >
+                  <PacmanLoader
+                    color="#FFD700"
+                    size={25}
+                    className={styles.pacmanLoader}
+                  />
+                  <p className={styles.loaderText}>
+                    Hang tight! Generating QR Code...
+                  </p>
+                </div>
+
+                <div
+                  className={styles.qrImageContainer}
+                  style={{
+                    display: isQRLoaded ? "flex" : "none",
+                  }}
+                >
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${
+                      new URL(`https://hoogo.makemypass.com/${eventInfo?.name}`)
+                        .href
+                    }`}
+                    alt="QR Code"
+                    onLoad={() => setIsQRLoaded(true)}
+                  />
+                  <button
+                    className={styles.copyQr}
+                    onClick={() => {
+                      setIsDownloading && setIsDownloading(true);
+                      const url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${
                         new URL(
                           `https://hoogo.makemypass.com/${eventInfo?.name}`
                         ).href
-                      }`}
-                      alt="QR Code"
-                      onLoad={() => setIsQRLoaded(true)}
-                    />
-                    <button
-                      className={styles.copyQr}
-                      onClick={() => {
-                        navigator.clipboard.writeText(
-                          new URL(
-                            `https://hoogo.makemypass.com/${eventInfo?.name}`
-                          ).href
-                        );
-                      }}
-                    >
-                      Download QR Code
-                    </button>
-                  </div>
-                )}
+                      }`;
+                      downloadQR(url);
+                    }}
+                  >
+                    {isdownloading ? (
+                      <BeatLoader color="#272727" size={10} />
+                    ) : (
+                      "Download"
+                    )}
+                  </button>
+                </div>
               </div>
             </Modal>
           )}

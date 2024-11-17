@@ -6,3 +6,10 @@ export type EventType = {
   participant_count: number;
   created_at: string;
 };
+
+export type Player = {
+  user_name: string;
+  user_code: string;
+  score: boolean[];
+  completed_at: Date | null;
+};

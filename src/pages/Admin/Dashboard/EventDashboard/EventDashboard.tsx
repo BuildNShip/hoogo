@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./EventDashboard.module.css";
 import toast from "react-hot-toast";
 import { getEventInfo } from "../../../../apis/common";
 import { updateEvent } from "../../../../apis/admin";
 import Modal from "../../../../components/Modal/Modal";
 import Footer from "../../../../components/Footer/Footer";
+import { formatDateTime } from "../../../../functions";
+import { PacmanLoader } from "react-spinners";
 
 // Event Type Definition
 type EventType = {
@@ -23,6 +25,10 @@ const EventDashboard = () => {
   const [isEditNameModalOpen, setIsEditNameModalOpen] = useState(false);
   const [isEditMmpIdModalOpen, setIsEditMmpIdModalOpen] = useState(false);
   const [isEditGridModalOpen, setIsEditGridModalOpen] = useState(false);
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+  const [isQRLoaded, setIsQRLoaded] = useState(false);
+
+  const navigate = useNavigate();
 
   // Fetch event data on mount
   useEffect(() => {
@@ -57,11 +63,38 @@ const EventDashboard = () => {
     <div className={styles.backgroundContainer}>
       <div className={styles.outerContainer}>
         <div className={styles.dashboardContainer}>
-          <h1 className={styles.eventTitle}>{eventInfo?.name}</h1>
+          <div className={styles.eventThemeHeader}>
+            <div className={styles.headerActions}>
+              <div
+                className={styles.backButton}
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              >
+                {"<"}
+              </div>
+              <h1 className={styles.eventTitle}>{eventInfo?.name}</h1>
+            </div>
+            <div
+              className={`${styles.mmpConnectedPill} ${
+                eventInfo?.mmp_event_id ? styles.active : ""
+              }`}
+            >
+              {eventInfo?.mmp_event_id ? (
+                <p className={styles.mmpConnectedText}>MMP Connected</p>
+              ) : (
+                <p className={styles.mmpNotConnectedText}>MMP Not Connected</p>
+              )}
+            </div>
+          </div>
           <div className={styles.eventDetails}>
             <p>
               <strong>Created At:</strong>{" "}
-              {new Date(eventInfo?.created_at!).toLocaleDateString()}
+              {formatDateTime(
+                eventInfo?.created_at
+                  ? new Date(eventInfo.created_at)
+                  : new Date()
+              )}
             </p>
             <p>
               <strong>Participants:</strong> {eventInfo?.participant_count}
@@ -71,17 +104,30 @@ const EventDashboard = () => {
           {/* Public Link Section */}
           <div className={styles.publicLinkContainer}>
             <p className={styles.publicLink}>
-              https://myevent.com/{eventInfo?.id}
+              {new URL(`https://hoogo.makemypass.com/${eventInfo?.name}`).href}
             </p>
             <button
               className={styles.copyButton}
               onClick={() =>
+                toast.success("Link copied to clipboard", {
+                  icon: "📋",
+                }) &&
                 navigator.clipboard.writeText(
-                  `https://myevent.com/${eventInfo?.id}`
+                  new URL(`https://hoogo.makemypass.com/${eventInfo?.name}`)
+                    .href
                 )
               }
             >
               Copy
+            </button>
+            <button
+              className={styles.generateQrButton}
+              onClick={() => {
+                setIsQRModalOpen(true);
+                setIsQRLoaded(false);
+              }}
+            >
+              QR Code
             </button>
           </div>
 
@@ -219,6 +265,49 @@ const EventDashboard = () => {
                 >
                   Save
                 </button>
+              </div>
+            </Modal>
+          )}
+
+          {isQRModalOpen && (
+            <Modal title="QR Code" onClose={() => setIsQRModalOpen(false)}>
+              <div className={styles.qrContainer}>
+                {!isQRLoaded ? (
+                  <div className={styles.qrLoaderContainer}>
+                    <PacmanLoader
+                      color="#FFD700"
+                      size={25}
+                      className={styles.pacmanLoader}
+                    />
+                    <p className={styles.loaderText}>
+                      Hang tight! Generating QR Code...
+                    </p>
+                  </div>
+                ) : (
+                  <div className={styles.qrImageContainer}>
+                    <img
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${
+                        new URL(
+                          `https://hoogo.makemypass.com/${eventInfo?.name}`
+                        ).href
+                      }`}
+                      alt="QR Code"
+                      onLoad={() => setIsQRLoaded(true)}
+                    />
+                    <button
+                      className={styles.copyQr}
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          new URL(
+                            `https://hoogo.makemypass.com/${eventInfo?.name}`
+                          ).href
+                        );
+                      }}
+                    >
+                      Download QR Code
+                    </button>
+                  </div>
+                )}
               </div>
             </Modal>
           )}

@@ -70,7 +70,11 @@ const Dashboard = () => {
             {events &&
               events.map((event) => (
                 <div key={event.id} className={styles.eventCard}>
-                  <h2 className={styles.eventName}>{event.name}</h2>
+                  <p className={styles.eventName}>
+                    {event.name.length > 15
+                      ? `${event.name.substring(0, 15)}...`
+                      : event.name}
+                  </p>
 
                   <button
                     className={styles.createEventButton}

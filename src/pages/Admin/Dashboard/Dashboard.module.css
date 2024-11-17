@@ -85,6 +85,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
+  min-width: 10rem;
+  flex-wrap: wrap;
   gap: 0.5rem;
   padding: 1rem 0;
 }
@@ -93,8 +95,7 @@
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 350px;
+  width: calc(100% - 1rem);
 }
 
 .label {

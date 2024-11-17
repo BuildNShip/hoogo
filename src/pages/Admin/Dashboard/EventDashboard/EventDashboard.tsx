@@ -10,6 +10,7 @@ import { formatDateTime, formatTime } from "../../../../functions";
 import { BeatLoader, PacmanLoader } from "react-spinners";
 import { IoIosTime } from "react-icons/io";
 import { Player } from "./types";
+import { FiEdit2 } from "react-icons/fi";
 
 // Event Type Definition
 type EventType = {
@@ -125,18 +126,29 @@ const EventDashboard = () => {
               >
                 {"<"}
               </div>
-              <h1 className={styles.eventTitle}>{eventInfo?.name}</h1>
+              <h1
+                className={styles.eventTitle}
+                onClick={() => setIsEditNameModalOpen(true)}
+              >
+                {eventInfo?.name}
+                <FiEdit2 className={styles.editIcon} size={18} color="#fff" />
+              </h1>
             </div>
             <div
               className={`${styles.mmpConnectedPill} ${
                 eventInfo?.mmp_event_id ? styles.active : ""
               }`}
+              onClick={() => setIsEditMmpIdModalOpen(true)}
             >
               {eventInfo?.mmp_event_id ? (
-                <p className={styles.mmpConnectedText}>MMP Connected</p>
+                <p className={styles.mmpConnectedText}>makemypass connected</p>
               ) : (
-                <p className={styles.mmpNotConnectedText}>MMP Not Connected</p>
+                <p className={styles.mmpNotConnectedText}>
+                  makemypass not connected
+                </p>
               )}
+
+              <FiEdit2 className={styles.editIcon} size={12} color="#fff" />
             </div>
           </div>
           <div className={styles.eventDetails}>
@@ -183,89 +195,45 @@ const EventDashboard = () => {
             </button>
           </div>
 
-          <div className={styles.actionsContainer}>
-            <h2 className={styles.gridHeader}>Actions</h2>
-            <button
-              className={styles.editButton}
-              onClick={() => setIsEditNameModalOpen(true)}
-            >
-              Edit Event Name
-            </button>
-            <button
-              className={styles.editButton}
-              onClick={() => setIsEditMmpIdModalOpen(true)}
-            >
-              Edit MMP Event ID
-            </button>
-            <button
-              className={styles.editButton}
-              onClick={() => setIsEditGridModalOpen(true)}
-            >
-              Edit Grid
-            </button>
-            <button className={styles.editButton} onClick={generateRandomGrid}>
-              Generate Random Grid
-            </button>
-          </div>
           {/* Bingo Grid Section */}
 
           <div className={styles.gridContainer}>
-            <h2
-              className={styles.gridHeader}
-              style={{
-                color: "#FFD700",
-              }}
-            >
-              Bingo Grid
-            </h2>
-            <p className={styles.gridDescription}>
-              This is current Bingo grid for the event.
-            </p>
-            <div className={styles.grid}>
-              {eventInfo?.matrix.map((row, rowIndex) =>
-                row.map((cell, colIndex) => (
-                  <div
-                    key={`${rowIndex}-${colIndex}`}
-                    className={styles.gridCell}
-                  >
-                    {cell}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-
-          <div className={styles.playerRowContainer}>
-            {players.map((player, playerIndex) => (
-              <div key={playerIndex} className={styles.playerRow}>
-                <Link
-                  to={`/dashboard/${eventName}/leaderboard/${player.user_code}`}
-                  className={styles.nameLink}
+            <div className={styles.gridHeaderContainer}>
+              <div className={styles.gridHeaderTexts}>
+                <h2
+                  className={styles.gridHeader}
+                  style={{
+                    color: "#FFD700",
+                  }}
                 >
-                  {player.user_name || player.user_code}
-
-                  {player.completed_at && (
-                    <div className={styles.completedAtText}>
-                      <IoIosTime />
-                      <p>{formatDateTime(new Date(player.completed_at))}</p>
-                    </div>
-                  )}
-                </Link>
-
-                <div className={styles.bingoLetters}>
-                  {["B", "I", "N", "G", "O"].map((letter, letterIndex) => (
-                    <button
-                      key={letter}
-                      className={`${styles.letterButton} ${
-                        player.score[letterIndex] ? styles.strikethrough : ""
-                      }`}
-                    >
-                      {letter}
-                    </button>
-                  ))}
-                </div>
+                  Bingo Grid
+                </h2>
+                <p className={styles.gridDescription}>
+                  This is current Bingo grid for the event.
+                </p>
               </div>
-            ))}
+              <button
+                className={styles.editButton}
+                onClick={() => setIsEditGridModalOpen(true)}
+              >
+                Edit Grid
+              </button>
+            </div>
+
+            <div className={styles.centerGridContainer}>
+              <div className={styles.grid}>
+                {eventInfo?.matrix.map((row, rowIndex) =>
+                  row.map((cell, colIndex) => (
+                    <div
+                      key={`${rowIndex}-${colIndex}`}
+                      className={styles.gridCell}
+                    >
+                      {cell}
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Modals */}
@@ -275,6 +243,10 @@ const EventDashboard = () => {
               onClose={() => setIsEditNameModalOpen(false)}
             >
               <div className={styles.modalContent}>
+                <label className={styles.modalLabel}>Event Name</label>
+                <p className={styles.modalLabelDescription}>
+                  This name will be used in the urls and public links.
+                </p>
                 <input
                   type="text"
                   value={eventInfo?.name}
@@ -298,10 +270,15 @@ const EventDashboard = () => {
 
           {isEditMmpIdModalOpen && (
             <Modal
-              title="Edit MMP Event ID"
+              title="Connect MakeMyPass Event"
               onClose={() => setIsEditMmpIdModalOpen(false)}
             >
               <div className={styles.modalContent}>
+                <label className={styles.modalLabel}>MakeMyPass Event ID</label>
+                <p className={styles.modalLabelDescription}>
+                  Enter the MakeMyPass Event ID to connect the event and sync
+                  participants
+                </p>
                 <input
                   type="text"
                   value={eventInfo?.mmp_event_id || ""}
@@ -313,6 +290,11 @@ const EventDashboard = () => {
                   }
                   className={styles.modalInput}
                 />
+                <p className={styles.modalInputHelperText}>
+                  <span>Note:</span> Connecting to MakeMyPass will help
+                  auto-load the grid from checked-in participants and validate
+                  the players.
+                </p>
                 <button
                   className={styles.saveButton}
                   onClick={() => {
@@ -331,6 +313,12 @@ const EventDashboard = () => {
               title="Edit Bingo Grid"
               onClose={() => setIsEditGridModalOpen(false)}
             >
+              <label className={styles.modalLabel}>Bingo Grid (5x5, A-Z)</label>
+              <p className={styles.modalLabelDescription}>
+                Edit the Bingo grid for the event. You can also generate a
+                random grid.
+              </p>
+
               <div className={styles.modalContent}>
                 <div className={styles.grid}>
                   {eventInfo?.matrix.map((row, rowIndex) =>
@@ -348,15 +336,23 @@ const EventDashboard = () => {
                     ))
                   )}
                 </div>
-                <button
-                  className={styles.saveButton}
-                  onClick={() => {
-                    handleUpdate();
-                    setIsEditGridModalOpen(false);
-                  }}
-                >
-                  Save
-                </button>
+                <div className={styles.buttonsContainer}>
+                  <button
+                    className={styles.saveButton}
+                    onClick={() => {
+                      handleUpdate();
+                      setIsEditGridModalOpen(false);
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className={styles.editButton}
+                    onClick={generateRandomGrid}
+                  >
+                    Generate Random Grid
+                  </button>
+                </div>
               </div>
             </Modal>
           )}

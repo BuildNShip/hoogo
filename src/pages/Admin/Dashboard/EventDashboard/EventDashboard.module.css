@@ -114,10 +114,18 @@
   background-color: #ffc107;
 }
 
-.gridContainer {
+.centerGridContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -147,7 +155,15 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   white-space: nowrap;
-  min-width: 5rem
+  min-width: 5rem;
+}
+
+.gridHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .gridHeader {
@@ -214,6 +230,10 @@
   background-color: #2b2b2b;
   border-radius: 50px;
   margin-bottom: 0.5rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .mmpConnectedPill.active {
@@ -296,13 +316,12 @@
 .modalContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .modalInput {
   padding: 10px;
-  width: 100%;
-  max-width: 300px;
+  width: calc(100% - 20px);
   font-size: 1rem;
   margin-bottom: 1rem;
   border: 1.5px solid #444;
@@ -312,6 +331,38 @@
   outline: none;
 }
 
+.modalLabel {
+  font-size: 1rem;
+  color: #ffd700;
+}
+
+.modalLabelDescription {
+  font-size: 0.8rem;
+  color: #fff;
+  opacity: 0.7;
+  margin-bottom: 1rem;
+  margin-top: 0.25rem;
+  font-weight: 400;
+}
+
+.centerModalGrid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.modalInputHelperText {
+  font-size: 0.9rem;
+  color: #fff;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+
+  span {
+    color: #ffd700;
+  }
+}
 .modalInput:focus {
   border-color: #ffd700;
 }
@@ -332,94 +383,6 @@
   background-color: #ffc107;
 }
 
-.playerRowContainer {
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-right: 0.25rem;
-}
-
-.playerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 4px;
-  transition: transform 0.2s ease;
-  gap: 1rem;
-}
-
-.playerRow:hover {
-  transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.nameLink {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease;
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.nameLink:hover {
-  color: #ffd700;
-}
-
-.bingoLetters {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.letterButton {
-  width: 1.85rem;
-  height: 1.85rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  border: 1.5px solid #464646;
-  color: #616161;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border-radius: 3px;
-}
-
-.letterButton:hover {
-  border-color: rgba(255, 215, 0, 0.5);
-  color: rgba(255, 215, 0, 0.5);
-}
-
-.letterButton.strikethrough {
-  background-color: #ffd700;
-  border-color: #ffd700;
-  color: #252525;
-  transform: scale(0.95);
-}
-
-.completedAtText {
-  color: #fff;
-  font-size: 0.8rem;
-  opacity: 0.7;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.mainDashboardContent {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.editIcon {
+  margin-left: 0.5rem;
 }

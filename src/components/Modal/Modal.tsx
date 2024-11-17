@@ -5,9 +5,10 @@ interface ModalProps {
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-const Modal: React.FC<ModalProps> = ({ onClose, title, children }) => {
+const Modal: React.FC<ModalProps> = ({ onClose, title, children, style }) => {
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -24,7 +25,11 @@ const Modal: React.FC<ModalProps> = ({ onClose, title, children }) => {
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <div
+        className={styles.modalContent}
+        style={style}
+        onClick={(e) => e.stopPropagation()}
+      >
         {title && (
           <div className={styles.modalHeader}>
             <h2 className={styles.modalTitle}>{title}</h2>

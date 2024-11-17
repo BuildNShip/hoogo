@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./EventDashboard.module.css";
 import toast from "react-hot-toast";
 import { getEventInfo } from "../../../../apis/common";
-import { updateEvent } from "../../../../apis/admin";
+import { importGrid, updateEvent } from "../../../../apis/admin";
 import Modal from "../../../../components/Modal/Modal";
 import Footer from "../../../../components/Footer/Footer";
 import { formatDateTime, formatTime } from "../../../../functions";
@@ -32,7 +32,7 @@ const EventDashboard = () => {
   const [isQRLoaded, setIsQRLoaded] = useState(false);
   const [isdownloading, setIsDownloading] = useState(false);
 
-  const [players, setPlayers] = useState<Player[]>([]);
+
 
   const navigate = useNavigate();
 
@@ -40,32 +40,6 @@ const EventDashboard = () => {
   useEffect(() => {
     if (eventName) {
       getEventInfo(eventName, setEventInfo);
-      setPlayers([
-        {
-          user_code: "player1",
-          user_name: "John Doe",
-          completed_at: new Date(),
-          score: [true, false, true, false, true],
-        },
-        {
-          user_code: "player2",
-          user_name: "Jane Smith",
-          completed_at: null,
-          score: [false, true, false, true, false],
-        },
-        {
-          user_code: "player3",
-          user_name: "Alice",
-          completed_at: new Date(),
-          score: [true, true, true, true, true],
-        },
-        {
-          user_code: "player4",
-          user_name: "Bob",
-          completed_at: null,
-          score: [false, false, false, false, false],
-        },
-      ]);
     }
   }, [eventName]);
 
@@ -96,14 +70,14 @@ const EventDashboard = () => {
   };
 
   const generateRandomGrid = () => {
-    const newMatrix = Array(5)
-      .fill(null)
-      .map(() =>
-        Array(5)
-          .fill(null)
-          .map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26)))
-      );
-    setEventInfo({ ...eventInfo!, matrix: newMatrix });
+    // const newMatrix = Array(5)
+    //   .fill(null)
+    //   .map(() =>
+    //     Array(5)
+    //       .fill(null)
+    //       .map(() => String.fromCharCode(65 + Math.floor(Math.random() * 26)))
+    //   );
+    if (eventInfo?.name) importGrid(eventInfo?.name, setEventInfo);
   };
 
   const handleGridChange = (value: string, row: number, col: number) => {
@@ -141,14 +115,24 @@ const EventDashboard = () => {
               onClick={() => setIsEditMmpIdModalOpen(true)}
             >
               {eventInfo?.mmp_event_id ? (
-                <p className={styles.mmpConnectedText}>makemypass connected</p>
+                <p
+                  className={`${styles.mmpConnectedText} ${
+                    eventInfo?.mmp_event_id ? styles.active : ""
+                  }`}
+                >
+                  makemypass connected
+                </p>
               ) : (
                 <p className={styles.mmpNotConnectedText}>
                   makemypass not connected
                 </p>
               )}
 
-              <FiEdit2 className={styles.editIcon} size={12} color="#fff" />
+              <FiEdit2
+                className={styles.editIcon}
+                size={12}
+                color={eventInfo?.mmp_event_id ? "#252525" : "#fff"}
+              />
             </div>
           </div>
           <div className={styles.eventDetails}>

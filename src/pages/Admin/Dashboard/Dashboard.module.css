@@ -1,137 +1,138 @@
 .backgroundContainer {
-  background-color: #1d1d1d;
+    background-color: #1d1d1d;
 }
 
 .outerContainer {
-  max-width: 70rem;
-  width: 100%;
-  margin: 0 auto;
+    max-width: 70rem;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .dashboardContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 90vh;
-  background-color: #1d1d1d;
-  opacity: 1;
-  padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow-y: hidden;
+    background-color: #1d1d1d;
+    opacity: 1;
+    padding: 1rem;
 }
 
 .eventCard {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 300px;
-  width: calc(100% - 1rem);
-  background-color: #202020;
-  border-radius: 8px;
-  padding: 0.5rem;
-  color: white;
-  border: 1px solid #2f2f2f;
-  margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+    width: calc(100% - 1rem);
+    background-color: #202020;
+    border-radius: 8px;
+    padding: 0.5rem;
+    color: white;
+    border: 1px solid #2f2f2f;
+    margin-bottom: 0.5rem;
 }
 
 .pageHeader {
-  font-size: 1.25rem;
-  color: white;
-  font-weight: 600;
+    font-size: 1.25rem;
+    color: white;
+    font-weight: 600;
 
-  span {
-    color: #ffd700;
-  }
+    span {
+        color: #ffd700;
+    }
 }
 
 .pageDescription {
-  font-size: 0.9rem;
-  color: white;
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .eventName {
-  font-size: 1rem;
-  color: white;
-  font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
 }
 
 .createEventButton {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  font-weight: 600;
-  background-color: #252525;
-  font-size: 0.9rem;
-  color: #ffffff;
-  padding: 0.5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-weight: 600;
+    background-color: #252525;
+    font-size: 0.9rem;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
 }
 
 .createEventButton:hover {
-  background-color: #1d1d1d;
+    background-color: #1d1d1d;
 }
 
 @media only screen and (max-width: 600px) {
-  .eventCard {
-    width: calc(100% - 2rem);
-    padding: 1rem;
-  }
+    .eventCard {
+        width: calc(100% - 2rem);
+        padding: 1rem;
+    }
 }
 
 .eventCardContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  min-width: 10rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 10rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 0;
 }
 
 .inputGroup {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 1rem);
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 1rem);
 }
 
 .label {
-  margin-bottom: 0.3rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #ffd700;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #ffd700;
 }
 
 .eventInput {
-  padding: 8px;
-  font-size: 0.9rem;
-  border: 1.5px solid #444;
-  border-radius: 4px;
-  background-color: #2b2b2b;
-  color: #fff;
-  outline: none;
-  width: 100%;
+    padding: 8px;
+    font-size: 0.9rem;
+    border: 1.5px solid #444;
+    border-radius: 4px;
+    background-color: #2b2b2b;
+    color: #fff;
+    outline: none;
+    width: 100%;
 }
 
 .eventInput:focus {
-  border-color: #ffd700;
+    border-color: #ffd700;
 }
 
 .submitButton {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #252525;
-  background-color: #ffd700;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #252525;
+    background-color: #ffd700;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .submitButton:hover {
-  background-color: #ffc107;
+    background-color: #ffc107;
 }

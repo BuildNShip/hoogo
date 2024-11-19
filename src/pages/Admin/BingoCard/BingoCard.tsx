@@ -76,7 +76,7 @@ const BingoCard = () => {
         <>
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
-                    <Navbar />
+                    <Navbar showLogin={true} />
                     {isAuthenticated && (
                         <div className={styles.headerActions}>
                             <div

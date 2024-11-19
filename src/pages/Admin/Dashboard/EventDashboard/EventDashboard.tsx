@@ -39,7 +39,7 @@ const EventDashboard = () => {
     useEffect(() => {
         if (eventName) {
             getEventInfo(eventName, setEventInfo);
-            // listMmpEvents(setMmpEvents);
+            listMmpEvents(setMmpEvents);
         }
     }, [eventName]);
 
@@ -217,12 +217,7 @@ const EventDashboard = () => {
                             {/* Public Link Section */}
                             <div className={styles.publicLinkContainer}>
                                 <p className={styles.publicLink}>
-                                    {
-                                        new URL(
-                                            `/dashboard/${eventInfo?.name}`,
-                                            window.location.origin
-                                        ).href
-                                    }
+                                    {new URL(`/${eventInfo?.name}`, window.location.origin).href}
                                 </p>
                                 <button
                                     className={styles.generateQrButton}
@@ -231,10 +226,8 @@ const EventDashboard = () => {
                                             icon: "📋",
                                         }) &&
                                         navigator.clipboard.writeText(
-                                            new URL(
-                                                `/dashboard/${eventInfo?.name}`,
-                                                window.location.origin
-                                            ).href
+                                            new URL(`/${eventInfo?.name}`, window.location.origin)
+                                                .href
                                         )
                                     }
                                 >

@@ -91,10 +91,11 @@ const EventDashboard = () => {
         toast.success("Event name updated successfully!");
     };
 
-    const handleUpdateMmpId = () => {
+    const handleUpdateMmpId = (isRemove?: boolean) => {
         if (!eventInfo) return;
         const formData = new FormData();
-        formData.append("mmp_event_id", eventInfo?.mmp_event_id || "");
+        if (isRemove) formData.append("mmp_event_id", "null");
+        else formData.append("mmp_event_id", eventInfo?.mmp_event_id || "null");
         updateEvent(eventInfo?.id, formData);
         toast.success("MakeMyPass Event ID updated successfully!");
     };
@@ -103,10 +104,10 @@ const EventDashboard = () => {
         if (!eventInfo) return;
 
         const formData = new FormData();
-        if (uploadTemplates?.postTemplate) {
+        if (uploadTemplates?.postTemplate && typeof uploadTemplates.postTemplate !== "string") {
             formData.append("post_template", uploadTemplates.postTemplate);
         }
-        if (uploadTemplates?.storyTemplate) {
+        if (uploadTemplates?.storyTemplate && typeof uploadTemplates.storyTemplate !== "string") {
             formData.append("story_template", uploadTemplates.storyTemplate);
         }
 
@@ -359,6 +360,7 @@ const EventDashboard = () => {
                                     </p>
 
                                     <Select
+                                        isSearchable
                                         options={mmpEvents?.map((event) => ({
                                             value: event.event_id,
                                             label: event.event_name,
@@ -398,15 +400,27 @@ const EventDashboard = () => {
                                         auto-load the grid from checked-in participants and validate
                                         the players.
                                     </p>
-                                    <button
-                                        className={styles.saveButton}
-                                        onClick={() => {
-                                            handleUpdateMmpId();
-                                            setIsEditMmpIdModalOpen(false);
-                                        }}
-                                    >
-                                        Save ID
-                                    </button>
+                                    <div className={styles.confirmationButtonsContainer}>
+                                        <button
+                                            className={styles.saveButton}
+                                            onClick={() => {
+                                                handleUpdateMmpId();
+                                                setIsEditMmpIdModalOpen(false);
+                                            }}
+                                        >
+                                            Save ID
+                                        </button>
+                                        <button
+                                            className={styles.cancelButton}
+                                            onClick={() => {
+                                                setEventInfo({ ...eventInfo!, mmp_event_id: null });
+                                                handleUpdateMmpId(true);
+                                                setIsEditMmpIdModalOpen(false);
+                                            }}
+                                        >
+                                            Disconnect
+                                        </button>
+                                    </div>
                                 </div>
                             </Modal>
                         )}

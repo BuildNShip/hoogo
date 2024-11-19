@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./BingoCard.module.css";
 import { useEffect, useState, useRef } from "react";
-import { getBingoMatrix } from "../../../apis/common";
+import { getBingoMatrix, getEventInfo } from "../../../apis/common";
 import Footer from "../../../components/Footer/Footer";
 import Modal from "../../../components/Modal/Modal";
 import Navbar from "../../../components/Navbar/Navbar";
 import { BeatLoader } from "react-spinners";
 import { captureAndDownload, captureAndDownloadPost } from "./functions";
+import { EventType } from "../Dashboard/EventDashboard/types";
 
 interface BingoItem {
     name: string;
@@ -19,6 +20,7 @@ const BingoCard = () => {
     const dummyImageUrl = "/logoplace.png";
     const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
     const [selectedCell, setSelectedCell] = useState<BingoItem | null>(null);
+    const [eventInfo, setEventInfo] = useState<EventType | undefined>(undefined);
     const gridRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [storyTemplateImage, setStoryTemplateImage] = useState<HTMLImageElement | null>(null);
@@ -34,21 +36,22 @@ const BingoCard = () => {
     // Load the template image
     useEffect(() => {
         const img = new Image();
-        img.src = "/templates/elevateStoryTemplate.png"; // Adjust this path
+        img.src = eventInfo?.story_template || ""; // Adjust this path
         img.crossOrigin = "anonymous";
         img.onload = () => setStoryTemplateImage(img);
 
         const postImg = new Image();
-        postImg.src = "/templates/elevatePostTemplate.png"; // Adjust this path
+        postImg.src = eventInfo?.post_template || ""; // Adjust this path
         postImg.crossOrigin = "anonymous";
         postImg.onload = () => setPostTemplateImage(postImg);
-    }, []);
+    }, [eventInfo]);
 
     // Fetch Bingo Matrix
     useEffect(() => {
         getBingoMatrix(eventName, ticketCode, setIsLoading, true).then((data) => {
             setBingoAnswers(data.answer);
         });
+        if (eventName) getEventInfo(eventName, setEventInfo);
     }, [eventName, ticketCode]);
 
     const downloadPostImage = () => {

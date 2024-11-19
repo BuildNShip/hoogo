@@ -48,3 +48,8 @@
     scrollbar-width: thin;
     scrollbar-color: #84848437 #252525;
 }
+
+a {
+    text-decoration: none;
+    color: #ffff00;
+}

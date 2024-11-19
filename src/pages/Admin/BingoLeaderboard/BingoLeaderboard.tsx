@@ -11,6 +11,7 @@ interface Player {
     user_code: string;
     score: boolean[];
     completed_at: Date | null;
+    no_of_connections: number;
 }
 
 const BingoLeaderboard = () => {
@@ -50,7 +51,11 @@ const BingoLeaderboard = () => {
                     } else {
                         const aScore = a.score.filter(Boolean).length;
                         const bScore = b.score.filter(Boolean).length;
-                        return bScore - aScore;
+                        if (aScore !== bScore) {
+                            return bScore - aScore;
+                        } else {
+                            return b.no_of_connections - a.no_of_connections;
+                        }
                     }
                 });
             });
@@ -79,7 +84,7 @@ const BingoLeaderboard = () => {
                                 {players.map((player, playerIndex) => (
                                     <div key={playerIndex} className={styles.playerRow}>
                                         <Link
-                                            to={`/dashboard/${eventName}/hoogocard/${player.user_code}`}
+                                            to={`/${eventName}/${player.user_code}/hoogocard`}
                                             className={styles.nameLink}
                                         >
                                             {playerIndex + 1}

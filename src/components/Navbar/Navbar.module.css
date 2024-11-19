@@ -29,3 +29,27 @@
 .navbarCTAButton:hover {
     background-color: #ffdf00;
 }
+
+.buttonsContainer {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.navbarSecondaryCTA {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-weight: 600;
+    background-color: #252525;
+    font-size: 0.9rem;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+}
+
+.navbarSecondaryCTA:hover {
+    background-color: #333333;
+}
+
+.brandingImage {
+    margin-top: 0.25rem;
+    width: 10rem;
+}

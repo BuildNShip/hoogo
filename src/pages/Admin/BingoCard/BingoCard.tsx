@@ -4,9 +4,9 @@ import { useEffect, useState, useRef } from "react";
 import { getBingoMatrix } from "../../../apis/common";
 import Footer from "../../../components/Footer/Footer";
 import Modal from "../../../components/Modal/Modal";
-import html2canvas from "html2canvas";
 import Navbar from "../../../components/Navbar/Navbar";
 import { BeatLoader } from "react-spinners";
+import { captureAndDownload, captureAndDownloadPost } from "./functions";
 
 interface BingoItem {
     name: string;
@@ -48,91 +48,6 @@ const BingoCard = () => {
         });
     }, [eventName, ticketCode]);
 
-    // Capture the grid and overlay it on the template
-    const captureAndDownload = async () => {
-        setIsDownloading({ story: true, post: false });
-        if (gridRef.current && storyTemplateImage) {
-            try {
-                console.log(gridRef.current);
-                // Capture the grid as an image using html2canvas
-                const gridCanvas = await html2canvas(gridRef.current, {
-                    useCORS: true,
-                    allowTaint: false,
-                    backgroundColor: null,
-                    scale: 1,
-                });
-
-                const gridImage = gridCanvas.toDataURL("image/png");
-
-                // Draw the captured grid on the template
-                const canvas = canvasRef.current;
-                if (canvas) {
-                    const ctx = canvas.getContext("2d");
-                    if (ctx) {
-                        // Set canvas dimensions to match the template
-                        canvas.width = storyTemplateImage.width;
-                        canvas.height = storyTemplateImage.height;
-
-                        // Draw the template on the canvas
-                        ctx.drawImage(storyTemplateImage, 0, 0);
-
-                        // Overlay the grid onto the template
-                        const gridImgObj = new Image();
-                        gridImgObj.src = gridImage;
-                        gridImgObj.crossOrigin = "anonymous";
-                        gridImgObj.onload = () => {
-                            ctx.drawImage(gridImgObj, 85, 275, 583, 583); // Adjust positions as needed
-                            downloadImage(); // Automatically download after merging
-                        };
-                    }
-                }
-            } catch (error) {
-                console.error("Error capturing the grid:", error);
-            } finally {
-                setIsDownloading({ story: false, post: false });
-            }
-        }
-    };
-
-    const captureAndDownloadPost = async () => {
-        setIsDownloading({ story: false, post: true });
-        if (gridRef.current && postTemplateImage) {
-            try {
-                const gridCanvas = await html2canvas(gridRef.current, {
-                    useCORS: true,
-                    allowTaint: false,
-                    backgroundColor: null,
-                    scale: 1,
-                });
-
-                const gridImage = gridCanvas.toDataURL("image/png");
-
-                const canvas = canvasRef.current;
-                if (canvas) {
-                    const ctx = canvas.getContext("2d");
-                    if (ctx) {
-                        canvas.width = postTemplateImage.width;
-                        canvas.height = postTemplateImage.height;
-
-                        ctx.drawImage(postTemplateImage, 0, 0);
-
-                        const gridImgObj = new Image();
-                        gridImgObj.src = gridImage;
-                        gridImgObj.crossOrigin = "anonymous";
-                        gridImgObj.onload = () => {
-                            ctx.drawImage(gridImgObj, 75, 230, 350, 350);
-                            downloadPostImage();
-                        };
-                    }
-                }
-            } catch (error) {
-                console.error("Error capturing the grid:", error);
-            } finally {
-                setIsDownloading({ story: false, post: false });
-            }
-        }
-    };
-
     const downloadPostImage = () => {
         if (canvasRef.current) {
             const link = document.createElement("a");
@@ -142,7 +57,6 @@ const BingoCard = () => {
         }
     };
 
-    // Download the final merged image
     const downloadImage = () => {
         if (canvasRef.current) {
             const link = document.createElement("a");
@@ -208,7 +122,6 @@ const BingoCard = () => {
                             ))}
                         </div>
 
-                        {/* Hidden Canvas for Merging Images */}
                         <canvas
                             ref={canvasRef}
                             style={{
@@ -216,9 +129,41 @@ const BingoCard = () => {
                             }}
                         />
 
+                        <p className={styles.tagHelper}>
+                            Don't forget to tag us{" "}
+                            <a
+                                href="https://www.instagram.com/makemypass/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <span>@makemypass</span>
+                            </a>{" "}
+                            and{" "}
+                            <a
+                                href="https://www.instagram.com/life.at.reflections/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <span>@life.at.reflections</span>
+                            </a>
+                        </p>
+                        <p className={styles.viewDescription}>
+                            Click on the images to view your description about them.
+                        </p>
                         <div className={styles.buttonsContainer}>
                             {/* Buttons for Capturing and Downloading */}
-                            <button onClick={captureAndDownload} className={styles.captureButton}>
+                            <button
+                                onClick={() => {
+                                    captureAndDownload({
+                                        setIsDownloading,
+                                        gridRef,
+                                        storyTemplateImage,
+                                        canvasRef,
+                                        downloadImage,
+                                    });
+                                }}
+                                className={styles.captureButton}
+                            >
                                 {isDownloading.story ? (
                                     <BeatLoader color="#252525" size={8} />
                                 ) : (
@@ -227,7 +172,15 @@ const BingoCard = () => {
                             </button>
 
                             <button
-                                onClick={captureAndDownloadPost}
+                                onClick={() => {
+                                    captureAndDownloadPost({
+                                        setIsDownloading,
+                                        gridRef,
+                                        postTemplateImage,
+                                        canvasRef,
+                                        downloadPostImage,
+                                    });
+                                }}
                                 className={styles.captureButton}
                             >
                                 {isDownloading.post ? (

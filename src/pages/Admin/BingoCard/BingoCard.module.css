@@ -41,7 +41,7 @@
     overflow: hidden;
     border-radius: 4px;
     transition: transform 0.3s ease;
-
+    cursor: pointer;
     height: auto;
     width: 200px;
     margin: 0 auto;
@@ -50,6 +50,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    background-color: #ffd700;
     img {
         width: 100%;
     }
@@ -201,4 +202,22 @@
     gap: 0.25rem;
     margin-top: 1rem;
     flex-wrap: wrap;
+}
+
+.tagHelper {
+    color: #fff;
+    font-size: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+
+    span {
+        color: #ffd700;
+    }
+}
+
+.viewDescription {
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+    opacity: 0.7;
 }

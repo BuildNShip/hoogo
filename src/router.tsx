@@ -32,6 +32,10 @@ const routes: RouteObject[] = [
         element: <BingoGrid />,
     },
     {
+        path: "/:eventName/:ticketCode/hoogocard/",
+        element: <BingoCard />,
+    },
+    {
         path: "/",
         element: <AuthCheck />,
         children: [
@@ -44,25 +48,13 @@ const routes: RouteObject[] = [
                 path: "/dashboard/:eventName/leaderboard",
                 element: <WinnerPage />,
             },
-            {
-                path: "/dashboard/:eventName/hoogocard/:ticketCode",
-                element: <BingoCard />,
-            },
+
             {
                 path: "/dashboard/:eventName/",
                 element: <EventDashboard />,
             },
         ],
     },
-
-    // {
-    //   path: "/user/dashboard/create",
-    //   element: <CreateEvent />,
-    // },
-    // {
-    //   path: "/user/dashboard/edit/:eventName",
-    //   element: <EditEvent />,
-    // },
 ];
 
 const router = createBrowserRouter(routes);

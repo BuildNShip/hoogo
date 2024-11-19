@@ -3,29 +3,44 @@ import styles from "./Navbar.module.css";
 import { CreateEventTypes } from "../../pages/Admin/Dashboard/types";
 
 const Navbar = ({
-  setCreateEvent,
+    setCreateEvent,
 }: {
-  setCreateEvent?: React.Dispatch<
-    React.SetStateAction<CreateEventTypes | undefined>
-  >;
+    setCreateEvent?: React.Dispatch<React.SetStateAction<CreateEventTypes | undefined>>;
 }) => {
-  const navigate = useNavigate();
-  return (
-    <>
-      <div className={styles.navbarContainer}>
-        <p className={styles.navbarBrandingText}>Hoogo</p>
-        <button
-          className={styles.navbarCTAButton}
-          onClick={() => {
-            if (setCreateEvent) setCreateEvent({ name: "", showModal: true });
-            else navigate("/login");
-          }}
-        >
-          Create Hoogo
-        </button>
-      </div>
-    </>
-  );
+    const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("accessToken");
+    return (
+        <>
+            <div className={styles.navbarContainer}>
+                <p className={styles.navbarBrandingText}>
+                    <img src="/hoogologo.png" alt="" className={styles.brandingImage} />
+                </p>
+                <div className={styles.buttonsContainer}>
+                    <button
+                        className={styles.navbarCTAButton}
+                        onClick={() => {
+                            if (setCreateEvent) setCreateEvent({ name: "", showModal: true });
+                            else navigate("/login");
+                        }}
+                    >
+                        {isAuthenticated ? "Create Event" : "Login"}
+                    </button>
+
+                    {isAuthenticated && (
+                        <button
+                            className={styles.navbarSecondaryCTA}
+                            onClick={() => {
+                                localStorage.clear();
+                                navigate("/login");
+                            }}
+                        >
+                            Logout
+                        </button>
+                    )}
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default Navbar;

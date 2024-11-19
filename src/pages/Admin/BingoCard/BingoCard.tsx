@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./BingoCard.module.css";
 import { useEffect, useState, useRef } from "react";
 import { getBingoMatrix } from "../../../apis/common";
@@ -28,6 +28,8 @@ const BingoCard = () => {
         post: false,
     });
 
+    const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("accessToken");
     // Load the template image
     useEffect(() => {
         const img = new Image();
@@ -71,6 +73,19 @@ const BingoCard = () => {
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
                     <Navbar />
+                    {isAuthenticated && (
+                        <div className={styles.headerActions}>
+                            <div
+                                className={styles.gobackButton}
+                                onClick={() => {
+                                    navigate(`/dashboard/${eventName}/leaderboard/`);
+                                }}
+                            >
+                                {"<"}
+                            </div>
+                            <h1 className={styles.eventTitle}>{eventName}</h1>
+                        </div>
+                    )}
                     <div className={styles.container}>
                         {selectedCell && (
                             <Modal onClose={() => setSelectedCell(null)} title="Bingo Card">

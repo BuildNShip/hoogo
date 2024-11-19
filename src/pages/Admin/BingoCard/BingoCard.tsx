@@ -5,6 +5,7 @@ import { getBingoMatrix } from "../../../apis/common";
 import Footer from "../../../components/Footer/Footer";
 import Modal from "../../../components/Modal/Modal";
 import html2canvas from "html2canvas";
+import Navbar from "../../../components/Navbar/Navbar";
 
 interface BingoItem {
     name: string;
@@ -60,7 +61,7 @@ const BingoCard = () => {
                     useCORS: true,
                     allowTaint: false,
                     backgroundColor: null,
-                    scale: 2,
+                    scale: 1,
                 });
 
                 const gridImage = gridCanvas.toDataURL("image/png");
@@ -82,7 +83,7 @@ const BingoCard = () => {
                         gridImgObj.src = gridImage;
                         gridImgObj.crossOrigin = "anonymous";
                         gridImgObj.onload = () => {
-                            ctx.drawImage(gridImgObj, 70, 160, 660, 660); // Adjust positions as needed
+                            ctx.drawImage(gridImgObj, 70, 265, 620, 583); // Adjust positions as needed
                             downloadImage(); // Automatically download after merging
                         };
                     }
@@ -104,69 +105,73 @@ const BingoCard = () => {
     };
 
     return (
-        <div className={styles.container}>
-            {selectedCell && (
-                <Modal onClose={() => setSelectedCell(null)} title="Bingo Card">
-                    <div className={styles.personContainer}>
-                        <div className={styles.floatingContainer}>
-                            <div className={styles.floatingText}>
-                                <p className={styles.personDescriptionHeader}>
-                                    About <span>{selectedCell.name}</span>
-                                </p>
-                                <div className={styles.personDescription}>
-                                    <div className={styles.personImageContainer}>
-                                        <img
-                                            className={styles.personImage}
-                                            src={selectedCell.image}
-                                            alt={selectedCell.name}
-                                        />
+        <>
+            <div className={styles.backgroundContainer}>
+                <div className={styles.outerContainer}>
+                    <Navbar />
+                    <div className={styles.container}>
+                        {selectedCell && (
+                            <Modal onClose={() => setSelectedCell(null)} title="Bingo Card">
+                                <div className={styles.personContainer}>
+                                    <div className={styles.floatingContainer}>
+                                        <div className={styles.floatingText}>
+                                            <p className={styles.personDescriptionHeader}>
+                                                About <span>{selectedCell.name}</span>
+                                            </p>
+                                            <div className={styles.personDescription}>
+                                                <div className={styles.personImageContainer}>
+                                                    <img
+                                                        className={styles.personImage}
+                                                        src={selectedCell.image}
+                                                        alt={selectedCell.name}
+                                                    />
+                                                </div>
+                                                {selectedCell.liner}
+                                            </div>
+                                        </div>
                                     </div>
-                                    {selectedCell.liner}
+                                    <button
+                                        className={styles.backButton}
+                                        onClick={() => setSelectedCell(null)}
+                                    >
+                                        Back
+                                    </button>
                                 </div>
-                            </div>
+                            </Modal>
+                        )}
+
+                        <div ref={gridRef} className={styles.grid}>
+                            {bingoAnswers.map((row, rowIndex) => (
+                                <div key={rowIndex} className={styles.row}>
+                                    {row.map((cell, cellIndex) => (
+                                        <div
+                                            key={cellIndex}
+                                            className={styles.cell}
+                                            onClick={() => cell.image && setSelectedCell(cell)}
+                                        >
+                                            <img
+                                                src={cell.image ? cell.image : dummyImageUrl}
+                                                alt={cell.name}
+                                                className={styles.image}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
                         </div>
-                        <button className={styles.backButton} onClick={() => setSelectedCell(null)}>
-                            Back
+
+                        {/* Hidden Canvas for Merging Images */}
+                        <canvas ref={canvasRef} />
+
+                        {/* Buttons for Capturing and Downloading */}
+                        <button onClick={captureAndDownload} className={styles.captureButton}>
+                            Capture & Merge
                         </button>
                     </div>
-                </Modal>
-            )}
-
-            {/* Bingo Card Grid */}
-            <p className={styles.playerName}>{ticketCode}'s BINGO Card for Elevate'24</p>
-            <div ref={gridRef} className={styles.grid}>
-                {bingoAnswers.map((row, rowIndex) => (
-                    <div key={rowIndex} className={styles.row}>
-                        {row.map((cell, cellIndex) => (
-                            <div
-                                key={cellIndex}
-                                className={styles.cell}
-                                onClick={() => cell.image && setSelectedCell(cell)}
-                            >
-                                <img
-                                    src={cell.image ? cell.image : dummyImageUrl}
-                                    alt={cell.name}
-                                    className={styles.image}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                    <Footer />
+                </div>
             </div>
-
-            {/* Hidden Canvas for Merging Images */}
-            <canvas ref={canvasRef} style={{ display: "none" }} />
-
-            {/* Buttons for Capturing and Downloading */}
-            <button onClick={captureAndDownload} className={styles.captureButton}>
-                Capture & Merge
-            </button>
-            <button onClick={downloadImage} className={styles.downloadButton}>
-                Download Bingo Card
-            </button>
-
-            <Footer />
-        </div>
+        </>
     );
 };
 

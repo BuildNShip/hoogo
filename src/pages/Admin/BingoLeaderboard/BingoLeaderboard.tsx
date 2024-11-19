@@ -24,29 +24,21 @@ const BingoLeaderboard = () => {
         socket.onmessage = (event) => {
             const updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
 
-            if (Array.isArray(updatedPlayer)) {
-                setPlayers(updatedPlayer);
-            } else {
-                setPlayers((prevPlayers) => {
-                    const playerAlreadyExists = prevPlayers.some(
-                        (player) => player.user_name === updatedPlayer.user_name
-                    );
-
-                    if (playerAlreadyExists)
-                        return prevPlayers.map((player) => {
-                            if (player.user_name === updatedPlayer.user_name) {
-                                return updatedPlayer;
-                            }
-                            return player;
-                        });
-                    else {
-                        return [...prevPlayers, updatedPlayer];
-                    }
-                });
-            }
-
             setPlayers((prevPlayers) => {
-                return [...prevPlayers].sort((a, b) => {
+                let newPlayers = Array.isArray(updatedPlayer)
+                    ? updatedPlayer
+                    : prevPlayers.map((player) =>
+                          player.user_name === updatedPlayer.user_name ? updatedPlayer : player
+                      );
+
+                if (
+                    !Array.isArray(updatedPlayer) &&
+                    !prevPlayers.some((player) => player.user_name === updatedPlayer.user_name)
+                ) {
+                    newPlayers = [...prevPlayers, updatedPlayer];
+                }
+
+                return newPlayers.sort((a, b) => {
                     if (a.completed_at && b.completed_at) {
                         return (
                             new Date(a.completed_at).getTime() - new Date(b.completed_at).getTime()
@@ -87,7 +79,7 @@ const BingoLeaderboard = () => {
                                 {players.map((player, playerIndex) => (
                                     <div key={playerIndex} className={styles.playerRow}>
                                         <Link
-                                            to={`/dashboard/${eventName}/leaderboard/${player.user_code}`}
+                                            to={`/dashboard/${eventName}/hoogocard/${player.user_code}`}
                                             className={styles.nameLink}
                                         >
                                             {playerIndex + 1}

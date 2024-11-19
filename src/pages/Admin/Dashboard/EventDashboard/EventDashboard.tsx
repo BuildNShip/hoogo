@@ -191,7 +191,7 @@ const EventDashboard = () => {
                                         <h2
                                             className={styles.gridHeader}
                                             style={{
-                                                color: "#FFD700",
+                                                color: "#1ED45E",
                                             }}
                                         >
                                             Bingo Grid
@@ -384,7 +384,7 @@ const EventDashboard = () => {
                                         style={{ display: isQRLoaded ? "none" : "flex" }}
                                     >
                                         <PacmanLoader
-                                            color="#FFD700"
+                                            color="#1ED45E"
                                             size={25}
                                             className={styles.pacmanLoader}
                                         />

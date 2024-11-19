@@ -44,7 +44,7 @@
 
 .eventTitle {
     font-size: 1.5rem;
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .backButton {
@@ -70,7 +70,7 @@
     margin-bottom: 1.5rem;
     color: #ffffffd5;
     strong {
-        color: #ffd700;
+        color: #1ed45e;
         margin-bottom: 0.5rem;
     }
 }
@@ -97,7 +97,7 @@
 .copyButton {
     padding: 6px 12px;
     font-size: 0.9rem;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #252525;
     border: none;
     border-radius: 4px;
@@ -109,7 +109,7 @@
 .generateQrButton {
     padding: 6px 12px;
     font-size: 0.9rem;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #252525;
     border: none;
     border-radius: 4px;
@@ -148,7 +148,7 @@
         width: 100%;
         max-width: 300px;
         height: auto;
-        border: 3px solid #ffd700;
+        border: 3px solid #1ed45e;
     }
 }
 
@@ -156,7 +156,7 @@
     padding: 6px 12px;
     font-size: 0.9rem;
     font-weight: bold;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #252525;
     border: none;
     border-radius: 4px;
@@ -217,7 +217,7 @@
     padding: 6px 12px;
     font-size: 0.9rem;
     font-weight: bold;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #252525;
     border: none;
     border-radius: 4px;
@@ -235,7 +235,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    color: #ffd700;
+    color: #1ed45e;
     background-color: #2b2b2b;
     border: 1.5px solid #444;
     border-radius: 4px;
@@ -246,7 +246,7 @@
     height: 45px;
     text-align: center;
     font-size: 1.2rem;
-    color: #ffd700;
+    color: #1ed45e;
     background-color: #2b2b2b;
     border: 1.5px solid #444;
     border-radius: 4px;
@@ -268,13 +268,13 @@
 }
 
 .mmpConnectedPill.active {
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #1d1d1d;
     font-weight: bold;
 }
 
 .mmpConnectedText {
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .mmpConnectedText.active {
@@ -301,18 +301,18 @@
 }
 
 .loaderText {
-    color: #ffd700;
+    color: #1ed45e;
     font-size: 0.9rem;
 }
 
 .gridInput:focus {
-    border-color: #ffd700;
+    border-color: #1ed45e;
 }
 
 .generateButton {
     padding: 10px 20px;
     font-size: 1rem;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #252525;
     border: none;
     border-radius: 4px;
@@ -384,7 +384,7 @@
 
 .modalLabel {
     font-size: 1rem;
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .modalLabelDescription {
@@ -412,18 +412,18 @@
     margin-bottom: 1rem;
 
     span {
-        color: #ffd700;
+        color: #1ed45e;
     }
 }
 .modalInput:focus {
-    border-color: #ffd700;
+    border-color: #1ed45e;
 }
 
 .saveButton {
     padding: 8px 16px;
     font-size: 1rem;
     font-weight: bold;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     color: #252525;
     border: none;
     border-radius: 4px;

@@ -76,7 +76,7 @@
 
 .inputFieldLabel {
     font-size: 1rem;
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .inputFieldDescription {
@@ -132,7 +132,7 @@
 }
 
 .pageHeaderText span {
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .errorText {

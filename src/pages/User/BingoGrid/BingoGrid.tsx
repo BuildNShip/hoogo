@@ -37,7 +37,7 @@ const BingoGrid = () => {
                     <>
                         <div className={styles.loaderContainer}>
                             <PacmanLoader
-                                color="#ffd700"
+                                color="#1ED45E"
                                 loading
                                 size={25}
                                 aria-label="Loading Spinner"

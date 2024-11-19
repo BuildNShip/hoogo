@@ -50,7 +50,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     img {
         width: 100%;
     }
@@ -58,7 +58,7 @@
 
 .cell:hover {
     transform: scale(1.02);
-    border-color: #ffd700;
+    border-color: #1ed45e;
 }
 
 .cell:hover .image {
@@ -167,7 +167,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     font-weight: 600;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     font-size: 1rem;
     color: #252525;
     margin-top: 0;
@@ -187,7 +187,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     font-weight: 600;
-    background-color: #ffd700;
+    background-color: #1ed45e;
     font-size: 1rem;
     color: #252525;
     margin-top: 0;
@@ -211,7 +211,7 @@
     text-align: center;
 
     span {
-        color: #ffd700;
+        color: #1ed45e;
     }
 }
 
@@ -233,7 +233,7 @@
 
 .eventTitle {
     font-size: 1.5rem;
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .gobackButton {
@@ -259,7 +259,7 @@
     margin-bottom: 1.5rem;
     color: #ffffffd5;
     strong {
-        color: #ffd700;
+        color: #1ed45e;
         margin-bottom: 0.5rem;
     }
 }

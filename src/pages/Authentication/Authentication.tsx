@@ -188,7 +188,7 @@ const Authentication = () => {
                                     {isLoading ? (
                                         <div className={styles.loaderContainer}>
                                             <BeatLoader
-                                                color="#ffd700"
+                                                color="#1ED45E"
                                                 loading
                                                 size={8}
                                                 aria-label="Loading Spinner"

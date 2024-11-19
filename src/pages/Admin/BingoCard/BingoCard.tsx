@@ -27,6 +27,7 @@ const BingoCard = () => {
         story: false,
         post: false,
     });
+    const [isLoading, setIsLoading] = useState(true);
 
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("accessToken");
@@ -45,7 +46,7 @@ const BingoCard = () => {
 
     // Fetch Bingo Matrix
     useEffect(() => {
-        getBingoMatrix(eventName, ticketCode).then((data) => {
+        getBingoMatrix(eventName, ticketCode, setIsLoading, false).then((data) => {
             setBingoAnswers(data.answer);
         });
     }, [eventName, ticketCode]);

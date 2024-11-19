@@ -25,7 +25,7 @@
 }
 
 .title {
-    color: #ffd700;
+    color: #1ed45e;
     font-size: 1.75rem;
     line-height: 1.4;
     margin-bottom: 3rem;
@@ -63,7 +63,7 @@
 }
 
 .nameLink:hover {
-    color: #ffd700;
+    color: #1ed45e;
 }
 
 .bingoLetters {
@@ -92,15 +92,15 @@
 }
 
 .letterButton.strikethrough {
-    background-color: #ffd700;
-    border-color: #ffd700;
+    background-color: #1ed45e;
+    border-color: #1ed45e;
     color: #252525;
     transform: scale(0.95);
 }
 
 .footer {
     margin-top: 2.5rem;
-    color: #ffd700;
+    color: #1ed45e;
     font-size: 0.8rem;
     text-align: center;
     opacity: 0.7;
@@ -142,7 +142,7 @@
 }
 
 .leaderboardHeadingText {
-    color: #ffd700;
+    color: #1ed45e;
     font-size: 1.9rem;
     line-height: 1.4;
     font-weight: bold;
@@ -178,7 +178,7 @@
     opacity: 0.7;
 
     span {
-        color: #ffd700;
+        color: #1ed45e;
     }
 }
 

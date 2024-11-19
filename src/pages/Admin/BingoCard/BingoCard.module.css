@@ -190,3 +190,11 @@
     margin-top: 1rem;
     min-width: 15rem;
 }
+
+.buttonsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}

@@ -107,6 +107,7 @@ const BingoCard = () => {
             }
         }
     };
+
     const captureAndDownloadPost = async () => {
         setIsDownloading({ story: false, post: true });
         if (gridRef.current && postTemplateImage) {
@@ -246,22 +247,27 @@ const BingoCard = () => {
                             }}
                         />
 
-                        {/* Buttons for Capturing and Downloading */}
-                        <button onClick={captureAndDownload} className={styles.captureButton}>
-                            {isDownloading.story ? (
-                                <BeatLoader color="#252525" size={8} />
-                            ) : (
-                                "Download Story Card"
-                            )}
-                        </button>
+                        <div className={styles.buttonsContainer}>
+                            {/* Buttons for Capturing and Downloading */}
+                            <button onClick={captureAndDownload} className={styles.captureButton}>
+                                {isDownloading.story ? (
+                                    <BeatLoader color="#252525" size={8} />
+                                ) : (
+                                    "Download Story Card"
+                                )}
+                            </button>
 
-                        <button onClick={captureAndDownloadPost} className={styles.captureButton}>
-                            {isDownloading.post ? (
-                                <BeatLoader color="#252525" size={8} />
-                            ) : (
-                                "Download Post Card"
-                            )}
-                        </button>
+                            <button
+                                onClick={captureAndDownloadPost}
+                                className={styles.captureButton}
+                            >
+                                {isDownloading.post ? (
+                                    <BeatLoader color="#252525" size={8} />
+                                ) : (
+                                    "Download Post Card"
+                                )}
+                            </button>
+                        </div>
                     </div>
                     <Footer />
                 </div>

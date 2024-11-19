@@ -556,3 +556,35 @@
 .fileInput::-webkit-file-upload-button:hover {
     background-color: #84848444;
 }
+
+.confirmationModalLabel {
+    font-size: 1.1rem;
+    color: #1ed45e;
+}
+
+.confirmationModalDescription {
+    font-size: 0.9rem;
+    color: #fff;
+    opacity: 0.7;
+    margin-bottom: 1rem;
+    margin-top: 0.25rem;
+    font-weight: 400;
+    max-width: 20rem;
+}
+
+.cancelButton {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-weight: 600;
+    background-color: #252525;
+    font-size: 0.9rem;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+}
+
+.confirmationButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+}

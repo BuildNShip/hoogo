@@ -33,7 +33,7 @@ export const updateEvent = (eventId: string, formData: FormData): Promise<void> 
                     "Content-Type": "multipart/form-data",
                 },
             })
-            .then((response) => {
+            .then(() => {
                 resolve();
             })
             .catch((error) => {

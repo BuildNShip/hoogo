@@ -24,6 +24,8 @@ const EventDashboard = () => {
     const [isQRLoaded, setIsQRLoaded] = useState(false);
     const [isdownloading, setIsDownloading] = useState(false);
 
+    const [updateGridConfirmation, setUpdateGridConfirmation] = useState(false);
+
     const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>();
 
     const navigate = useNavigate();
@@ -65,13 +67,6 @@ const EventDashboard = () => {
             setIsDownloading(false);
         }
     };
-
-    // const handleUpdate = () => {
-    //     if (!eventInfo) return;
-
-    //     updateEvent(eventInfo?.id, eventInfo?.matrix, eventInfo?.mmp_event_id);
-    //     toast.success("Event updated successfully!");
-    // };
 
     const handleUpdateName = () => {
         if (!eventInfo) return;
@@ -120,6 +115,7 @@ const EventDashboard = () => {
             updateEvent(eventInfo?.id, formData).then(() => {
                 getEventInfo(eventInfo?.name, setEventInfo);
                 setIsEditGridModalOpen(false);
+                setUpdateGridConfirmation(false);
             });
         }
     };
@@ -433,7 +429,7 @@ const EventDashboard = () => {
                                         <button
                                             className={styles.saveButton}
                                             onClick={() => {
-                                                handleMatrixUpdate();
+                                                setUpdateGridConfirmation(true);
                                             }}
                                         >
                                             Save Grid
@@ -643,6 +639,34 @@ const EventDashboard = () => {
                                     >
                                         Submit
                                     </button>
+                                </div>
+                            </Modal>
+                        )}
+
+                        {updateGridConfirmation && (
+                            <Modal
+                                title="Confirmation"
+                                onClose={() => setUpdateGridConfirmation(false)}
+                            >
+                                <div className={styles.modalContent}>
+                                    <label className={styles.confirmationModalLabel}>
+                                        Update Confirmation
+                                    </label>
+                                    <p className={styles.confirmationModalDescription}>
+                                        Are you sure you want to update the grid? This action cannot
+                                        be undone.
+                                    </p>
+                                    <div className={styles.confirmationButtonsContainer}>
+                                        <button
+                                            className={styles.saveButton}
+                                            onClick={() => {
+                                                handleMatrixUpdate();
+                                            }}
+                                        >
+                                            Confirm
+                                        </button>
+                                        <button className={styles.cancelButton}>Cancel</button>
+                                    </div>
                                 </div>
                             </Modal>
                         )}

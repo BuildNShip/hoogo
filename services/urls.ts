@@ -23,7 +23,7 @@ export const commonUrls = {
 
 export const websocketUrls = {
     bingoLeaderboard: (eventName: string) =>
-        `wss:/dev-api.buildnship.in/hoogo/manage-game/${eventName}/leaderboard/`,
+        `${import.meta.env.VITE_WS_URL}/hoogo/manage-game/${eventName}/leaderboard/`,
 };
 
 export const buildVerse = {

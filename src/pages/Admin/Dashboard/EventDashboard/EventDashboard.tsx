@@ -217,8 +217,10 @@ const EventDashboard = () => {
                             <div className={styles.publicLinkContainer}>
                                 <p className={styles.publicLink}>
                                     {
-                                        new URL(`https://hoogo.makemypass.com/${eventInfo?.name}`)
-                                            .href
+                                        new URL(
+                                            `/dashboard/${eventInfo?.name}`,
+                                            window.location.origin
+                                        ).href
                                     }
                                 </p>
                                 <button
@@ -229,7 +231,8 @@ const EventDashboard = () => {
                                         }) &&
                                         navigator.clipboard.writeText(
                                             new URL(
-                                                `https://hoogo.makemypass.com/${eventInfo?.name}`
+                                                `/dashboard/${eventInfo?.name}`,
+                                                window.location.origin
                                             ).href
                                         )
                                     }

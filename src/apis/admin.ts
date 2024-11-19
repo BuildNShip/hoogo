@@ -6,23 +6,18 @@ import { EventType } from "../pages/User/StartGame/types";
 import { Dispatch, SetStateAction } from "react";
 
 export const createNewEvent = (name: string, navigate: NavigateFunction) => {
-    toast.promise(
-        privateGateway
-            .post(commonUrls.createEvent, {
-                name,
-            })
-            .then(() => {
-                navigate(`/${name}`);
-            })
-            .catch((error) => {
-                console.error(error);
-            }),
-        {
-            loading: "Creating event...",
-            success: "Event created successfully",
-            error: "Failed to create event",
-        }
-    );
+    privateGateway
+        .post(commonUrls.createEvent, {
+            name,
+        })
+        .then(() => {
+            toast.success("Event created successfully");
+            navigate(`/${name}`);
+        })
+        .catch((error) => {
+            console.error(error);
+            toast.error("Failed to create event");
+        });
 };
 
 export const updateEvent = (eventId: string, formData: FormData): Promise<void> => {

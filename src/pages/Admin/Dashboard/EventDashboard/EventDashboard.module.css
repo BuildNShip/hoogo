@@ -1,11 +1,5 @@
 .backgroundContainer {
     background-color: #1d1d1d;
-    min-height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .outerContainer {
@@ -19,7 +13,8 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 2rem;
+    min-height: calc(100vh - 7rem);
+    padding: 1rem;
     background-color: #1d1d1d;
     color: #fff;
 }
@@ -30,6 +25,14 @@
     justify-content: space-between;
     width: 100%;
     margin-bottom: 1rem;
+}
+
+.dashboardMainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .headerActions {

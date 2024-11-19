@@ -13,7 +13,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    min-height: 100vh;
+
+    min-height: calc(100vh - 7rem);
     overflow-y: hidden;
     background-color: #1d1d1d;
     opacity: 1;

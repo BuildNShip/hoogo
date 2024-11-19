@@ -12,10 +12,11 @@ import { BeatLoader, PacmanLoader } from "react-spinners";
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../../../../components/Navbar/Navbar";
 import { EventType, MMPEventListType, TemplateUploadType } from "./types";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdOutlineContentCopy } from "react-icons/md";
 import Select from "react-select";
 import customReactSelectStyles from "./common";
 import { listMmpEvents } from "../../../../apis/user";
+import { BsQrCodeScan } from "react-icons/bs";
 
 const EventDashboard = () => {
     const { eventName } = useParams<{ eventName: string }>();
@@ -38,7 +39,7 @@ const EventDashboard = () => {
     useEffect(() => {
         if (eventName) {
             getEventInfo(eventName, setEventInfo);
-            listMmpEvents(setMmpEvents);
+            // listMmpEvents(setMmpEvents);
         }
     }, [eventName]);
 
@@ -224,7 +225,7 @@ const EventDashboard = () => {
                                     }
                                 </p>
                                 <button
-                                    className={styles.copyButton}
+                                    className={styles.generateQrButton}
                                     onClick={() =>
                                         toast.success("Link copied to clipboard", {
                                             icon: "📋",
@@ -237,7 +238,8 @@ const EventDashboard = () => {
                                         )
                                     }
                                 >
-                                    Copy
+                                    <MdOutlineContentCopy size={18} color="#1d1d1d" />
+                                    <span className={styles.qrText}>Copy</span>
                                 </button>
                                 <button
                                     className={styles.generateQrButton}
@@ -246,7 +248,8 @@ const EventDashboard = () => {
                                         setIsQRLoaded(false);
                                     }}
                                 >
-                                    QR Code
+                                    <BsQrCodeScan size={18} color="#1d1d1d" />
+                                    <span className={styles.qrText}>Generate QR</span>
                                 </button>
                             </div>
 
@@ -356,74 +359,104 @@ const EventDashboard = () => {
                                 onClose={() => setIsEditMmpIdModalOpen(false)}
                             >
                                 <div className={styles.modalContent}>
-                                    <label className={styles.modalLabel}>MakeMyPass Event ID</label>
-                                    <p className={styles.modalLabelDescription}>
-                                        Enter the MakeMyPass Event ID to connect the event and sync
-                                        participants
-                                    </p>
+                                    {mmpEvents && mmpEvents?.length > 0 ? (
+                                        <>
+                                            <label className={styles.modalLabel}>
+                                                MakeMyPass Event ID
+                                            </label>
+                                            <p className={styles.modalLabelDescription}>
+                                                Enter the MakeMyPass Event ID to connect the event
+                                                and sync participants
+                                            </p>
 
-                                    <Select
-                                        isSearchable
-                                        options={mmpEvents?.map((event) => ({
-                                            value: event.event_id,
-                                            label: event.event_name,
-                                        }))}
-                                        placeholder="Select Event"
-                                        value={
-                                            eventInfo?.mmp_event_id
-                                                ? {
-                                                      value: eventInfo.mmp_event_id,
-                                                      label:
-                                                          mmpEvents?.find(
-                                                              (event) =>
-                                                                  event.event_id ===
-                                                                  eventInfo.mmp_event_id
-                                                          )?.event_name || "",
-                                                  }
-                                                : undefined
-                                        }
-                                        styles={{
-                                            ...customReactSelectStyles,
-                                        }}
-                                        onChange={(selectedOption) => {
-                                            if (selectedOption && !Array.isArray(selectedOption)) {
-                                                const option = selectedOption as {
-                                                    value: string;
-                                                    label: string;
-                                                };
-                                                setEventInfo({
-                                                    ...eventInfo!,
-                                                    mmp_event_id: option.value,
-                                                });
-                                            }
-                                        }}
-                                    />
-                                    <p className={styles.modalInputHelperText}>
-                                        <span>Note:</span> Connecting to MakeMyPass will help
-                                        auto-load the grid from checked-in participants and validate
-                                        the players.
-                                    </p>
-                                    <div className={styles.confirmationButtonsContainer}>
-                                        <button
-                                            className={styles.saveButton}
-                                            onClick={() => {
-                                                handleUpdateMmpId();
-                                                setIsEditMmpIdModalOpen(false);
-                                            }}
-                                        >
-                                            Save ID
-                                        </button>
-                                        <button
-                                            className={styles.cancelButton}
-                                            onClick={() => {
-                                                setEventInfo({ ...eventInfo!, mmp_event_id: null });
-                                                handleUpdateMmpId(true);
-                                                setIsEditMmpIdModalOpen(false);
-                                            }}
-                                        >
-                                            Disconnect
-                                        </button>
-                                    </div>
+                                            <Select
+                                                isSearchable
+                                                options={mmpEvents?.map((event) => ({
+                                                    value: event.event_id,
+                                                    label: event.event_name,
+                                                }))}
+                                                placeholder="Select Event"
+                                                value={
+                                                    eventInfo?.mmp_event_id
+                                                        ? {
+                                                              value: eventInfo.mmp_event_id,
+                                                              label:
+                                                                  mmpEvents?.find(
+                                                                      (event) =>
+                                                                          event.event_id ===
+                                                                          eventInfo.mmp_event_id
+                                                                  )?.event_name || "",
+                                                          }
+                                                        : undefined
+                                                }
+                                                styles={{
+                                                    ...customReactSelectStyles,
+                                                }}
+                                                onChange={(selectedOption) => {
+                                                    if (
+                                                        selectedOption &&
+                                                        !Array.isArray(selectedOption)
+                                                    ) {
+                                                        const option = selectedOption as {
+                                                            value: string;
+                                                            label: string;
+                                                        };
+                                                        setEventInfo({
+                                                            ...eventInfo!,
+                                                            mmp_event_id: option.value,
+                                                        });
+                                                    }
+                                                }}
+                                            />
+                                            <p className={styles.modalInputHelperText}>
+                                                <span>Note:</span> Connecting to MakeMyPass will
+                                                help auto-load the grid from checked-in participants
+                                                and validate the players.
+                                            </p>
+                                            <div className={styles.confirmationButtonsContainer}>
+                                                <button
+                                                    className={styles.saveButton}
+                                                    onClick={() => {
+                                                        handleUpdateMmpId();
+                                                        setIsEditMmpIdModalOpen(false);
+                                                    }}
+                                                >
+                                                    Save ID
+                                                </button>
+                                                <button
+                                                    className={styles.cancelButton}
+                                                    onClick={() => {
+                                                        setEventInfo({
+                                                            ...eventInfo!,
+                                                            mmp_event_id: null,
+                                                        });
+                                                        handleUpdateMmpId(true);
+                                                        setIsEditMmpIdModalOpen(false);
+                                                    }}
+                                                >
+                                                    Disconnect
+                                                </button>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <label className={styles.modalLabel}>
+                                                You don't have any events on MakeMyPass
+                                            </label>
+                                            <p className={styles.modalLabelDescription}>
+                                                Kindly create an event on MakeMyPass to connect it
+                                                with this hoogo. You should be either the admin or
+                                                owner of the event
+                                            </p>
+                                            <div className={styles.confirmationButtonsContainer}>
+                                                <a href="https://makemypass.com/">
+                                                    <button className={styles.saveButton}>
+                                                        Create MakeMyPass Event
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </Modal>
                         )}

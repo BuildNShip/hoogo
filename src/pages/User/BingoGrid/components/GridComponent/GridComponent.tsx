@@ -408,7 +408,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                         )}
                     </Modal>
                 )}
-                {letters.length !== 0 && (
+                {letters && letters.length !== 0 ? (
                     <>
                         {rowsBingo.filter((row) => row).length === 5 && (
                             <Confetti
@@ -470,20 +470,16 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                 )}
                         </div>
                     </>
+                ) : (
+                    <>
+                        <p className={styles.helperTextHeader}>
+                            It seems, like no grid has been loaded.
+                        </p>
+                        <p className={styles.helperTextDescription}>
+                            Kindly wait for the grid to load, or Contact Event Organizer
+                        </p>
+                    </>
                 )}
-                {
-                    // Show a loader if the cells are not loaded
-                    letters.length === 0 && (
-                        <>
-                            <p className={styles.helperTextHeader}>
-                                It seems, like no grid has been loaded.
-                            </p>
-                            <p className={styles.helperTextDescription}>
-                                Kindly wait for the grid to load, or Contact Event Organizer
-                            </p>
-                        </>
-                    )
-                }
             </div>
         </>
     );

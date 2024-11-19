@@ -4,8 +4,10 @@ import { CreateEventTypes } from "../../pages/Admin/Dashboard/types";
 
 const Navbar = ({
     setCreateEvent,
+    showLogin = false,
 }: {
     setCreateEvent?: React.Dispatch<React.SetStateAction<CreateEventTypes | undefined>>;
+    showLogin?: boolean;
 }) => {
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("accessToken");
@@ -16,16 +18,17 @@ const Navbar = ({
                     <img src="/hoogologo.png" alt="" className={styles.brandingImage} />
                 </p>
                 <div className={styles.buttonsContainer}>
-                    <button
-                        className={styles.navbarCTAButton}
-                        onClick={() => {
-                            if (setCreateEvent) setCreateEvent({ name: "", showModal: true });
-                            else navigate("/login");
-                        }}
-                    >
-                        {isAuthenticated ? "Create Event" : "Login"}
-                    </button>
-
+                    {!showLogin && (
+                        <button
+                            className={styles.navbarCTAButton}
+                            onClick={() => {
+                                if (setCreateEvent) setCreateEvent({ name: "", showModal: true });
+                                else navigate("/login");
+                            }}
+                        >
+                            {isAuthenticated ? "Create Event" : "Login"}
+                        </button>
+                    )}
                     {isAuthenticated && (
                         <button
                             className={styles.navbarSecondaryCTA}

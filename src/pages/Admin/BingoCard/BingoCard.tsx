@@ -53,21 +53,7 @@ const BingoCard = () => {
         setIsDownloading({ story: true, post: false });
         if (gridRef.current && storyTemplateImage) {
             try {
-                // Wait until all images inside the grid are fully loaded
-                const images = gridRef.current.querySelectorAll("img");
-                await Promise.all(
-                    Array.from(images).map(
-                        (img) =>
-                            new Promise<void>((resolve) => {
-                                if (img.complete) resolve();
-                                else {
-                                    img.onload = () => resolve();
-                                    img.onerror = () => resolve(); // Prevent hang on load error
-                                }
-                            })
-                    )
-                );
-
+                console.log(gridRef.current);
                 // Capture the grid as an image using html2canvas
                 const gridCanvas = await html2canvas(gridRef.current, {
                     useCORS: true,
@@ -112,20 +98,6 @@ const BingoCard = () => {
         setIsDownloading({ story: false, post: true });
         if (gridRef.current && postTemplateImage) {
             try {
-                const images = gridRef.current.querySelectorAll("img");
-                await Promise.all(
-                    Array.from(images).map(
-                        (img) =>
-                            new Promise<void>((resolve) => {
-                                if (img.complete) resolve();
-                                else {
-                                    img.onload = () => resolve();
-                                    img.onerror = () => resolve();
-                                }
-                            })
-                    )
-                );
-
                 const gridCanvas = await html2canvas(gridRef.current, {
                     useCORS: true,
                     allowTaint: false,
@@ -229,9 +201,6 @@ const BingoCard = () => {
                                                 src={cell.image ? cell.image : dummyImageUrl}
                                                 alt={cell.name}
                                                 className={styles.image}
-                                                style={{
-                                                    objectFit: "cover",
-                                                }}
                                             />
                                         </div>
                                     ))}

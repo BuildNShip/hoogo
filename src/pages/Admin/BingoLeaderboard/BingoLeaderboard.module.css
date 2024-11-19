@@ -87,8 +87,8 @@
 }
 
 .letterButton:hover {
-    border-color: rgba(255, 215, 0, 0.5);
-    color: rgba(255, 215, 0, 0.5);
+    border-color: rgba(30, 212, 94, 0.5);
+    color: rgba(30, 212, 94, 0.5);
 }
 
 .letterButton.strikethrough {

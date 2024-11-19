@@ -23,14 +23,16 @@
 
 .eventCard {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
     max-width: 300px;
-    width: calc(100% - 1rem);
+    width: calc(100% - 2rem);
     background-color: #202020;
     border-radius: 8px;
-    padding: 0.5rem;
+    padding: 1rem;
     color: white;
     border: 1px solid #2f2f2f;
     margin-bottom: 0.5rem;
@@ -44,6 +46,27 @@
     span {
         color: #1ed45e;
     }
+}
+
+.titleRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.participantCount {
+    font-size: 0.9rem;
+    color: white;
+    font-weight: 400;
+    opacity: 0.8;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
 }
 
 .pageDescription {
@@ -67,7 +90,18 @@
     background-color: #252525;
     font-size: 0.9rem;
     color: #ffffff;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+.createEventButton.active {
+    color: #1d1d1d;
+    background-color: #ffffff;
+}
+
+.createEventButton.active:hover {
+    background-color: #1ed45e;
 }
 
 .createEventButton:hover {

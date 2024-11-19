@@ -7,6 +7,7 @@ import Modal from "../../../components/Modal/Modal";
 import { CreateEventTypes, EventType } from "./types";
 import { createNewEvent } from "../../../apis/admin";
 import { useNavigate } from "react-router-dom";
+import { GoPeople } from "react-icons/go";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -68,11 +69,17 @@ const Dashboard = () => {
                         {events &&
                             events.map((event) => (
                                 <div key={event.id} className={styles.eventCard}>
-                                    <p className={styles.eventName}>
-                                        {event.name.length > 15
-                                            ? `${event.name.substring(0, 15)}...`
-                                            : event.name}
-                                    </p>
+                                    <div className={styles.titleRow}>
+                                        <p className={styles.eventName}>
+                                            {event.name.length > 15
+                                                ? `${event.name.substring(0, 15)}...`
+                                                : event.name}
+                                        </p>
+                                        <p className={styles.participantCount}>
+                                            <GoPeople color="#fff" size={15} />{" "}
+                                            {event.participant_count} Participants
+                                        </p>
+                                    </div>
 
                                     <button
                                         className={styles.createEventButton}
@@ -90,7 +97,9 @@ const Dashboard = () => {
                             onClick={() => setCreateEvent({ name: "", showModal: true })}
                         >
                             <p className={styles.eventName}>Create New Event</p>
-                            <button className={styles.createEventButton}>+</button>
+                            <button className={`${styles.createEventButton} ${styles.active}`}>
+                                Create +
+                            </button>
                         </div>
                     </div>
 

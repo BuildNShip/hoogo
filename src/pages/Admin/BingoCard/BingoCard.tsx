@@ -21,7 +21,8 @@ const BingoCard = () => {
     const [selectedCell, setSelectedCell] = useState<BingoItem | null>(null);
     const gridRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [templateImage, setTemplateImage] = useState<HTMLImageElement | null>(null);
+    const [storyTemplateImage, setStoryTemplateImage] = useState<HTMLImageElement | null>(null);
+    const [postTemplateImage, setPostTemplateImage] = useState<HTMLImageElement | null>(null);
     const [isDownloading, setIsDownloading] = useState({
         story: false,
         post: false,
@@ -30,9 +31,14 @@ const BingoCard = () => {
     // Load the template image
     useEffect(() => {
         const img = new Image();
-        img.src = "/templates/elevateHoogoChallege.png"; // Adjust this path
+        img.src = "/templates/elevateStoryTemplate.png"; // Adjust this path
         img.crossOrigin = "anonymous";
-        img.onload = () => setTemplateImage(img);
+        img.onload = () => setStoryTemplateImage(img);
+
+        const postImg = new Image();
+        postImg.src = "/templates/elevatePostTemplate.png"; // Adjust this path
+        postImg.crossOrigin = "anonymous";
+        postImg.onload = () => setPostTemplateImage(postImg);
     }, []);
 
     // Fetch Bingo Matrix
@@ -45,7 +51,7 @@ const BingoCard = () => {
     // Capture the grid and overlay it on the template
     const captureAndDownload = async () => {
         setIsDownloading({ story: true, post: false });
-        if (gridRef.current && templateImage) {
+        if (gridRef.current && storyTemplateImage) {
             try {
                 // Wait until all images inside the grid are fully loaded
                 const images = gridRef.current.querySelectorAll("img");
@@ -78,18 +84,18 @@ const BingoCard = () => {
                     const ctx = canvas.getContext("2d");
                     if (ctx) {
                         // Set canvas dimensions to match the template
-                        canvas.width = templateImage.width;
-                        canvas.height = templateImage.height;
+                        canvas.width = storyTemplateImage.width;
+                        canvas.height = storyTemplateImage.height;
 
                         // Draw the template on the canvas
-                        ctx.drawImage(templateImage, 0, 0);
+                        ctx.drawImage(storyTemplateImage, 0, 0);
 
                         // Overlay the grid onto the template
                         const gridImgObj = new Image();
                         gridImgObj.src = gridImage;
                         gridImgObj.crossOrigin = "anonymous";
                         gridImgObj.onload = () => {
-                            ctx.drawImage(gridImgObj, 85, 27, 583, 583); // Adjust positions as needed
+                            ctx.drawImage(gridImgObj, 85, 275, 583, 583); // Adjust positions as needed
                             downloadImage(); // Automatically download after merging
                         };
                     }
@@ -99,6 +105,67 @@ const BingoCard = () => {
             } finally {
                 setIsDownloading({ story: false, post: false });
             }
+        }
+    };
+    const captureAndDownloadPost = async () => {
+        setIsDownloading({ story: false, post: true });
+        if (gridRef.current && postTemplateImage) {
+            try {
+                const images = gridRef.current.querySelectorAll("img");
+                await Promise.all(
+                    Array.from(images).map(
+                        (img) =>
+                            new Promise<void>((resolve) => {
+                                if (img.complete) resolve();
+                                else {
+                                    img.onload = () => resolve();
+                                    img.onerror = () => resolve();
+                                }
+                            })
+                    )
+                );
+
+                const gridCanvas = await html2canvas(gridRef.current, {
+                    useCORS: true,
+                    allowTaint: false,
+                    backgroundColor: null,
+                    scale: 1,
+                });
+
+                const gridImage = gridCanvas.toDataURL("image/png");
+
+                const canvas = canvasRef.current;
+                if (canvas) {
+                    const ctx = canvas.getContext("2d");
+                    if (ctx) {
+                        canvas.width = postTemplateImage.width;
+                        canvas.height = postTemplateImage.height;
+
+                        ctx.drawImage(postTemplateImage, 0, 0);
+
+                        const gridImgObj = new Image();
+                        gridImgObj.src = gridImage;
+                        gridImgObj.crossOrigin = "anonymous";
+                        gridImgObj.onload = () => {
+                            ctx.drawImage(gridImgObj, 75, 230, 350, 350);
+                            downloadPostImage();
+                        };
+                    }
+                }
+            } catch (error) {
+                console.error("Error capturing the grid:", error);
+            } finally {
+                setIsDownloading({ story: false, post: false });
+            }
+        }
+    };
+
+    const downloadPostImage = () => {
+        if (canvasRef.current) {
+            const link = document.createElement("a");
+            link.href = canvasRef.current.toDataURL("image/png");
+            link.download = `${ticketCode}_BingoPostCard.png`;
+            link.click();
         }
     };
 
@@ -161,6 +228,9 @@ const BingoCard = () => {
                                                 src={cell.image ? cell.image : dummyImageUrl}
                                                 alt={cell.name}
                                                 className={styles.image}
+                                                style={{
+                                                    objectFit: "cover",
+                                                }}
                                             />
                                         </div>
                                     ))}
@@ -169,7 +239,12 @@ const BingoCard = () => {
                         </div>
 
                         {/* Hidden Canvas for Merging Images */}
-                        <canvas ref={canvasRef} style={{ display: "none" }} />
+                        <canvas
+                            ref={canvasRef}
+                            style={{
+                                display: "none",
+                            }}
+                        />
 
                         {/* Buttons for Capturing and Downloading */}
                         <button onClick={captureAndDownload} className={styles.captureButton}>
@@ -177,6 +252,14 @@ const BingoCard = () => {
                                 <BeatLoader color="#252525" size={8} />
                             ) : (
                                 "Download Story Card"
+                            )}
+                        </button>
+
+                        <button onClick={captureAndDownloadPost} className={styles.captureButton}>
+                            {isDownloading.post ? (
+                                <BeatLoader color="#252525" size={8} />
+                            ) : (
+                                "Download Post Card"
                             )}
                         </button>
                     </div>

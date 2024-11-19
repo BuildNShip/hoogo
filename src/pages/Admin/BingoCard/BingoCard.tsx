@@ -46,7 +46,7 @@ const BingoCard = () => {
 
     // Fetch Bingo Matrix
     useEffect(() => {
-        getBingoMatrix(eventName, ticketCode, setIsLoading, false).then((data) => {
+        getBingoMatrix(eventName, ticketCode, setIsLoading, true).then((data) => {
             setBingoAnswers(data.answer);
         });
     }, [eventName, ticketCode]);

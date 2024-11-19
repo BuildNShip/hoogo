@@ -14,13 +14,13 @@ export const getBingoMatrix = async (
     eventName: string | undefined,
     ticketCode: string | undefined,
     setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
-    create?: boolean
+    noCreate?: boolean
 ) => {
     if (setLoading) setLoading(true);
     try {
         const response = await publicGateway.get(
             commonUrls.getBingoMatrix(eventName as string, ticketCode as string) +
-                (create ? "?create=true" : "?create=false")
+                (noCreate ? "?create=false" : "")
         );
 
         return response.data.response;

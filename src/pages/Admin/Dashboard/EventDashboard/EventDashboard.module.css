@@ -25,6 +25,8 @@
     justify-content: space-between;
     width: 100%;
     margin-bottom: 1rem;
+    row-gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .dashboardMainContainer {

@@ -66,12 +66,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                 toast.error("Image is required", {
                     id: "image",
                 });
-            } else if (
-                (description.length < 10,
-                {
-                    id: "description",
-                })
-            ) {
+            } else if (description.length < 10) {
                 toast.error("Description should be at least 10 characters long");
             }
         }
@@ -387,12 +382,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                                 toast.error("Image is required", {
                                                     id: "image",
                                                 });
-                                            } else if (
-                                                (description.length < 10,
-                                                {
-                                                    id: "description",
-                                                })
-                                            ) {
+                                            } else if (description.length < 10 && !isSubmitting) {
                                                 toast.error(
                                                     "Description should be at least 10 characters long"
                                                 );

@@ -5,4 +5,6 @@ export type EventType = {
     matrix: string[][];
     participant_count: number;
     created_at: string;
-}
+    post_template: string;
+    story_template: string;
+};

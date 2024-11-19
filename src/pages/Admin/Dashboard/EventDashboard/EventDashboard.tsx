@@ -11,16 +11,8 @@ import { BeatLoader, PacmanLoader } from "react-spinners";
 
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../../../../components/Navbar/Navbar";
-
-// Event Type Definition
-type EventType = {
-    id: string;
-    mmp_event_id: string | null;
-    name: string;
-    matrix: string[][];
-    participant_count: number;
-    created_at: string;
-};
+import { EventType, TemplateUploadType } from "./types";
+import { MdClose } from "react-icons/md";
 
 const EventDashboard = () => {
     const { eventName } = useParams<{ eventName: string }>();
@@ -32,6 +24,8 @@ const EventDashboard = () => {
     const [isQRLoaded, setIsQRLoaded] = useState(false);
     const [isdownloading, setIsDownloading] = useState(false);
 
+    const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>();
+
     const navigate = useNavigate();
 
     // Fetch event data on mount
@@ -40,6 +34,16 @@ const EventDashboard = () => {
             getEventInfo(eventName, setEventInfo);
         }
     }, [eventName]);
+
+    useEffect(() => {
+        if (eventInfo) {
+            setUploadTemplates({
+                postTemplate: eventInfo.post_template,
+                storyTemplate: eventInfo.story_template,
+                showModal: false,
+            });
+        }
+    }, [eventInfo]);
 
     const downloadQR = async (url: string) => {
         try {
@@ -62,10 +66,62 @@ const EventDashboard = () => {
         }
     };
 
-    const handleUpdate = () => {
+    // const handleUpdate = () => {
+    //     if (!eventInfo) return;
+
+    //     updateEvent(eventInfo?.id, eventInfo?.matrix, eventInfo?.mmp_event_id);
+    //     toast.success("Event updated successfully!");
+    // };
+
+    const handleUpdateName = () => {
         if (!eventInfo) return;
-        updateEvent(eventInfo?.id, eventInfo?.matrix, eventInfo?.mmp_event_id);
-        toast.success("Event updated successfully!");
+        const formData = new FormData();
+        formData.append("name", eventInfo?.name);
+        updateEvent(eventInfo?.id, formData).then(() => {
+            getEventInfo(eventInfo?.name, setEventInfo);
+            navigate(`/dashboard/${eventInfo?.name}`);
+            setIsEditNameModalOpen(false);
+        });
+        toast.success("Event name updated successfully!");
+    };
+
+    const handleUpdateMmpId = () => {
+        if (!eventInfo) return;
+        const formData = new FormData();
+        formData.append("mmp_event_id", eventInfo?.mmp_event_id || "");
+        updateEvent(eventInfo?.id, formData);
+        toast.success("MakeMyPass Event ID updated successfully!");
+    };
+
+    const updateTemplates = () => {
+        if (!eventInfo) return;
+
+        const formData = new FormData();
+        if (uploadTemplates?.postTemplate) {
+            formData.append("post_template", uploadTemplates.postTemplate);
+        }
+        if (uploadTemplates?.storyTemplate) {
+            formData.append("story_template", uploadTemplates.storyTemplate);
+        }
+
+        updateEvent(eventInfo?.id, formData);
+        toast.success("Templates uploaded successfully!");
+    };
+
+    const handleMatrixUpdate = () => {
+        const formData = new FormData();
+        eventInfo?.matrix.forEach((row, rowIndex) => {
+            row.forEach((cell, colIndex) => {
+                formData.append(`matrix[${rowIndex}][${colIndex}]`, cell);
+            });
+        });
+
+        if (eventInfo?.id) {
+            updateEvent(eventInfo?.id, formData).then(() => {
+                getEventInfo(eventInfo?.name, setEventInfo);
+                setIsEditGridModalOpen(false);
+            });
+        }
     };
 
     const generateRandomGrid = () => {
@@ -223,7 +279,7 @@ const EventDashboard = () => {
                                     </div>
                                 </div>
 
-                                <div className={styles.leaderboardContainer}>
+                                <div className={styles.buttonsContainer}>
                                     <button
                                         className={styles.leaderboardButton}
                                         onClick={() =>
@@ -231,6 +287,19 @@ const EventDashboard = () => {
                                         }
                                     >
                                         Show Leaderboard
+                                    </button>
+                                    <button
+                                        className={styles.leaderboardButton}
+                                        onClick={() => {
+                                            setUploadTemplates({
+                                                postTemplate: uploadTemplates?.postTemplate ?? null,
+                                                storyTemplate:
+                                                    uploadTemplates?.storyTemplate ?? null,
+                                                showModal: true,
+                                            });
+                                        }}
+                                    >
+                                        Upload Templates
                                     </button>
                                 </div>
                             </div>
@@ -259,8 +328,7 @@ const EventDashboard = () => {
                                     <button
                                         className={styles.saveButton}
                                         onClick={() => {
-                                            handleUpdate();
-                                            setIsEditNameModalOpen(false);
+                                            handleUpdateName();
                                         }}
                                     >
                                         Save Name
@@ -300,7 +368,7 @@ const EventDashboard = () => {
                                     <button
                                         className={styles.saveButton}
                                         onClick={() => {
-                                            handleUpdate();
+                                            handleUpdateMmpId();
                                             setIsEditMmpIdModalOpen(false);
                                         }}
                                     >
@@ -365,8 +433,7 @@ const EventDashboard = () => {
                                         <button
                                             className={styles.saveButton}
                                             onClick={() => {
-                                                handleUpdate();
-                                                setIsEditGridModalOpen(false);
+                                                handleMatrixUpdate();
                                             }}
                                         >
                                             Save Grid
@@ -427,6 +494,155 @@ const EventDashboard = () => {
                                             )}
                                         </button>
                                     </div>
+                                </div>
+                            </Modal>
+                        )}
+
+                        {uploadTemplates?.showModal && (
+                            <Modal
+                                title="Upload Templates"
+                                onClose={() =>
+                                    setUploadTemplates({
+                                        ...uploadTemplates,
+                                        showModal: false,
+                                        postTemplate: uploadTemplates?.postTemplate ?? null,
+                                        storyTemplate: uploadTemplates?.storyTemplate ?? null,
+                                    })
+                                }
+                            >
+                                <div className={styles.form}>
+                                    <div className={styles.inputGroup}>
+                                        <label htmlFor="postTemplate" className={styles.label}>
+                                            Upload the Post Template
+                                        </label>
+
+                                        <p className={styles.inputFieldDescription}>
+                                            This template will be used for the final grid
+                                        </p>
+
+                                        {uploadTemplates?.postTemplate ? (
+                                            <div className={styles.previewImageContainer}>
+                                                <img
+                                                    src={
+                                                        typeof uploadTemplates.postTemplate ===
+                                                        "string"
+                                                            ? uploadTemplates.postTemplate
+                                                            : URL.createObjectURL(
+                                                                  uploadTemplates.postTemplate
+                                                              )
+                                                    }
+                                                    alt="Preview"
+                                                    style={{
+                                                        width: "100px",
+                                                        height: "100px",
+                                                        objectFit: "cover",
+                                                        marginTop: "10px",
+                                                    }}
+                                                />
+                                                <div
+                                                    className={styles.closeButton}
+                                                    title="Remove Image"
+                                                >
+                                                    <MdClose
+                                                        onClick={() => {
+                                                            setUploadTemplates({
+                                                                ...uploadTemplates,
+                                                                postTemplate: null,
+                                                            });
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <input
+                                                type="file"
+                                                id="postTemplate"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    if (
+                                                        e.target.files &&
+                                                        e.target.files.length > 0
+                                                    ) {
+                                                        setUploadTemplates({
+                                                            ...uploadTemplates,
+                                                            postTemplate: e.target.files[0],
+                                                        });
+                                                    }
+                                                }}
+                                                className={styles.fileInput}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className={styles.inputGroup}>
+                                        <label htmlFor="storyTemplate" className={styles.label}>
+                                            Upload the Story Template
+                                        </label>
+
+                                        <p className={styles.inputFieldDescription}>
+                                            This template will be used for the story grid
+                                        </p>
+
+                                        {uploadTemplates?.storyTemplate ? (
+                                            <div className={styles.previewImageContainer}>
+                                                <img
+                                                    src={
+                                                        typeof uploadTemplates.storyTemplate ===
+                                                        "string"
+                                                            ? uploadTemplates.storyTemplate
+                                                            : URL.createObjectURL(
+                                                                  uploadTemplates.storyTemplate
+                                                              )
+                                                    }
+                                                    alt="Preview"
+                                                    style={{
+                                                        width: "100px",
+                                                        height: "100px",
+                                                        objectFit: "cover",
+                                                        marginTop: "10px",
+                                                    }}
+                                                />
+                                                <div
+                                                    className={styles.closeButton}
+                                                    title="Remove Image"
+                                                >
+                                                    <MdClose
+                                                        onClick={() => {
+                                                            setUploadTemplates({
+                                                                ...uploadTemplates,
+                                                                storyTemplate: null,
+                                                            });
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <input
+                                                type="file"
+                                                id="storyTemplate"
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    if (
+                                                        e.target.files &&
+                                                        e.target.files.length > 0
+                                                    ) {
+                                                        setUploadTemplates({
+                                                            ...uploadTemplates,
+                                                            storyTemplate: e.target.files[0],
+                                                        });
+                                                    }
+                                                }}
+                                                className={styles.fileInput}
+                                            />
+                                        )}
+                                    </div>
+
+                                    <button
+                                        className={styles.submitButton}
+                                        onClick={updateTemplates}
+                                        type="submit"
+                                    >
+                                        Submit
+                                    </button>
                                 </div>
                             </Modal>
                         )}

@@ -21,3 +21,10 @@ export type TemplateUploadType = {
     storyTemplate: File | null | string;
     showModal: boolean;
 };
+
+export type MMPEventListType = {
+    event_id: string;
+    event_banner: string | null;
+    event_name: string;
+    event_title: string;
+};

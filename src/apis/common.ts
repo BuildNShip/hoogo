@@ -114,15 +114,11 @@ export const getEventInfo = async (
     eventName: string,
     setEventInfo: React.Dispatch<React.SetStateAction<EventType | undefined>>
 ) => {
+    console.log("Reached Here");
     publicGateway
         .get(commonUrls.getEventInfo(eventName))
         .then((response) => {
-            const eventInfo = response.data.response;
-            if (eventInfo.matrix.length === 0) {
-                const matrix = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => ""));
-                eventInfo.matrix = matrix;
-            }
-            setEventInfo(eventInfo);
+            setEventInfo(response.data.response);
         })
         .catch((error) => {
             toast.error(error?.response?.data.message.general[0] || "Invalid Event Name");

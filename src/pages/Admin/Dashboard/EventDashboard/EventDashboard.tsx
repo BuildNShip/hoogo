@@ -11,7 +11,7 @@ import { BeatLoader, PacmanLoader } from "react-spinners";
 
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../../../../components/Navbar/Navbar";
-import { EventType, TemplateUploadType } from "./types";
+import { EventType, MMPEventListType, TemplateUploadType } from "./types";
 import { MdClose } from "react-icons/md";
 import Select from "react-select";
 import customReactSelectStyles from "./common";
@@ -26,8 +26,8 @@ const EventDashboard = () => {
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
     const [isQRLoaded, setIsQRLoaded] = useState(false);
     const [isdownloading, setIsDownloading] = useState(false);
-    const [mmpEvents, setMmpEvents] = useState<any[]>();
-    console.log(mmpEvents);
+    const [mmpEvents, setMmpEvents] = useState<MMPEventListType[]>();
+
     const [updateGridConfirmation, setUpdateGridConfirmation] = useState(false);
 
     const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>();
@@ -43,12 +43,18 @@ const EventDashboard = () => {
     }, [eventName]);
 
     useEffect(() => {
+        const emptyMatrix = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => ""));
+
         if (eventInfo) {
             setUploadTemplates({
                 postTemplate: eventInfo.post_template,
                 storyTemplate: eventInfo.story_template,
                 showModal: false,
             });
+
+            if (!eventInfo.matrix || eventInfo.matrix.length === 0) {
+                setEventInfo({ ...eventInfo, matrix: emptyMatrix });
+            }
         }
     }, [eventInfo]);
 
@@ -265,20 +271,22 @@ const EventDashboard = () => {
                                     </button>
                                 </div>
 
-                                <div className={styles.centerGridContainer}>
-                                    <div className={styles.grid}>
-                                        {eventInfo?.matrix.map((row, rowIndex) =>
-                                            row.map((cell, colIndex) => (
-                                                <div
-                                                    key={`${rowIndex}-${colIndex}`}
-                                                    className={styles.gridCell}
-                                                >
-                                                    {cell}
-                                                </div>
-                                            ))
-                                        )}
+                                {eventInfo?.matrix && (
+                                    <div className={styles.centerGridContainer}>
+                                        <div className={styles.grid}>
+                                            {eventInfo?.matrix.map((row, rowIndex) =>
+                                                row.map((cell, colIndex) => (
+                                                    <div
+                                                        key={`${rowIndex}-${colIndex}`}
+                                                        className={styles.gridCell}
+                                                    >
+                                                        {cell}
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
 
                                 <div className={styles.buttonsContainer}>
                                     <button
@@ -351,13 +359,39 @@ const EventDashboard = () => {
                                     </p>
 
                                     <Select
-                                        options={[
-                                            { value: "1", label: "Event 1" },
-                                            { value: "2", label: "Event 2" },
-                                            { value: "3", label: "Event 3" },
-                                        ]}
+                                        options={mmpEvents?.map((event) => ({
+                                            value: event.event_id,
+                                            label: event.event_name,
+                                        }))}
                                         placeholder="Select Event"
-                                        styles={customReactSelectStyles}
+                                        value={
+                                            eventInfo?.mmp_event_id
+                                                ? {
+                                                      value: eventInfo.mmp_event_id,
+                                                      label:
+                                                          mmpEvents?.find(
+                                                              (event) =>
+                                                                  event.event_id ===
+                                                                  eventInfo.mmp_event_id
+                                                          )?.event_name || "",
+                                                  }
+                                                : undefined
+                                        }
+                                        styles={{
+                                            ...customReactSelectStyles,
+                                        }}
+                                        onChange={(selectedOption) => {
+                                            if (selectedOption && !Array.isArray(selectedOption)) {
+                                                const option = selectedOption as {
+                                                    value: string;
+                                                    label: string;
+                                                };
+                                                setEventInfo({
+                                                    ...eventInfo!,
+                                                    mmp_event_id: option.value,
+                                                });
+                                            }
+                                        }}
                                     />
                                     <p className={styles.modalInputHelperText}>
                                         <span>Note:</span> Connecting to MakeMyPass will help

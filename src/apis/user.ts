@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { privateGateway } from "../../services/apiGateways";
 import { commonUrls } from "../../services/urls";
 import { EventType } from "../pages/Admin/Dashboard/types";
+import { MMPEventListType } from "../pages/Admin/Dashboard/EventDashboard/types";
 
 export const listUserEvents = async (
     setEvents: React.Dispatch<React.SetStateAction<EventType[] | undefined>>
@@ -19,7 +20,7 @@ export const listUserEvents = async (
 };
 
 export const listMmpEvents = async (
-    setEvents: React.Dispatch<React.SetStateAction<any[] | undefined>>
+    setEvents: React.Dispatch<React.SetStateAction<MMPEventListType[] | undefined>>
 ) => {
     privateGateway
         .get(commonUrls.listMmpEvents)

@@ -216,7 +216,7 @@
 .leaderboardButton {
     padding: 6px 12px;
     font-size: 0.9rem;
-    font-weight: bold;
+    font-weight: 500;
     background-color: #1ed45e;
     color: #252525;
     border: none;

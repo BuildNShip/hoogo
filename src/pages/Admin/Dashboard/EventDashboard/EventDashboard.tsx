@@ -13,6 +13,9 @@ import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../../../../components/Navbar/Navbar";
 import { EventType, TemplateUploadType } from "./types";
 import { MdClose } from "react-icons/md";
+import Select from "react-select";
+import customReactSelectStyles from "./common";
+import { listMmpEvents } from "../../../../apis/user";
 
 const EventDashboard = () => {
     const { eventName } = useParams<{ eventName: string }>();
@@ -23,7 +26,8 @@ const EventDashboard = () => {
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
     const [isQRLoaded, setIsQRLoaded] = useState(false);
     const [isdownloading, setIsDownloading] = useState(false);
-
+    const [mmpEvents, setMmpEvents] = useState<any[]>();
+    console.log(mmpEvents);
     const [updateGridConfirmation, setUpdateGridConfirmation] = useState(false);
 
     const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>();
@@ -34,6 +38,7 @@ const EventDashboard = () => {
     useEffect(() => {
         if (eventName) {
             getEventInfo(eventName, setEventInfo);
+            listMmpEvents(setMmpEvents);
         }
     }, [eventName]);
 
@@ -344,17 +349,15 @@ const EventDashboard = () => {
                                         Enter the MakeMyPass Event ID to connect the event and sync
                                         participants
                                     </p>
-                                    <input
-                                        type="text"
-                                        value={eventInfo?.mmp_event_id || ""}
-                                        onChange={(e) =>
-                                            setEventInfo({
-                                                ...eventInfo!,
-                                                mmp_event_id: e.target.value,
-                                            })
-                                        }
-                                        className={styles.modalInput}
-                                        autoFocus
+
+                                    <Select
+                                        options={[
+                                            { value: "1", label: "Event 1" },
+                                            { value: "2", label: "Event 2" },
+                                            { value: "3", label: "Event 3" },
+                                        ]}
+                                        placeholder="Select Event"
+                                        styles={customReactSelectStyles}
                                     />
                                     <p className={styles.modalInputHelperText}>
                                         <span>Note:</span> Connecting to MakeMyPass will help

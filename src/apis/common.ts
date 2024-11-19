@@ -16,6 +16,7 @@ export const getBingoMatrix = async (
     setLoading?: React.Dispatch<React.SetStateAction<boolean>>,
     create?: boolean
 ) => {
+    if (setLoading) setLoading(true);
     try {
         const response = await publicGateway.get(
             commonUrls.getBingoMatrix(eventName as string, ticketCode as string) +
@@ -26,6 +27,8 @@ export const getBingoMatrix = async (
     } catch (error) {
         if (setLoading) setLoading(false);
         return error;
+    } finally {
+        if (setLoading) setLoading(false);
     }
 };
 

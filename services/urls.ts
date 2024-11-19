@@ -14,6 +14,8 @@ export const commonUrls = {
     onboardUser: hoogoURL("/common/onboard-user/"),
     getEventInfo: (eventName: string) => hoogoURL(`/manage-event/${eventName}/get-info/`),
     listUserEvents: hoogoURL("/manage-event/user/list-events/"),
+    listMmpEvents: hoogoURL("/manage-event/user/mmp/list-events/"),
+
     createEvent: hoogoURL("/manage-event/create/"),
     updateEvent: (eventId: string) => hoogoURL(`/manage-event/${eventId}/update/`),
     importGrid: (eventName: string) => hoogoURL(`/manage-game/${eventName}/grid/import/`),

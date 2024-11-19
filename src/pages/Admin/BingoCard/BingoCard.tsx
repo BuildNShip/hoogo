@@ -27,7 +27,7 @@ const BingoCard = () => {
         story: false,
         post: false,
     });
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("accessToken");
@@ -118,25 +118,27 @@ const BingoCard = () => {
                             </Modal>
                         )}
 
-                        <div ref={gridRef} className={styles.grid}>
-                            {bingoAnswers.map((row, rowIndex) => (
-                                <div key={rowIndex} className={styles.row}>
-                                    {row.map((cell, cellIndex) => (
-                                        <div
-                                            key={cellIndex}
-                                            className={styles.cell}
-                                            onClick={() => cell.image && setSelectedCell(cell)}
-                                        >
-                                            <img
-                                                src={cell.image ? cell.image : dummyImageUrl}
-                                                alt={cell.name}
-                                                className={styles.image}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
+                        {!isLoading && (
+                            <div ref={gridRef} className={styles.grid}>
+                                {bingoAnswers.map((row, rowIndex) => (
+                                    <div key={rowIndex} className={styles.row}>
+                                        {row.map((cell, cellIndex) => (
+                                            <div
+                                                key={cellIndex}
+                                                className={styles.cell}
+                                                onClick={() => cell.image && setSelectedCell(cell)}
+                                            >
+                                                <img
+                                                    src={cell.image ? cell.image : dummyImageUrl}
+                                                    alt={cell.name}
+                                                    className={styles.image}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         <canvas
                             ref={canvasRef}

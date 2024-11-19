@@ -17,3 +17,18 @@ export const listUserEvents = async (
             });
         });
 };
+
+export const listMmpEvents = async (
+    setEvents: React.Dispatch<React.SetStateAction<any[] | undefined>>
+) => {
+    privateGateway
+        .get(commonUrls.listMmpEvents)
+        .then((response) => {
+            setEvents(response.data.response);
+        })
+        .catch((error) => {
+            toast.error(error?.response?.message.general[0] || "No events found", {
+                id: "listMmpEvents",
+            });
+        });
+};

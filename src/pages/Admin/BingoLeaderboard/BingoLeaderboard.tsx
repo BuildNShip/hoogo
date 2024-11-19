@@ -16,6 +16,15 @@ interface Player {
 const BingoLeaderboard = () => {
     const { eventName } = useParams();
     const [players, setPlayers] = useState<Player[]>([]);
+    const [trigger, setTrigger] = useState(false);
+
+    useEffect(() => {
+        // Trigger every 3 seconds
+        const interval = setInterval(() => {
+            setTrigger((prev) => !prev);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [trigger]);
 
     useEffect(() => {
         if (!eventName) return;
@@ -64,7 +73,7 @@ const BingoLeaderboard = () => {
             });
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [trigger]);
 
     return (
         <div className={styles.container}>

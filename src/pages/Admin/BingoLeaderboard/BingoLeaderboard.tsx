@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
 import Footer from "../../../components/Footer/Footer";
@@ -17,7 +17,8 @@ interface Player {
 const BingoLeaderboard = () => {
     const { eventName } = useParams();
     const [players, setPlayers] = useState<Player[]>([]);
-
+    const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("accessToken");
     useEffect(() => {
         if (!eventName) return;
         const socket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
@@ -69,22 +70,28 @@ const BingoLeaderboard = () => {
                 <div className={styles.outerContainer}>
                     <div className={styles.container}>
                         <img src="/live.gif" alt="logo" className={styles.liveGif} />
+                        {isAuthenticated && (
+                            <div className={styles.headerActions}>
+                                <div
+                                    className={styles.gobackButton}
+                                    onClick={() => {
+                                        navigate(`/dashboard/${eventName}/`);
+                                    }}
+                                >
+                                    {"<"}
+                                </div>
+                                <h1 className={styles.eventTitle}>{eventName}</h1>
+                            </div>
+                        )}
                         {players.length > 0 && (
                             <p className={styles.participantCount}>
                                 <span>{players.length}</span> people
                             </p>
                         )}
                         <div className={styles.center}>
-                            <p className={styles.leaderboardHeadingText}>
-                                Elevate'24 Bingo Leaderboard
-                            </p>
                             <>
                                 {players.length > 0 ? (
                                     <>
-                                        <p className={styles.leaderboardHeadingDescription}>
-                                            Click on a name to view the player's bingo card. The
-                                            leaderboard is sorted based on completion time.
-                                        </p>
                                         <div className={styles.playerRowContainer}>
                                             {players.map((player, playerIndex) => (
                                                 <div key={playerIndex} className={styles.playerRow}>
@@ -131,7 +138,7 @@ const BingoLeaderboard = () => {
                                         </div>
                                     </>
                                 ) : (
-                                    <>
+                                    <div className={styles.centerContainer}>
                                         <div className={styles.loaderContainer}>
                                             <PacmanLoader
                                                 color="#1ED45E"
@@ -144,7 +151,7 @@ const BingoLeaderboard = () => {
                                         <p className={styles.loadingText}>
                                             Waiting for participants to join...
                                         </p>
-                                    </>
+                                    </div>
                                 )}
                             </>
                         </div>

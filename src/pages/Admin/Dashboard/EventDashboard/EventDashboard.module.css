@@ -355,6 +355,13 @@
     background-color: #1d1d1d;
 }
 
+@media (max-width: 600px) {
+    .editButton {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
 .editButtonSmall {
     padding: 4px 8px;
     font-size: 0.8rem;
@@ -630,4 +637,13 @@
 
 .pacLoader {
     margin-left: -3rem;
+}
+
+.headerButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
 }

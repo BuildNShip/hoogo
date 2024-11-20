@@ -288,12 +288,28 @@ const EventDashboard = () => {
                                                 This is current Bingo grid for the event.
                                             </p>
                                         </div>
-                                        <button
-                                            className={styles.editButton}
-                                            onClick={() => setIsEditGridModalOpen(true)}
-                                        >
-                                            Edit Grid
-                                        </button>
+                                        <div className={styles.headerButtons}>
+                                            <button
+                                                className={styles.editButton}
+                                                onClick={() => setIsEditGridModalOpen(true)}
+                                            >
+                                                Edit Grid
+                                            </button>
+                                            <button
+                                                className={styles.editButton}
+                                                onClick={() => {
+                                                    setUploadTemplates({
+                                                        postTemplate:
+                                                            uploadTemplates?.postTemplate ?? null,
+                                                        storyTemplate:
+                                                            uploadTemplates?.storyTemplate ?? null,
+                                                        showModal: true,
+                                                    });
+                                                }}
+                                            >
+                                                Upload Templates
+                                            </button>
+                                        </div>
                                     </div>
 
                                     {eventInfo?.matrix && (
@@ -323,20 +339,6 @@ const EventDashboard = () => {
                                             }
                                         >
                                             Show Leaderboard
-                                        </button>
-                                        <button
-                                            className={styles.leaderboardButton}
-                                            onClick={() => {
-                                                setUploadTemplates({
-                                                    postTemplate:
-                                                        uploadTemplates?.postTemplate ?? null,
-                                                    storyTemplate:
-                                                        uploadTemplates?.storyTemplate ?? null,
-                                                    showModal: true,
-                                                });
-                                            }}
-                                        >
-                                            Upload Templates
                                         </button>
                                     </div>
                                 </div>

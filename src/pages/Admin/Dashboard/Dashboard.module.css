@@ -21,6 +21,15 @@
     padding: 1rem;
 }
 
+.labelDescription {
+    font-size: 0.9rem;
+    color: white;
+    opacity: 0.8;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
 .eventCard {
     display: flex;
     flex-direction: column;
@@ -169,5 +178,5 @@
 }
 
 .submitButton:hover {
-    background-color: #ffc107;
+    background-color: #1cbd55;
 }

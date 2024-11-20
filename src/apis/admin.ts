@@ -12,7 +12,7 @@ export const createNewEvent = (name: string, navigate: NavigateFunction) => {
         })
         .then(() => {
             toast.success("Event created successfully");
-            navigate(`/${name}`);
+            navigate(`/dashboard/${name}`);
         })
         .catch((error) => {
             console.error(error);

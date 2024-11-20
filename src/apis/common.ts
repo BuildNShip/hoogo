@@ -112,9 +112,10 @@ export const validateTicketCode = async (
 
 export const getEventInfo = async (
     eventName: string,
-    setEventInfo: React.Dispatch<React.SetStateAction<EventType | undefined>>
+    setEventInfo: React.Dispatch<React.SetStateAction<EventType | undefined>>,
+    setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-    console.log("Reached Here");
+    if (setIsLoading) setIsLoading(true);
     publicGateway
         .get(commonUrls.getEventInfo(eventName))
         .then((response) => {
@@ -122,5 +123,8 @@ export const getEventInfo = async (
         })
         .catch((error) => {
             toast.error(error?.response?.data.message.general[0] || "Invalid Event Name");
+        })
+        .finally(() => {
+            if (setIsLoading) setIsLoading(false);
         });
 };

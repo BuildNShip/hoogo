@@ -323,14 +323,25 @@ const EventDashboard = () => {
                                 <div className={styles.modalContent}>
                                     <label className={styles.modalLabel}>Event Name</label>
                                     <p className={styles.modalLabelDescription}>
-                                        This name will be used in the urls and public links.
+                                        This name will be used in the urls and public links, only
+                                        alphanumeric characters are allowed.
                                     </p>
                                     <input
                                         type="text"
                                         value={eventInfo?.name}
-                                        onChange={(e) =>
-                                            setEventInfo({ ...eventInfo!, name: e.target.value })
-                                        }
+                                        onChange={(e) => {
+                                            //only allow alphanumeric characters
+                                            if (/^[a-zA-Z0-9]*$/.test(e.target.value))
+                                                setEventInfo({
+                                                    ...eventInfo!,
+                                                    name: e.target.value,
+                                                });
+                                            else {
+                                                toast.error(
+                                                    "Only alphanumeric characters are allowed"
+                                                );
+                                            }
+                                        }}
                                         className={styles.modalInput}
                                         autoFocus
                                     />

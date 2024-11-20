@@ -19,6 +19,23 @@
     padding: 1rem;
 }
 
+.mainLoaderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 11rem);
+    background-color: #1d1d1d;
+    opacity: 1;
+    padding: 1rem;
+}
+
+.loadingHelperText {
+    font-size: 0.9rem;
+    color: white;
+    margin-top: 1rem;
+}
+
 .loginContainer {
     display: flex;
     flex-direction: column;

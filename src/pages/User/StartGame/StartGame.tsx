@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../../components/Footer/Footer";
 import { getEventInfo, validateTicketCode } from "../../../apis/common";
-import { BeatLoader } from "react-spinners";
+import { BeatLoader, PacmanLoader } from "react-spinners";
 import Navbar from "../../../components/Navbar/Navbar";
 import { EventType } from "./types";
 import PageNotFound from "../../PageNotFound/PageNotFound";
@@ -17,6 +17,7 @@ const StartGame = () => {
     const [ticketCode, setTicketCode] = useState<string>();
     const [isValidating, setIsValidating] = useState(false);
     const [error, setError] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(true);
     const [eventInfo, setEventInfo] = useState<EventType>();
     const onSubmit = () => {
         if (eventName && ticketCode)
@@ -30,11 +31,11 @@ const StartGame = () => {
 
     useEffect(() => {
         if (eventName) {
-            getEventInfo(eventName, setEventInfo);
+            getEventInfo(eventName, setEventInfo, setIsLoading);
         }
     }, [eventName]);
 
-    if (eventInfo?.name) {
+    if (eventInfo?.name && !isLoading) {
         return (
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
@@ -51,9 +52,15 @@ const StartGame = () => {
                                 </p>
                             </div>
                             <div className={styles.inputFieldContainer}>
-                                <p className={styles.inputFieldLabel}>Ticket Code *</p>
+                                <p className={styles.inputFieldLabel}>
+                                    {eventInfo?.mmp_event_id
+                                        ? "Enter Ticket Code"
+                                        : "Enter Your Name"}
+                                </p>
                                 <p className={styles.inputFieldDescription}>
-                                    Kindly refer your ticket for the code.
+                                    {eventInfo?.mmp_event_id
+                                        ? "Enter the ticket code from your pass"
+                                        : "Enter your name to start the game"}
                                 </p>
                                 <input
                                     className={styles.inputField}
@@ -108,6 +115,21 @@ const StartGame = () => {
                                 </p>
                             )}
                         </div>
+                    </div>
+                    <Footer />
+                </div>
+            </div>
+        );
+    } else if (isLoading) {
+        return (
+            <div className={styles.backgroundContainer}>
+                <div className={styles.outerContainer}>
+                    <Navbar showActionButtons={false} />
+                    <div className={styles.mainLoaderContainer}>
+                        <PacmanLoader color="#1ED45E" loading size={25} />
+                        <p className={styles.loadingHelperText}>
+                            Hang tight! We are fetching the event details for you.
+                        </p>
                     </div>
                     <Footer />
                 </div>

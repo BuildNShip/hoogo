@@ -8,6 +8,7 @@ import { CreateEventTypes, EventType } from "./types";
 import { createNewEvent } from "../../../apis/admin";
 import { useNavigate } from "react-router-dom";
 import { GoPeople } from "react-icons/go";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -42,14 +43,26 @@ const Dashboard = () => {
                                 <label htmlFor="eventName" className={styles.label}>
                                     Event Name
                                 </label>
+                                <p className={styles.labelDescription}>
+                                    Create a new event by entering a unique name, only alphanumeric
+                                    characters are allowed.
+                                </p>
                                 <input
                                     type="text"
                                     id="eventName"
                                     className={styles.eventInput}
                                     value={createEvent.name}
-                                    onChange={(e) =>
-                                        setCreateEvent({ ...createEvent, name: e.target.value })
-                                    }
+                                    onChange={(e) => {
+                                        //only allow alphanumeric characters
+                                        if (/^[a-zA-Z0-9]*$/.test(e.target.value))
+                                            setCreateEvent({
+                                                ...createEvent,
+                                                name: e.target.value,
+                                            });
+                                        else {
+                                            toast.error("Only alphanumeric characters are allowed");
+                                        }
+                                    }}
                                     placeholder="Enter Event Name"
                                 />
                             </div>

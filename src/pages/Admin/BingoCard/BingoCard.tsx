@@ -82,7 +82,7 @@ const BingoCard = () => {
                             <div
                                 className={styles.gobackButton}
                                 onClick={() => {
-                                    navigate(`/dashboard/${eventName}/leaderboard/`);
+                                    navigate(`/${eventName}/leaderboard/`);
                                 }}
                             >
                                 {"<"}

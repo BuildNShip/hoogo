@@ -19,6 +19,7 @@ export const commonUrls = {
     createEvent: hoogoURL("/manage-event/create/"),
     updateEvent: (eventId: string) => hoogoURL(`/manage-event/${eventId}/update/`),
     importGrid: (eventName: string) => hoogoURL(`/manage-game/${eventName}/grid/import/`),
+    deleteEvent: (eventId: string) => hoogoURL(`/manage-event/${eventId}/delete/`),
 };
 
 export const websocketUrls = {

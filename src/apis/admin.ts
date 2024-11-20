@@ -66,3 +66,16 @@ export const importGrid = (
             setImportingGrid(false);
         });
 };
+
+export const deleteEvent = (eventId: string, navigate: NavigateFunction) => {
+    privateGateway
+        .delete(commonUrls.deleteEvent(eventId))
+        .then(() => {
+            toast.success("Event deleted successfully");
+            navigate("/dashboard");
+        })
+        .catch((error) => {
+            console.error(error);
+            toast.error("Failed to delete event");
+        });
+};

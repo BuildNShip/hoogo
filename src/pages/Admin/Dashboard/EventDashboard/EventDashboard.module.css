@@ -47,6 +47,10 @@
 .eventTitle {
     font-size: 1.5rem;
     color: #1ed45e;
+
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .backButton {

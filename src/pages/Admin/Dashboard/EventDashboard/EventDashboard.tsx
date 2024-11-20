@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./EventDashboard.module.css";
 import toast from "react-hot-toast";
 import { getEventInfo } from "../../../../apis/common";
-import { importGrid, updateEvent } from "../../../../apis/admin";
+import { deleteEvent, importGrid, updateEvent } from "../../../../apis/admin";
 import Modal from "../../../../components/Modal/Modal";
 import Footer from "../../../../components/Footer/Footer";
 import { formatDateTime } from "../../../../functions";
@@ -12,7 +12,7 @@ import { BeatLoader, PacmanLoader } from "react-spinners";
 import { FiEdit2 } from "react-icons/fi";
 import Navbar from "../../../../components/Navbar/Navbar";
 import { EventType, MMPEventListType, TemplateUploadType } from "./types";
-import { MdClose, MdOutlineContentCopy } from "react-icons/md";
+import { MdClose, MdDeleteOutline, MdOutlineContentCopy } from "react-icons/md";
 import Select from "react-select";
 import customReactSelectStyles from "./common";
 import { listMmpEvents } from "../../../../apis/user";
@@ -31,6 +31,8 @@ const EventDashboard = () => {
 
     const [generateGridConfirmation, setGenerateGridConfirmation] = useState(false);
     const [importingGrid, setImportingGrid] = useState(false);
+
+    const [deleteEventConfirmation, setDeleteEventConfirmation] = useState(false);
 
     const [updateGridConfirmation, setUpdateGridConfirmation] = useState(false);
 
@@ -166,12 +168,20 @@ const EventDashboard = () => {
                                 >
                                     {"<"}
                                 </div>
-                                <h1
-                                    className={styles.eventTitle}
-                                    onClick={() => setIsEditNameModalOpen(true)}
-                                >
+                                <h1 className={styles.eventTitle}>
                                     {eventInfo?.name}
-                                    <FiEdit2 className={styles.editIcon} size={18} color="#fff" />
+                                    <FiEdit2
+                                        className={styles.editIcon}
+                                        size={18}
+                                        color="#fff"
+                                        onClick={() => setIsEditNameModalOpen(true)}
+                                    />
+                                    <MdDeleteOutline
+                                        className={styles.deleteIcon}
+                                        size={20}
+                                        color="#fff"
+                                        onClick={() => setDeleteEventConfirmation(true)}
+                                    />
                                 </h1>
                             </div>
 
@@ -802,6 +812,40 @@ const EventDashboard = () => {
                                         <button
                                             className={styles.cancelButton}
                                             onClick={() => setGenerateGridConfirmation(false)}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </Modal>
+                        )}
+
+                        {deleteEventConfirmation && (
+                            <Modal
+                                title="Delete Event Confirmation"
+                                onClose={() => setDeleteEventConfirmation(false)}
+                            >
+                                <div className={styles.modalContent}>
+                                    <label className={styles.confirmationModalLabel}>
+                                        Delete Event
+                                    </label>
+                                    <p className={styles.confirmationModalDescription}>
+                                        Are you sure you want to delete the event? This action
+                                        cannot be undone.
+                                    </p>
+                                    <div className={styles.confirmationButtonsContainer}>
+                                        <button
+                                            className={styles.saveButton}
+                                            onClick={() => {
+                                                if (eventInfo?.id)
+                                                    deleteEvent(eventInfo?.id, navigate);
+                                            }}
+                                        >
+                                            Confirm
+                                        </button>
+                                        <button
+                                            className={styles.cancelButton}
+                                            onClick={() => setDeleteEventConfirmation(false)}
                                         >
                                             Cancel
                                         </button>

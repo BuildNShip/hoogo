@@ -83,15 +83,17 @@ const BingoLeaderboard = () => {
                                 <h1 className={styles.eventTitle}>{eventName}</h1>
                             </div>
                         )}
+
                         {players.length > 0 && (
                             <p className={styles.participantCount}>
                                 <span>{players.length}</span> people
                             </p>
                         )}
-                        <div className={styles.center}>
-                            <>
-                                {players.length > 0 ? (
-                                    <>
+
+                        <>
+                            {players.length > 0 ? (
+                                <>
+                                    <div className={styles.leaderboardCenterContainer}>
                                         <div className={styles.playerRowContainer}>
                                             {players.map((player, playerIndex) => (
                                                 <div key={playerIndex} className={styles.playerRow}>
@@ -136,25 +138,25 @@ const BingoLeaderboard = () => {
                                                 </div>
                                             ))}
                                         </div>
-                                    </>
-                                ) : (
-                                    <div className={styles.centerContainer}>
-                                        <div className={styles.loaderContainer}>
-                                            <PacmanLoader
-                                                color="#1ED45E"
-                                                loading
-                                                size={25}
-                                                aria-label="Loading Spinner"
-                                                data-testid="loader"
-                                            />
-                                        </div>
-                                        <p className={styles.loadingText}>
-                                            Waiting for participants to join...
-                                        </p>
                                     </div>
-                                )}
-                            </>
-                        </div>
+                                </>
+                            ) : (
+                                <div className={styles.centerContainer}>
+                                    <div className={styles.loaderContainer}>
+                                        <PacmanLoader
+                                            color="#1ED45E"
+                                            loading
+                                            size={25}
+                                            aria-label="Loading Spinner"
+                                            data-testid="loader"
+                                        />
+                                    </div>
+                                    <p className={styles.loadingText}>
+                                        Waiting for participants to join...
+                                    </p>
+                                </div>
+                            )}
+                        </>
                     </div>
                     <Footer />
                 </div>

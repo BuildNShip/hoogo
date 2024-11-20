@@ -39,8 +39,8 @@ const PageNotFound = () => {
                                 event. Kindly check the URL and try again.
                             </p>
                         </div>
-                        <Footer />
                     </div>
+                    <Footer />
                 </div>
             </div>
         </>

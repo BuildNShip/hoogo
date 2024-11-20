@@ -40,7 +40,8 @@ export const updateEvent = (eventId: string, formData: FormData): Promise<void> 
 export const importGrid = (
     eventName: string,
     setEventInfo: Dispatch<SetStateAction<EventType | undefined>>,
-    setImportingGrid: Dispatch<SetStateAction<boolean>>
+    setImportingGrid: Dispatch<SetStateAction<boolean>>,
+    setGenerateGridConfirmation: Dispatch<SetStateAction<boolean>>
 ) => {
     setImportingGrid(true);
     privateGateway
@@ -58,6 +59,8 @@ export const importGrid = (
                     return prev;
                 });
             }
+
+            setGenerateGridConfirmation(false);
         })
         .catch((error) => {
             console.error(error);

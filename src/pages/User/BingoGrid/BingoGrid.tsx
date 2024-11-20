@@ -5,6 +5,7 @@ import GridComponent from "./components/GridComponent/GridComponent";
 import { PacmanLoader } from "react-spinners";
 import styles from "./BingoGrid.module.css";
 import Footer from "../../../components/Footer/Footer";
+import Navbar from "../../../components/Navbar/Navbar";
 
 interface BingoCell {
     image: string | undefined;
@@ -32,26 +33,29 @@ const BingoGrid = () => {
 
     return (
         <>
-            <div className={styles.mainContainer}>
-                {loading ? (
-                    <>
-                        <div className={styles.loaderContainer}>
-                            <PacmanLoader
-                                color="#1ED45E"
-                                loading
-                                size={25}
-                                aria-label="Loading Spinner"
-                                data-testid="loader"
-                            />
+            <div className={styles.backgroundContainer}>
+                <Navbar showActionButtons={false} />
+                <div className={styles.outerContainer}>
+                    {loading ? (
+                        <div className={styles.loaderMainContainer}>
+                            <div className={styles.loaderContainer}>
+                                <PacmanLoader
+                                    color="#1ED45E"
+                                    loading
+                                    size={25}
+                                    aria-label="Loading Spinner"
+                                    data-testid="loader"
+                                />
+                            </div>
+                            <p className={styles.loadingText}>
+                                Loading your bingo card. Please wait...
+                            </p>
                         </div>
-                        <p className={styles.loadingText}>
-                            Loading your bingo card. Please wait...
-                        </p>
-                    </>
-                ) : (
-                    <GridComponent cells={cells} letters={letters} setCells={setCells} />
-                )}
-                <Footer />
+                    ) : (
+                        <GridComponent cells={cells} letters={letters} setCells={setCells} />
+                    )}
+                    <Footer />
+                </div>
             </div>
         </>
     );

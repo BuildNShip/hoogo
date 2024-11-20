@@ -150,24 +150,6 @@ const BingoCard = () => {
                             }}
                         />
 
-                        <p className={styles.tagHelper}>
-                            Don't forget to tag us{" "}
-                            <a
-                                href="https://www.instagram.com/makemypass/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <span>@makemypass</span>
-                            </a>{" "}
-                            and{" "}
-                            <a
-                                href="https://www.instagram.com/life.at.reflections/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <span>@life.at.reflections</span>
-                            </a>
-                        </p>
                         <p className={styles.viewDescription}>
                             Click on the images to view your description about them.
                         </p>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./GridComponent.module.css";
 import Modal from "../../../../../components/Modal/Modal";
 import { postUserInput } from "../../../../../apis/common";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
 import { BeatLoader } from "react-spinners";
@@ -29,7 +29,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
     const [description, setDescription] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [rowsBingo, setRowsBingo] = useState<boolean[]>([false, false, false, false, false]);
-
+    const navigate = useNavigate();
     const toggleCell = (index1: number, index2: number) => {
         setSelectedCell([index1, index2]);
     };
@@ -468,6 +468,30 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                         </div>
                                     ))
                                 )}
+                        </div>
+
+                        <div className={styles.downloadYourHoogo}>
+                            <p className={styles.downloadYourHoogoText}>
+                                Don't you want to share
+                                <span> Your Hoogo Card</span> with your friends?
+                            </p>
+                            <button
+                                className={styles.downloadButton}
+                                onClick={() => {
+                                    if (rowsBingo.filter((row) => row).length !== 0) {
+                                        navigate(`/${eventName}/${ticketCode}/hoogocard`);
+                                    } else {
+                                        toast.error("Complete atleast one letter to view", {
+                                            id: "bingo",
+                                        });
+                                    }
+                                }}
+                                style={{
+                                    opacity: rowsBingo.filter((row) => row).length !== 0 ? 1 : 0.5,
+                                }}
+                            >
+                                View Hoogo
+                            </button>
                         </div>
                     </>
                 ) : (

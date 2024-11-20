@@ -38,7 +38,7 @@ const StartGame = () => {
         return (
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
-                    <Navbar showLogin={false} />
+                    <Navbar showActionButtons={false} />
                     <div className={styles.mainContainer}>
                         <p className={styles.pageHeaderText}>
                             Hi, <span>{eventInfo?.name}</span> Participants 👋

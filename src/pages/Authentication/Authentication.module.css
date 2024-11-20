@@ -15,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 8rem);
+    min-height: calc(100vh - 11rem);
     background-color: #1d1d1d;
     opacity: 1;
     padding: 1rem;
@@ -31,7 +31,7 @@
     background-color: #202020;
     border-radius: 10px;
     padding: 2rem;
-    color: white;
+    color: white !important;
     border: 2px solid #2f2f2f;
 }
 
@@ -106,8 +106,25 @@
     opacity: 0.8;
 }
 
+.buttonsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
+}
+
 .loginButton {
-    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-weight: 600;
+    background-color: #1ed45e;
+    font-size: 1rem;
+    color: #202020;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+}
+
+.resentOtpButton {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     font-weight: 600;
@@ -116,6 +133,11 @@
     color: #ffffff;
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .loaderContainer {
@@ -139,4 +161,48 @@
     color: #e94545;
     font-size: 0.85rem;
     margin-top: 0.5rem;
+}
+
+.timerAlert {
+    font-size: 0.85rem;
+    color: white;
+    opacity: 0.8;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signUpWithGoogle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.googleButton {
+    background-color: #ffffff;
+    color: #202020;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.signInWithGoogleText {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 400;
+    opacity: 0.8;
 }

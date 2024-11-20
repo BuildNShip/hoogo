@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.12.1",
     "axios": "^1.7.7",
     "html2canvas": "^1.4.1",
     "react": "^18.3.1",

@@ -24,5 +24,6 @@ export interface FormDataType {
         error?: string;
     };
     apiName: string;
+    resendOtpType?: string | null;
     generalError?: string;
 }

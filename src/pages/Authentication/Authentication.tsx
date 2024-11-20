@@ -3,12 +3,15 @@ import styles from "./Authentication.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import { BeatLoader } from "react-spinners";
-import { generateOTP, login, register } from "../../apis/auth";
+import { generateOTP, login, loginUsingGoogle, preRegister, register } from "../../apis/auth";
 import { FormDataType } from "./types";
 import { useNavigate } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const Authentication = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [generateOTPTimer, setGenerateOTPTimer] = useState(0);
     const navigate = useNavigate();
     const [formData, setFormData] = useState<FormDataType>({
         email: {
@@ -32,25 +35,87 @@ const Authentication = () => {
             disabled: false,
         },
         apiName: "generateOTP",
+        resendOtpType: null,
         generalError: "",
     });
 
+    useEffect(() => {
+        if (formData.resendOtpType === "Login" || formData.resendOtpType === "Register") {
+            setGenerateOTPTimer(30);
+        }
+    }, [formData.resendOtpType]);
+
+    useEffect(() => {
+        if (generateOTPTimer > 0) {
+            const interval = setInterval(() => {
+                setGenerateOTPTimer((prev) => prev - 1);
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [generateOTPTimer]);
+
     const handleSubmit = () => {
-        if (formData.apiName === "generateOTP") {
-            generateOTP(formData.email.value, "Login", setFormData, setIsLoading);
-        } else if (formData.apiName === "register") {
-            register(
-                formData.email.value,
-                formData.name.value,
-                formData.otp.value,
-                navigate,
-                setFormData,
-                setIsLoading
-            );
-        } else if (formData.apiName === "login") {
-            login(formData.email.value, formData.otp.value, navigate, setIsLoading, setFormData);
+        if (formData.email.value !== "") {
+            if (formData.apiName === "generateOTP") {
+                generateOTP(formData.email.value, "Login", setFormData, setIsLoading);
+            } else if (formData.apiName === "register") {
+                if (formData.name.value === "") {
+                    setFormData({
+                        ...formData,
+                        name: {
+                            ...formData.name,
+                            error: "Name cannot be empty",
+                        },
+                    });
+                    return;
+                }
+                register(
+                    formData.email.value,
+                    formData.name.value,
+                    formData.otp.value,
+                    navigate,
+                    setFormData,
+                    setIsLoading
+                );
+            } else if (formData.apiName === "login") {
+                if (formData.otp.value !== "") {
+                    login(
+                        formData.email.value,
+                        formData.otp.value,
+                        navigate,
+                        setIsLoading,
+                        setFormData
+                    );
+                } else {
+                    setFormData({
+                        ...formData,
+                        otp: {
+                            ...formData.otp,
+                            error: "OTP cannot be empty",
+                        },
+                    });
+                }
+            }
+        } else {
+            setFormData({
+                ...formData,
+                email: {
+                    ...formData.email,
+                    error: "Email cannot be empty",
+                },
+            });
         }
     };
+
+    const handleGoogleLogin = useGoogleLogin({
+        // flow: 'auth-code',
+        onSuccess: (credentialResponse) => {
+            loginUsingGoogle(credentialResponse, setIsLoading, navigate);
+        },
+        onError: () => {
+            console.error("Google Sign-In was unsuccessful");
+        },
+    });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -73,7 +138,7 @@ const Authentication = () => {
         <>
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
-                    <Navbar />
+                    <Navbar showActionButtons={false} />
                     <div className={styles.mainContainer}>
                         <p className={styles.pageHeaderText}>
                             Welcome to <span>Hoogo</span> 👋
@@ -81,9 +146,22 @@ const Authentication = () => {
 
                         <div className={styles.loginContainer}>
                             <div className={styles.logoContainerHeader}>
-                                <p className={styles.loginContainerHeaderText}>Login to Continue</p>
+                                <p className={styles.loginContainerHeaderText}>
+                                    {formData.apiName === "generateOTP"
+                                        ? "Login to Hoogo"
+                                        : formData.apiName === "register"
+                                        ? "Register Now"
+                                        : "Login to Hoogo"}
+                                </p>
                                 <p className={styles.loginContainerDescription}>
-                                    Enter your credentials to access your account
+                                    {
+                                        // Show the description based on the API name
+                                        formData.apiName === "generateOTP"
+                                            ? "Enter your email to get started"
+                                            : formData.apiName === "register"
+                                            ? "Enter your details to register"
+                                            : "Enter the OTP sent to your email"
+                                    }
                                 </p>
                             </div>
 
@@ -93,6 +171,9 @@ const Authentication = () => {
                                     <input
                                         name="email"
                                         type="email"
+                                        style={{
+                                            opacity: formData.email.disabled ? 0.5 : 1,
+                                        }}
                                         className={styles.inputField}
                                         placeholder="your@email.com"
                                         value={formData.email?.value}
@@ -162,7 +243,7 @@ const Authentication = () => {
                                         </p>
                                         <input
                                             name="otp"
-                                            type="text"
+                                            type="number"
                                             className={styles.inputField}
                                             placeholder="Enter OTP"
                                             value={formData.otp?.value}
@@ -184,26 +265,101 @@ const Authentication = () => {
                                     <p className={styles.errorText}>{formData?.generalError}</p>
                                 )}
 
-                                <button className={styles.loginButton} onClick={handleSubmit}>
-                                    {isLoading ? (
-                                        <div className={styles.loaderContainer}>
-                                            <BeatLoader
-                                                color="#1ED45E"
-                                                loading
-                                                size={8}
-                                                aria-label="Loading Spinner"
-                                                data-testid="loader"
-                                            />
+                                <div className={styles.modalFooter}>
+                                    <div className={styles.buttonsContainer}>
+                                        <button
+                                            className={styles.loginButton}
+                                            onClick={handleSubmit}
+                                        >
+                                            {isLoading ? (
+                                                <div className={styles.loaderContainer}>
+                                                    <BeatLoader
+                                                        color="#252525"
+                                                        loading
+                                                        size={8}
+                                                        aria-label="Loading Spinner"
+                                                        data-testid="loader"
+                                                    />
+                                                </div>
+                                            ) : formData.apiName === "generateOTP" ? (
+                                                "Generate OTP"
+                                            ) : formData.apiName === "register" ? (
+                                                "Register"
+                                            ) : (
+                                                "Login"
+                                            )}
+                                        </button>
+
+                                        {formData.resendOtpType &&
+                                            formData.resendOtpType.length > 0 && (
+                                                <button
+                                                    className={styles.resentOtpButton}
+                                                    onClick={() => {
+                                                        if (
+                                                            typeof formData.resendOtpType ===
+                                                                "string" &&
+                                                            formData.resendOtpType === "Login"
+                                                        )
+                                                            generateOTP(
+                                                                formData.email.value,
+                                                                formData.resendOtpType,
+                                                                setFormData,
+                                                                setIsLoading
+                                                            );
+                                                        else if (
+                                                            typeof formData.resendOtpType ===
+                                                                "string" &&
+                                                            formData.resendOtpType === "Register"
+                                                        )
+                                                            preRegister(
+                                                                formData.email.value,
+                                                                setFormData,
+                                                                setIsLoading
+                                                            );
+                                                    }}
+                                                    disabled={isLoading || generateOTPTimer > 0}
+                                                    style={{
+                                                        cursor:
+                                                            isLoading || generateOTPTimer > 0
+                                                                ? "not-allowed"
+                                                                : "pointer",
+                                                        opacity:
+                                                            isLoading || generateOTPTimer > 0
+                                                                ? 0.5
+                                                                : 1,
+                                                    }}
+                                                >
+                                                    Resend OTP
+                                                </button>
+                                            )}
+                                    </div>
+
+                                    {generateOTPTimer > 0 && (
+                                        <div className={styles.timerAlert}>
+                                            {generateOTPTimer > 0 && (
+                                                <p>
+                                                    Resend in{" "}
+                                                    <span className={styles.timerText}>
+                                                        {generateOTPTimer} seconds
+                                                    </span>
+                                                </p>
+                                            )}
                                         </div>
-                                    ) : formData.apiName === "generateOTP" ? (
-                                        "Generate OTP"
-                                    ) : formData.apiName === "register" ? (
-                                        "Register"
-                                    ) : (
-                                        "Login"
                                     )}
-                                </button>
+                                </div>
                             </div>
+                        </div>
+
+                        <div className={styles.signUpWithGoogle}>
+                            <button
+                                className={styles.resentOtpButton}
+                                onClick={() => {
+                                    handleGoogleLogin();
+                                }}
+                            >
+                                <FaGoogle color="#fff" size={20} />
+                                Google Sign In
+                            </button>
                         </div>
                     </div>
                     <Footer />

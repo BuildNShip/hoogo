@@ -64,81 +64,95 @@ const BingoLeaderboard = () => {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <img src="/live.gif" alt="logo" className={styles.liveGif} />
-            {players.length > 0 && (
-                <p className={styles.participantCount}>
-                    <span>{players.length}</span> people
-                </p>
-            )}
-            <div className={styles.center}>
-                <p className={styles.leaderboardHeadingText}>Elevate'24 Bingo Leaderboard</p>
-                <>
-                    {players.length > 0 ? (
-                        <>
-                            <p className={styles.leaderboardHeadingDescription}>
-                                Click on a name to view the player's bingo card. The leaderboard is
-                                sorted based on completion time.
+        <>
+            <div className={styles.backgroundContainer}>
+                <div className={styles.outerContainer}>
+                    <div className={styles.container}>
+                        <img src="/live.gif" alt="logo" className={styles.liveGif} />
+                        {players.length > 0 && (
+                            <p className={styles.participantCount}>
+                                <span>{players.length}</span> people
                             </p>
-                            <div className={styles.playerRowContainer}>
-                                {players.map((player, playerIndex) => (
-                                    <div key={playerIndex} className={styles.playerRow}>
-                                        <Link
-                                            to={`/${eventName}/${player.user_code}/hoogocard`}
-                                            className={styles.nameLink}
-                                        >
-                                            {playerIndex + 1}
-                                            {")"}.{player.user_name || player.user_code}
-                                            {player.completed_at && (
-                                                <div className={styles.completedAtText}>
-                                                    <IoIosTime />
-                                                    <p>
-                                                        {formatTime(new Date(player.completed_at))}
-                                                    </p>
-                                                </div>
-                                            )}
-                                        </Link>
-
-                                        <div className={styles.bingoLetters}>
-                                            {["B", "I", "N", "G", "O"].map(
-                                                (letter, letterIndex) => (
-                                                    <button
-                                                        key={letter}
-                                                        className={`${styles.letterButton} ${
-                                                            player.score[letterIndex]
-                                                                ? styles.strikethrough
-                                                                : ""
-                                                        }`}
+                        )}
+                        <div className={styles.center}>
+                            <p className={styles.leaderboardHeadingText}>
+                                Elevate'24 Bingo Leaderboard
+                            </p>
+                            <>
+                                {players.length > 0 ? (
+                                    <>
+                                        <p className={styles.leaderboardHeadingDescription}>
+                                            Click on a name to view the player's bingo card. The
+                                            leaderboard is sorted based on completion time.
+                                        </p>
+                                        <div className={styles.playerRowContainer}>
+                                            {players.map((player, playerIndex) => (
+                                                <div key={playerIndex} className={styles.playerRow}>
+                                                    <Link
+                                                        to={`/${eventName}/${player.user_code}/hoogocard`}
+                                                        className={styles.nameLink}
                                                     >
-                                                        {letter}
-                                                    </button>
-                                                )
-                                            )}
+                                                        {playerIndex + 1}
+                                                        {")"}.{player.user_name || player.user_code}
+                                                        {player.completed_at && (
+                                                            <div className={styles.completedAtText}>
+                                                                <IoIosTime />
+                                                                <p>
+                                                                    {formatTime(
+                                                                        new Date(
+                                                                            player.completed_at
+                                                                        )
+                                                                    )}
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                    </Link>
+
+                                                    <div className={styles.bingoLetters}>
+                                                        {["B", "I", "N", "G", "O"].map(
+                                                            (letter, letterIndex) => (
+                                                                <button
+                                                                    key={letter}
+                                                                    className={`${
+                                                                        styles.letterButton
+                                                                    } ${
+                                                                        player.score[letterIndex]
+                                                                            ? styles.strikethrough
+                                                                            : ""
+                                                                    }`}
+                                                                >
+                                                                    {letter}
+                                                                </button>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div className={styles.loaderContainer}>
-                                <PacmanLoader
-                                    color="#1ED45E"
-                                    loading
-                                    size={25}
-                                    aria-label="Loading Spinner"
-                                    data-testid="loader"
-                                />
-                            </div>
-                            <p className={styles.loadingText}>
-                                Waiting for participants to join...
-                            </p>
-                        </>
-                    )}
-                </>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={styles.loaderContainer}>
+                                            <PacmanLoader
+                                                color="#1ED45E"
+                                                loading
+                                                size={25}
+                                                aria-label="Loading Spinner"
+                                                data-testid="loader"
+                                            />
+                                        </div>
+                                        <p className={styles.loadingText}>
+                                            Waiting for participants to join...
+                                        </p>
+                                    </>
+                                )}
+                            </>
+                        </div>
+                    </div>
+                    <Footer />
+                </div>
             </div>
-            <Footer />
-        </div>
+        </>
     );
 };
 

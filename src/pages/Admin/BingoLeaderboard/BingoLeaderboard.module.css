@@ -1,8 +1,19 @@
+.backgroundContainer {
+    background-color: #1d1d1d;
+}
+
+.outerContainer {
+    max-width: 70rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 4rem);
     width: 100%;
     background-color: #1d1d1d;
 }

@@ -750,8 +750,8 @@ const EventDashboard = () => {
                                 </div>
                             </Modal>
                         )}
-                        <Footer />
                     </div>
+                    <Footer />
                 </div>
             </div>
         </>

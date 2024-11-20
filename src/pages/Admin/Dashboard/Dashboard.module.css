@@ -14,7 +14,7 @@
     justify-content: flex-start;
     align-items: flex-start;
 
-    min-height: calc(100vh - 8rem);
+    min-height: calc(100vh - 11rem);
     overflow-y: hidden;
     background-color: #1d1d1d;
     opacity: 1;
@@ -73,7 +73,7 @@
     font-size: 0.9rem;
     color: white;
     font-weight: 400;
-    text-align: center;
+    text-align: left;
     margin-bottom: 1rem;
 }
 

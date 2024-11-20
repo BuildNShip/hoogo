@@ -39,8 +39,10 @@ export const updateEvent = (eventId: string, formData: FormData): Promise<void> 
 
 export const importGrid = (
     eventName: string,
-    setEventInfo: Dispatch<SetStateAction<EventType | undefined>>
+    setEventInfo: Dispatch<SetStateAction<EventType | undefined>>,
+    setImportingGrid: Dispatch<SetStateAction<boolean>>
 ) => {
+    setImportingGrid(true);
     privateGateway
         .post(commonUrls.importGrid(eventName))
         .then((response) => {
@@ -59,5 +61,8 @@ export const importGrid = (
         })
         .catch((error) => {
             console.error(error);
+        })
+        .finally(() => {
+            setImportingGrid(false);
         });
 };

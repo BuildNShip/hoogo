@@ -29,6 +29,9 @@ const EventDashboard = () => {
     const [isdownloading, setIsDownloading] = useState(false);
     const [mmpEvents, setMmpEvents] = useState<MMPEventListType[]>();
 
+    const [generateGridConfirmation, setGenerateGridConfirmation] = useState(false);
+    const [importingGrid, setImportingGrid] = useState(false);
+
     const [updateGridConfirmation, setUpdateGridConfirmation] = useState(false);
 
     const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>();
@@ -134,7 +137,8 @@ const EventDashboard = () => {
     };
 
     const generateRandomGrid = () => {
-        if (eventInfo?.name && eventInfo.mmp_event_id) importGrid(eventInfo?.name, setEventInfo);
+        if (eventInfo?.name && eventInfo.mmp_event_id)
+            importGrid(eventInfo?.name, setEventInfo, setImportingGrid);
         else {
             toast.error("Connect to MakeMyPass to generate Grid using CheckIn Participant Data");
         }
@@ -476,14 +480,21 @@ const EventDashboard = () => {
                                     </label>
                                     <button
                                         className={styles.editButtonSmall}
-                                        onClick={generateRandomGrid}
+                                        onClick={() => {
+                                            setGenerateGridConfirmation(true);
+                                        }}
                                         style={!eventInfo?.mmp_event_id ? { opacity: 0.5 } : {}}
                                     >
                                         Generate Grid
                                     </button>
                                 </div>
 
-                                <p className={styles.modalLabelDescription}>
+                                <p
+                                    className={styles.modalLabelDescription}
+                                    style={{
+                                        maxWidth: "20rem",
+                                    }}
+                                >
                                     Edit the Bingo grid for the event. You can also generate a
                                     random grid.
                                 </p>
@@ -757,6 +768,43 @@ const EventDashboard = () => {
                                             Confirm
                                         </button>
                                         <button className={styles.cancelButton}>Cancel</button>
+                                    </div>
+                                </div>
+                            </Modal>
+                        )}
+
+                        {generateGridConfirmation && (
+                            <Modal
+                                title="Import Grid Confirmation"
+                                onClose={() => setGenerateGridConfirmation(false)}
+                            >
+                                <div className={styles.modalContent}>
+                                    <label className={styles.confirmationModalLabel}>
+                                        Import Grid From MakeMyPass
+                                    </label>
+                                    <p className={styles.confirmationModalDescription}>
+                                        Are you sure you want to import the grid from MakeMyPass?
+                                        This action will overwrite the current grid.
+                                    </p>
+                                    <div className={styles.confirmationButtonsContainer}>
+                                        <button
+                                            className={styles.saveButton}
+                                            onClick={() => {
+                                                generateRandomGrid();
+                                            }}
+                                        >
+                                            {importingGrid ? (
+                                                <BeatLoader color="#272727" size={10} />
+                                            ) : (
+                                                "Confirm"
+                                            )}
+                                        </button>
+                                        <button
+                                            className={styles.cancelButton}
+                                            onClick={() => setGenerateGridConfirmation(false)}
+                                        >
+                                            Cancel
+                                        </button>
                                     </div>
                                 </div>
                             </Modal>

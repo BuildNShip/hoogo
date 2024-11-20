@@ -5,7 +5,6 @@ import GridComponent from "./components/GridComponent/GridComponent";
 import { PacmanLoader } from "react-spinners";
 import styles from "./BingoGrid.module.css";
 import Footer from "../../../components/Footer/Footer";
-import Navbar from "../../../components/Navbar/Navbar";
 
 interface BingoCell {
     image: string | undefined;
@@ -34,7 +33,6 @@ const BingoGrid = () => {
     return (
         <>
             <div className={styles.backgroundContainer}>
-                <Navbar showActionButtons={false} />
                 <div className={styles.outerContainer}>
                     {loading ? (
                         <div className={styles.loaderMainContainer}>

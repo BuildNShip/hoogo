@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
@@ -6,6 +6,7 @@ import Footer from "../../../components/Footer/Footer";
 import { PacmanLoader } from "react-spinners";
 import { IoIosTime } from "react-icons/io";
 import { formatTime } from "../../../functions";
+
 interface Player {
     user_name: string;
     user_code: string;
@@ -18,51 +19,85 @@ const BingoLeaderboard = () => {
     const { eventName } = useParams();
     const [players, setPlayers] = useState<Player[]>([]);
     const navigate = useNavigate();
+    const socketRef = useRef<WebSocket | null>(null); // Use ref to store WebSocket instance
     const isAuthenticated = localStorage.getItem("accessToken");
+
     useEffect(() => {
         if (!eventName) return;
+
+        // Close any existing socket before creating a new one
+        if (socketRef.current) {
+            socketRef.current.close();
+        }
+
         const socket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
+        socketRef.current = socket;
+
+        socket.onopen = () => {
+            console.log("WebSocket connection opened.");
+        };
 
         socket.onmessage = (event) => {
-            const updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
+            try {
+                const updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
 
-            setPlayers((prevPlayers) => {
-                let newPlayers = Array.isArray(updatedPlayer)
-                    ? updatedPlayer
-                    : prevPlayers.map((player) =>
-                          player.user_name === updatedPlayer.user_name ? updatedPlayer : player
-                      );
+                setPlayers((prevPlayers) => {
+                    let newPlayers = Array.isArray(updatedPlayer)
+                        ? updatedPlayer
+                        : prevPlayers.map((player) =>
+                              player.user_code === updatedPlayer.user_code ? updatedPlayer : player
+                          );
 
-                if (
-                    !Array.isArray(updatedPlayer) &&
-                    !prevPlayers.some((player) => player.user_name === updatedPlayer.user_name)
-                ) {
-                    newPlayers = [...prevPlayers, updatedPlayer];
-                }
-
-                return newPlayers.sort((a, b) => {
-                    if (a.completed_at && b.completed_at) {
-                        return (
-                            new Date(a.completed_at).getTime() - new Date(b.completed_at).getTime()
-                        );
-                    } else if (a.completed_at) {
-                        return -1;
-                    } else if (b.completed_at) {
-                        return 1;
-                    } else {
-                        const aScore = a.score.filter(Boolean).length;
-                        const bScore = b.score.filter(Boolean).length;
-                        if (aScore !== bScore) {
-                            return bScore - aScore;
-                        } else {
-                            return b.no_of_connections - a.no_of_connections;
-                        }
+                    if (
+                        !Array.isArray(updatedPlayer) &&
+                        !prevPlayers.some((player) => player.user_code === updatedPlayer.user_code)
+                    ) {
+                        newPlayers = [...prevPlayers, updatedPlayer];
                     }
+
+                    return newPlayers.sort((a, b) => {
+                        if (a.completed_at && b.completed_at) {
+                            return (
+                                new Date(a.completed_at).getTime() -
+                                new Date(b.completed_at).getTime()
+                            );
+                        } else if (a.completed_at) {
+                            return -1;
+                        } else if (b.completed_at) {
+                            return 1;
+                        } else {
+                            const aScore = a.score.filter(Boolean).length;
+                            const bScore = b.score.filter(Boolean).length;
+                            if (aScore !== bScore) {
+                                return bScore - aScore;
+                            } else {
+                                return b.no_of_connections - a.no_of_connections;
+                            }
+                        }
+                    });
                 });
-            });
+            } catch (error) {
+                console.error("Error processing WebSocket message:", error);
+            }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
+        socket.onerror = (error) => {
+            console.error("WebSocket error:", error);
+        };
+
+        socket.onclose = (event) => {
+            console.log("WebSocket connection closed:", event);
+            socketRef.current = null; // Clear the ref when socket is closed
+        };
+
+        // Cleanup function to close the WebSocket connection
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.close();
+                socketRef.current = null;
+            }
+        };
+    }, [eventName]);
 
     return (
         <>

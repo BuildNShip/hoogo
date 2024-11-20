@@ -630,8 +630,8 @@ const EventDashboard = () => {
 
                                         {uploadTemplates?.postTemplate ? (
                                             <div className={styles.previewImageContainer}>
-                                                <img
-                                                    src={
+                                                <a
+                                                    href={
                                                         typeof uploadTemplates.postTemplate ===
                                                         "string"
                                                             ? uploadTemplates.postTemplate
@@ -639,14 +639,26 @@ const EventDashboard = () => {
                                                                   uploadTemplates.postTemplate
                                                               )
                                                     }
-                                                    alt="Preview"
-                                                    style={{
-                                                        width: "100px",
-                                                        height: "100px",
-                                                        objectFit: "cover",
-                                                        marginTop: "10px",
-                                                    }}
-                                                />
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <img
+                                                        src={
+                                                            typeof uploadTemplates.postTemplate ===
+                                                            "string"
+                                                                ? uploadTemplates.postTemplate
+                                                                : URL.createObjectURL(
+                                                                      uploadTemplates.postTemplate
+                                                                  )
+                                                        }
+                                                        alt="Preview"
+                                                        style={{
+                                                            width: "100px",
+                                                            objectFit: "cover",
+                                                            marginTop: "10px",
+                                                        }}
+                                                    />
+                                                </a>
                                                 <div
                                                     className={styles.closeButton}
                                                     title="Remove Image"
@@ -692,8 +704,8 @@ const EventDashboard = () => {
 
                                         {uploadTemplates?.storyTemplate ? (
                                             <div className={styles.previewImageContainer}>
-                                                <img
-                                                    src={
+                                                <a
+                                                    href={
                                                         typeof uploadTemplates.storyTemplate ===
                                                         "string"
                                                             ? uploadTemplates.storyTemplate
@@ -701,14 +713,26 @@ const EventDashboard = () => {
                                                                   uploadTemplates.storyTemplate
                                                               )
                                                     }
-                                                    alt="Preview"
-                                                    style={{
-                                                        width: "100px",
-                                                        height: "100px",
-                                                        objectFit: "cover",
-                                                        marginTop: "10px",
-                                                    }}
-                                                />
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <img
+                                                        src={
+                                                            typeof uploadTemplates.storyTemplate ===
+                                                            "string"
+                                                                ? uploadTemplates.storyTemplate
+                                                                : URL.createObjectURL(
+                                                                      uploadTemplates.storyTemplate
+                                                                  )
+                                                        }
+                                                        alt="Preview"
+                                                        style={{
+                                                            width: "100px",
+                                                            objectFit: "cover",
+                                                            marginTop: "10px",
+                                                        }}
+                                                    />
+                                                </a>
                                                 <div
                                                     className={styles.closeButton}
                                                     title="Remove Image"

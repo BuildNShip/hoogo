@@ -36,6 +36,10 @@ const routes: RouteObject[] = [
         element: <BingoCard />,
     },
     {
+        path: "/:eventName/leaderboard",
+        element: <WinnerPage />,
+    },
+    {
         path: "/",
         element: <AuthCheck />,
         children: [
@@ -44,10 +48,6 @@ const routes: RouteObject[] = [
                 element: <Dashboard />,
             },
             // /dashboard/:eventName Yet to Develop
-            {
-                path: "/dashboard/:eventName/leaderboard",
-                element: <WinnerPage />,
-            },
 
             {
                 path: "/dashboard/:eventName/",

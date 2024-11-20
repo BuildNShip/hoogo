@@ -333,9 +333,7 @@ const EventDashboard = () => {
                                         <button
                                             className={styles.leaderboardButton}
                                             onClick={() =>
-                                                navigate(
-                                                    `/dashboard/${eventInfo?.name}/leaderboard`
-                                                )
+                                                navigate(`/${eventInfo?.name}/leaderboard`)
                                             }
                                         >
                                             Show Leaderboard

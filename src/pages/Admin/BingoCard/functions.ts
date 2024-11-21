@@ -22,7 +22,7 @@ export const captureAndDownload = async ({
                 useCORS: true,
                 allowTaint: false,
                 backgroundColor: null,
-                scale: 4, // Increase scale for higher resolution
+                scale: 100, // Increase scale for higher resolution
             });
 
             const gridImage = gridCanvas.toDataURL("image/png");
@@ -77,7 +77,7 @@ export const captureAndDownloadPost = async ({
                 useCORS: true,
                 allowTaint: false,
                 backgroundColor: null,
-                scale: 4, // Increase scale for higher resolution
+                scale: 100, // Increase scale for higher resolution
             });
 
             const gridImage = gridCanvas.toDataURL("image/png");

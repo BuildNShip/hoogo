@@ -1,0 +1,98 @@
+.qrContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    min-height: calc(100vh - 13rem);
+    height: 100%;
+}
+
+.backgroundContainer {
+    background-color: #1d1d1d;
+}
+
+.outerContainer {
+    max-width: 70rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.qrLoaderContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.pacmanLoader {
+    margin-left: -3rem;
+}
+
+.loaderText {
+    color: #1ed45e;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.qrImageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        border: 3px solid #1ed45e;
+    }
+}
+
+.copyQr {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    background-color: #1ed45e;
+    color: #252525;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+    min-width: 5rem;
+}
+
+.copyQr:hover {
+    background-color: #2dcf66;
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+}
+
+.eventTitle {
+    font-size: 1.5rem;
+    color: #1ed45e;
+}
+
+.gobackButton {
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: Inter;
+}

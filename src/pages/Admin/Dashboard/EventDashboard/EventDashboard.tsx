@@ -614,18 +614,33 @@ const EventDashboard = () => {
                                             }}
                                         >
                                             <div ref={ref}></div>
-                                            <button
-                                                className={styles.copyQr}
-                                                onClick={() => {
-                                                    onDownloadClick();
+                                            <div
+                                                className={styles.row}
+                                                style={{
+                                                    gap: "10px",
                                                 }}
                                             >
-                                                {isdownloading ? (
-                                                    <BeatLoader color="#272727" size={10} />
-                                                ) : (
-                                                    "Download"
-                                                )}
-                                            </button>
+                                                <button
+                                                    className={styles.copyQr}
+                                                    onClick={() => {
+                                                        onDownloadClick();
+                                                    }}
+                                                >
+                                                    {isdownloading ? (
+                                                        <BeatLoader color="#272727" size={10} />
+                                                    ) : (
+                                                        "Download QR"
+                                                    )}
+                                                </button>
+                                                <button
+                                                    className={styles.copyQr}
+                                                    onClick={() => {
+                                                        navigate(`/${eventInfo?.name}/qr`);
+                                                    }}
+                                                >
+                                                    Full Screen
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </Modal>

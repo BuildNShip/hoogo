@@ -9,6 +9,7 @@ import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import AuthCheck from "./components/AuthCheck";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import EventDashboard from "./pages/Admin/Dashboard/EventDashboard/EventDashboard";
+import EventQR from "./pages/User/EventQR/EventQR";
 
 const routes: RouteObject[] = [
     {
@@ -38,6 +39,10 @@ const routes: RouteObject[] = [
     {
         path: "/:eventName/leaderboard",
         element: <WinnerPage />,
+    },
+    {
+        path: "/:eventName/qr",
+        element: <EventQR />,
     },
     {
         path: "/",

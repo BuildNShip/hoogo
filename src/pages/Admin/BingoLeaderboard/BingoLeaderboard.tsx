@@ -8,6 +8,7 @@ import { PacmanLoader } from "react-spinners";
 import { IoIosTime } from "react-icons/io";
 import { formatTime } from "../../../functions";
 import toast from "react-hot-toast";
+import { MdNetworkWifi1Bar, MdNetworkWifi2Bar, MdNetworkWifi3Bar } from "react-icons/md";
 
 interface Player {
     user_name: string;
@@ -154,10 +155,25 @@ const BingoLeaderboard = () => {
                                                         to={`/${eventName}/${player.user_code}/hoogocard`}
                                                         className={styles.nameLink}
                                                     >
-                                                        <span className={styles.index}>
-                                                            {playerIndex + 1}.
-                                                        </span>
-                                                        {player.user_name || player.user_code}
+                                                        <div className={styles.row}>
+                                                            <span className={styles.index}>
+                                                                {playerIndex + 1}.
+                                                            </span>
+                                                            {player.user_name || player.user_code}{" "}
+                                                            {player.no_of_connections > 20 ? (
+                                                                <MdNetworkWifi3Bar
+                                                                    title={player.no_of_connections.toString()}
+                                                                />
+                                                            ) : player.no_of_connections > 10 ? (
+                                                                <MdNetworkWifi2Bar
+                                                                    title={player.no_of_connections.toString()}
+                                                                />
+                                                            ) : player.no_of_connections > 1 ? (
+                                                                <MdNetworkWifi1Bar
+                                                                    title={player.no_of_connections.toString()}
+                                                                />
+                                                            ) : null}
+                                                        </div>
                                                         {player.completed_at && (
                                                             <div className={styles.completedAtText}>
                                                                 <IoIosTime />

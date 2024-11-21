@@ -70,7 +70,9 @@
     transition: color 0.2s ease;
 
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
+
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 0.5rem;
 }

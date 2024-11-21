@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./BingoLeaderboard.module.css";
 import { websocketUrls } from "../../../../services/urls";
 import Footer from "../../../components/Footer/Footer";
@@ -19,13 +20,12 @@ const BingoLeaderboard = () => {
     const { eventName } = useParams();
     const [players, setPlayers] = useState<Player[]>([]);
     const navigate = useNavigate();
-    const socketRef = useRef<WebSocket | null>(null); // Use ref to store WebSocket instance
+    const socketRef = useRef<WebSocket | null>(null);
     const isAuthenticated = localStorage.getItem("accessToken");
 
     useEffect(() => {
         if (!eventName) return;
 
-        // Close any existing socket before creating a new one
         if (socketRef.current) {
             socketRef.current.close();
         }
@@ -87,10 +87,9 @@ const BingoLeaderboard = () => {
 
         socket.onclose = (event) => {
             console.log("WebSocket connection closed:", event);
-            socketRef.current = null; // Clear the ref when socket is closed
+            socketRef.current = null;
         };
 
-        // Cleanup function to close the WebSocket connection
         return () => {
             if (socketRef.current) {
                 socketRef.current.close();
@@ -127,17 +126,31 @@ const BingoLeaderboard = () => {
 
                         <>
                             {players.length > 0 ? (
-                                <>
-                                    <div className={styles.leaderboardCenterContainer}>
-                                        <div className={styles.playerRowContainer}>
+                                <div className={styles.leaderboardCenterContainer}>
+                                    <div className={styles.playerRowContainer}>
+                                        <AnimatePresence>
                                             {players.map((player, playerIndex) => (
-                                                <div key={playerIndex} className={styles.playerRow}>
+                                                <motion.div
+                                                    key={player.user_code}
+                                                    layout
+                                                    initial={{ opacity: 0, y: 50 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -50 }}
+                                                    transition={{
+                                                        duration: 0.5,
+                                                        type: "spring",
+                                                    }}
+                                                    whileHover={{ scale: 1.05 }}
+                                                    className={styles.playerRow}
+                                                >
                                                     <Link
                                                         to={`/${eventName}/${player.user_code}/hoogocard`}
                                                         className={styles.nameLink}
                                                     >
-                                                        {playerIndex + 1}
-                                                        {")"}.{player.user_name || player.user_code}
+                                                        <span className={styles.index}>
+                                                            {playerIndex + 1}.
+                                                        </span>
+                                                        {player.user_name || player.user_code}
                                                         {player.completed_at && (
                                                             <div className={styles.completedAtText}>
                                                                 <IoIosTime />
@@ -155,7 +168,7 @@ const BingoLeaderboard = () => {
                                                     <div className={styles.bingoLetters}>
                                                         {["B", "I", "N", "G", "O"].map(
                                                             (letter, letterIndex) => (
-                                                                <button
+                                                                <motion.button
                                                                     key={letter}
                                                                     className={`${
                                                                         styles.letterButton
@@ -164,17 +177,21 @@ const BingoLeaderboard = () => {
                                                                             ? styles.strikethrough
                                                                             : ""
                                                                     }`}
+                                                                    whileHover={{ scale: 1.1 }}
+                                                                    transition={{
+                                                                        duration: 0.2,
+                                                                    }}
                                                                 >
                                                                     {letter}
-                                                                </button>
+                                                                </motion.button>
                                                             )
                                                         )}
                                                     </div>
-                                                </div>
+                                                </motion.div>
                                             ))}
-                                        </div>
+                                        </AnimatePresence>
                                     </div>
-                                </>
+                                </div>
                             ) : (
                                 <div className={styles.centerContainer}>
                                     <div className={styles.loaderContainer}>

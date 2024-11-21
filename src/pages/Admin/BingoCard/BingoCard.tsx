@@ -8,6 +8,7 @@ import Navbar from "../../../components/Navbar/Navbar";
 import { BeatLoader } from "react-spinners";
 import { captureAndDownload, captureAndDownloadPost } from "./functions";
 import { EventType } from "../Dashboard/EventDashboard/types";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface BingoItem {
     name: string;
@@ -33,20 +34,19 @@ const BingoCard = () => {
 
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("accessToken");
-    // Load the template image
+
     useEffect(() => {
         const img = new Image();
-        img.src = eventInfo?.story_template || ""; // Adjust this path
+        img.src = eventInfo?.story_template || "";
         img.crossOrigin = "anonymous";
         img.onload = () => setStoryTemplateImage(img);
 
         const postImg = new Image();
-        postImg.src = eventInfo?.post_template || ""; // Adjust this path
+        postImg.src = eventInfo?.post_template || "";
         postImg.crossOrigin = "anonymous";
         postImg.onload = () => setPostTemplateImage(postImg);
     }, [eventInfo]);
 
-    // Fetch Bingo Matrix
     useEffect(() => {
         getBingoMatrix(eventName, ticketCode, setIsLoading, true).then((data) => {
             setBingoAnswers(data.answer);
@@ -79,66 +79,88 @@ const BingoCard = () => {
                     <Navbar showLogin={true} />
                     {isAuthenticated && (
                         <div className={styles.headerActions}>
-                            <div
+                            <motion.div
                                 className={styles.gobackButton}
                                 onClick={() => {
                                     navigate(`/${eventName}/leaderboard/`);
                                 }}
+                                whileHover={{ scale: 1.2 }}
+                                whileTap={{ scale: 0.9 }}
                             >
                                 {"<"}
-                            </div>
+                            </motion.div>
                             <h1 className={styles.eventTitle}>{eventName}</h1>
                         </div>
                     )}
                     <div className={styles.container}>
-                        {selectedCell && (
-                            <Modal onClose={() => setSelectedCell(null)} title="Bingo Card">
-                                <div className={styles.personContainer}>
-                                    <div className={styles.floatingContainer}>
-                                        <div className={styles.floatingText}>
-                                            <p className={styles.personDescriptionHeader}>
-                                                About <span>{selectedCell.name}</span>
-                                            </p>
-                                            <div className={styles.personDescription}>
-                                                <div className={styles.personImageContainer}>
-                                                    <img
-                                                        className={styles.personImage}
-                                                        src={selectedCell.image}
-                                                        alt={selectedCell.name}
-                                                    />
+                        <AnimatePresence>
+                            {selectedCell && (
+                                <Modal onClose={() => setSelectedCell(null)} title="Bingo Card">
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.8 }}
+                                        className={styles.personContainer}
+                                    >
+                                        <div className={styles.floatingContainer}>
+                                            <div className={styles.floatingText}>
+                                                <p className={styles.personDescriptionHeader}>
+                                                    About <span>{selectedCell.name}</span>
+                                                </p>
+                                                <div className={styles.personDescription}>
+                                                    <div className={styles.personImageContainer}>
+                                                        <img
+                                                            className={styles.personImage}
+                                                            src={selectedCell.image}
+                                                            alt={selectedCell.name}
+                                                        />
+                                                    </div>
+                                                    {selectedCell.liner}
                                                 </div>
-                                                {selectedCell.liner}
                                             </div>
                                         </div>
-                                    </div>
-                                    <button
-                                        className={styles.backButton}
-                                        onClick={() => setSelectedCell(null)}
-                                    >
-                                        Back
-                                    </button>
-                                </div>
-                            </Modal>
-                        )}
+                                        <motion.button
+                                            className={styles.backButton}
+                                            onClick={() => setSelectedCell(null)}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.9 }}
+                                        >
+                                            Back
+                                        </motion.button>
+                                    </motion.div>
+                                </Modal>
+                            )}
+                        </AnimatePresence>
 
                         {!isLoading && (
                             <div ref={gridRef} className={styles.grid}>
                                 {bingoAnswers.map((row, rowIndex) => (
-                                    <div key={rowIndex} className={styles.row}>
+                                    <motion.div
+                                        key={rowIndex}
+                                        className={styles.row}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5 }}
+                                    >
                                         {row.map((cell, cellIndex) => (
-                                            <div
+                                            <motion.div
                                                 key={cellIndex}
                                                 className={styles.cell}
                                                 onClick={() => cell.image && setSelectedCell(cell)}
+                                                initial={{ opacity: 0, scale: 0.8 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                transition={{ duration: 0.3 }}
                                             >
                                                 <img
                                                     src={cell.image ? cell.image : dummyImageUrl}
                                                     alt={cell.name}
                                                     className={styles.image}
                                                 />
-                                            </div>
+                                            </motion.div>
                                         ))}
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         )}
@@ -154,8 +176,7 @@ const BingoCard = () => {
                             Click on the images to view your description about them.
                         </p>
                         <div className={styles.buttonsContainer}>
-                            {/* Buttons for Capturing and Downloading */}
-                            <button
+                            <motion.button
                                 onClick={() => {
                                     captureAndDownload({
                                         setIsDownloading,
@@ -166,15 +187,17 @@ const BingoCard = () => {
                                     });
                                 }}
                                 className={styles.captureButton}
+                                whileHover={{ scale: 1.1, marginRight: 15 }}
+                                whileTap={{ scale: 0.95 }}
                             >
                                 {isDownloading.story ? (
                                     <BeatLoader color="#252525" size={8} />
                                 ) : (
                                     "Download Story Card"
                                 )}
-                            </button>
+                            </motion.button>
 
-                            <button
+                            <motion.button
                                 onClick={() => {
                                     captureAndDownloadPost({
                                         setIsDownloading,
@@ -185,13 +208,15 @@ const BingoCard = () => {
                                     });
                                 }}
                                 className={styles.captureButton}
+                                whileHover={{ scale: 1.1, marginLeft: 15 }}
+                                whileTap={{ scale: 0.95 }}
                             >
                                 {isDownloading.post ? (
                                     <BeatLoader color="#252525" size={8} />
                                 ) : (
                                     "Download Post Card"
                                 )}
-                            </button>
+                            </motion.button>
                         </div>
                     </div>
                     <Footer />

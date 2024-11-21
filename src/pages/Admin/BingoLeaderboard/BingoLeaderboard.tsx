@@ -7,6 +7,7 @@ import Footer from "../../../components/Footer/Footer";
 import { PacmanLoader } from "react-spinners";
 import { IoIosTime } from "react-icons/io";
 import { formatTime } from "../../../functions";
+import toast from "react-hot-toast";
 
 interface Player {
     user_name: string;
@@ -53,6 +54,12 @@ const BingoLeaderboard = () => {
                         !prevPlayers.some((player) => player.user_code === updatedPlayer.user_code)
                     ) {
                         newPlayers = [...prevPlayers, updatedPlayer];
+
+                        toast.success(`${updatedPlayer.user_name} joined the game!`, {
+                            duration: 3000,
+                            position: "bottom-right",
+                            id: updatedPlayer.user_code,
+                        });
                     }
 
                     return newPlayers.sort((a, b) => {

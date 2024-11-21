@@ -54,7 +54,7 @@ const Dashboard = () => {
                                     value={createEvent.name}
                                     onChange={(e) => {
                                         //only allow alphanumeric characters
-                                        if (/^[a-zA-Z0-9]*$/.test(e.target.value))
+                                        if (/^[a-zA-Z0-9-&_]*$/.test(e.target.value))
                                             setCreateEvent({
                                                 ...createEvent,
                                                 name: e.target.value,

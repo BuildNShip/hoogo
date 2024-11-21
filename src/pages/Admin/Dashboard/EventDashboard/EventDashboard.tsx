@@ -380,7 +380,7 @@ const EventDashboard = () => {
                                             value={eventInfo?.name}
                                             onChange={(e) => {
                                                 //only allow alphanumeric characters
-                                                if (/^[a-zA-Z0-9]*$/.test(e.target.value))
+                                                if (/^[a-zA-Z0-9-&_]*$/.test(e.target.value))
                                                     setEventInfo({
                                                         ...eventInfo!,
                                                         name: e.target.value,

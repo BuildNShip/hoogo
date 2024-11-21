@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./EventDashboard.module.css";
 import toast from "react-hot-toast";
@@ -17,6 +17,26 @@ import Select from "react-select";
 import customReactSelectStyles from "./common";
 import { listMmpEvents } from "../../../../apis/user";
 import { BsQrCodeScan } from "react-icons/bs";
+import QRCodeStyling from "qr-code-styling";
+
+const qrCode = new QRCodeStyling({
+    width: 250,
+    height: 250,
+    image: "/qrLogo.svg",
+    dotsOptions: {
+        color: "#1ed45e",
+        type: "rounded",
+    },
+    backgroundOptions: {
+        color: "#202020",
+    },
+    imageOptions: {
+        crossOrigin: "anonymous",
+
+        margin: 5, // Reduced margin to increase image size
+        imageSize: 0.6, // Added imageSize to increase the image size
+    },
+});
 
 const EventDashboard = () => {
     const { eventName } = useParams<{ eventName: string }>();
@@ -62,27 +82,6 @@ const EventDashboard = () => {
             }
         }
     }, [eventInfo]);
-
-    const downloadQR = async (url: string) => {
-        try {
-            const response = await fetch(url);
-            const blob = await response.blob();
-
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.setAttribute("download", `${eventInfo?.name}_qr.png`);
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-
-            URL.revokeObjectURL(link.href);
-        } catch (error) {
-            toast.error("Failed to download ticket" + error);
-        } finally {
-            setIsDownloading(false);
-        }
-    };
 
     const handleUpdateName = () => {
         if (!eventInfo) return;
@@ -154,6 +153,28 @@ const EventDashboard = () => {
         const newMatrix = [...eventInfo!.matrix];
         newMatrix[row][col] = value.toUpperCase().slice(0, 1);
         setEventInfo({ ...eventInfo!, matrix: newMatrix });
+    };
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (ref.current && isQRModalOpen) {
+            qrCode.append(ref.current);
+            setIsQRLoaded(true);
+        }
+    }, [isQRModalOpen]);
+
+    useEffect(() => {
+        qrCode.update({
+            data: new URL(`https://hoogo.makemypass.com/${eventInfo?.name}`).href,
+        });
+    }, [eventInfo]);
+
+    const onDownloadClick = () => {
+        setIsDownloading(true);
+        qrCode.download({
+            extension: "png",
+        });
     };
 
     return (
@@ -592,25 +613,11 @@ const EventDashboard = () => {
                                                 display: isQRLoaded ? "flex" : "none",
                                             }}
                                         >
-                                            <img
-                                                src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${
-                                                    new URL(
-                                                        `https://hoogo.makemypass.com/${eventInfo?.name}`
-                                                    ).href
-                                                }`}
-                                                alt="QR Code"
-                                                onLoad={() => setIsQRLoaded(true)}
-                                            />
+                                            <div ref={ref}></div>
                                             <button
                                                 className={styles.copyQr}
                                                 onClick={() => {
-                                                    setIsDownloading(true);
-                                                    const url = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${
-                                                        new URL(
-                                                            `https://hoogo.makemypass.com/${eventInfo?.name}`
-                                                        ).href
-                                                    }`;
-                                                    downloadQR(url);
+                                                    onDownloadClick();
                                                 }}
                                             >
                                                 {isdownloading ? (

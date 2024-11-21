@@ -86,6 +86,9 @@ const EventQR = () => {
                         style={{ display: isQRLoaded ? "flex" : "none" }}
                     >
                         <div ref={ref}></div>
+                        <p className={styles.eventURL}>
+                            {new URL(`https://hoogo.makemypass.com/${eventName}`).href}
+                        </p>
                         <button className={styles.copyQr} onClick={onDownloadClick}>
                             {isDownloading ? <BeatLoader color="#272727" size={10} /> : "Download"}
                         </button>

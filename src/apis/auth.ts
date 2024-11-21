@@ -205,7 +205,6 @@ export const login = async (
                 localStorage.setItem("profile_pic_url", response.data.response.profile_pic_url);
                 setTimeout(() => {
                     onboardUser(setIsLoading, navigate);
-                    toast.success("Login Successful");
                 }, 1000);
             }
         })

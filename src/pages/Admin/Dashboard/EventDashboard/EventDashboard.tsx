@@ -24,7 +24,7 @@ const qrCode = new QRCodeStyling({
     height: 250,
     image: "/qrLogo.svg",
     dotsOptions: {
-        color: "#1ed45e",
+        color: "#fff",
         type: "rounded",
     },
     backgroundOptions: {
@@ -34,7 +34,7 @@ const qrCode = new QRCodeStyling({
         crossOrigin: "anonymous",
 
         margin: 5, // Reduced margin to increase image size
-        imageSize: 0.6, // Added imageSize to increase the image size
+        imageSize: 0.4, // Added imageSize to increase the image size
     },
 });
 

@@ -11,7 +11,7 @@ const qrCode = new QRCodeStyling({
     height: 400,
     image: "/qrLogo.svg", // Example logo path
     dotsOptions: {
-        color: "#1ed45e",
+        color: "#fff",
         type: "rounded",
     },
     backgroundOptions: {

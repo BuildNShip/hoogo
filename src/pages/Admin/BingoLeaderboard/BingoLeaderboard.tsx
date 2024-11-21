@@ -169,15 +169,15 @@ const BingoLeaderboard = () => {
                                                                 <MdNetworkWifi
                                                                     title={player.no_of_connections.toString()}
                                                                 />
-                                                            ) : player.no_of_connections > 20 ? (
+                                                            ) : player.no_of_connections >= 20 ? (
                                                                 <MdNetworkWifi3Bar
                                                                     title={player.no_of_connections.toString()}
                                                                 />
-                                                            ) : player.no_of_connections > 10 ? (
+                                                            ) : player.no_of_connections >= 10 ? (
                                                                 <MdNetworkWifi2Bar
                                                                     title={player.no_of_connections.toString()}
                                                                 />
-                                                            ) : player.no_of_connections > 1 ? (
+                                                            ) : player.no_of_connections >= 1 ? (
                                                                 <MdNetworkWifi1Bar
                                                                     title={player.no_of_connections.toString()}
                                                                 />

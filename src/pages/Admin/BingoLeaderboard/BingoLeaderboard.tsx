@@ -8,7 +8,12 @@ import { PacmanLoader } from "react-spinners";
 import { IoIosTime } from "react-icons/io";
 import { formatTime } from "../../../functions";
 import toast from "react-hot-toast";
-import { MdNetworkWifi1Bar, MdNetworkWifi2Bar, MdNetworkWifi3Bar } from "react-icons/md";
+import {
+    MdNetworkWifi,
+    MdNetworkWifi1Bar,
+    MdNetworkWifi2Bar,
+    MdNetworkWifi3Bar,
+} from "react-icons/md";
 
 interface Player {
     user_name: string;
@@ -160,7 +165,11 @@ const BingoLeaderboard = () => {
                                                                 {playerIndex + 1}.
                                                             </span>
                                                             {player.user_name || player.user_code}{" "}
-                                                            {player.no_of_connections > 20 ? (
+                                                            {player.no_of_connections >= 25 ? (
+                                                                <MdNetworkWifi
+                                                                    title={player.no_of_connections.toString()}
+                                                                />
+                                                            ) : player.no_of_connections > 20 ? (
                                                                 <MdNetworkWifi3Bar
                                                                     title={player.no_of_connections.toString()}
                                                                 />

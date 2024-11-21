@@ -33,6 +33,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
     const toggleCell = (index1: number, index2: number) => {
         setSelectedCell([index1, index2]);
     };
+    const [numberOfImages, setNumberOfImages] = useState(0);
 
     const userName = localStorage.getItem("userName");
     const handleSubmit = () => {
@@ -71,6 +72,20 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
             }
         }
     };
+
+    useEffect(() => {
+        if (cells) {
+            let count = 0;
+            cells.forEach((row) => {
+                row.forEach((cell) => {
+                    if (cell.name) {
+                        count++;
+                    }
+                });
+            });
+            setNumberOfImages(count);
+        }
+    }, [cells]);
 
     //For each cell i would to check whether the cell is part of a BINGO, that is
     //whether the row, column or diagonal which includes that cell is completely
@@ -478,16 +493,16 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                             <button
                                 className={styles.downloadButton}
                                 onClick={() => {
-                                    if (rowsBingo.filter((row) => row).length !== 0) {
+                                    if (numberOfImages >= 5) {
                                         navigate(`/${eventName}/${ticketCode}/hoogocard`);
                                     } else {
-                                        toast.error("Complete atleast one letter to view", {
+                                        toast.error("Make atleast 5 connections to download", {
                                             id: "bingo",
                                         });
                                     }
                                 }}
                                 style={{
-                                    opacity: rowsBingo.filter((row) => row).length !== 0 ? 1 : 0.5,
+                                    opacity: numberOfImages > 5 ? 1 : 0.5,
                                 }}
                             >
                                 View Hoogo

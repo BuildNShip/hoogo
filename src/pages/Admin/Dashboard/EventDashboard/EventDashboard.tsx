@@ -506,7 +506,7 @@ const EventDashboard = () => {
                                                 <div
                                                     className={styles.confirmationButtonsContainer}
                                                 >
-                                                    <a href="https://makemypass.com/">
+                                                    <a href={import.meta.env.VITE_MAKEMYPASS_URL}>
                                                         <button className={styles.saveButton}>
                                                             Create MakeMyPass Event
                                                         </button>

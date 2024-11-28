@@ -82,7 +82,7 @@ const BingoCard = () => {
                             <motion.div
                                 className={styles.gobackButton}
                                 onClick={() => {
-                                    navigate(`/${eventName}/leaderboard/`);
+                                    navigate(-1);
                                 }}
                                 whileHover={{ scale: 1.2 }}
                                 whileTap={{ scale: 0.9 }}

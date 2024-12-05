@@ -533,7 +533,12 @@ const EventDashboard = () => {
                                         <button
                                             className={styles.editButtonSmall}
                                             onClick={() => {
-                                                setGenerateGridConfirmation(true);
+                                                if (eventInfo?.mmp_event_id)
+                                                    setGenerateGridConfirmation(true);
+                                                else
+                                                    toast.error(
+                                                        "Connect to MakeMyPass to generate Grid using CheckIn Participant Data"
+                                                    );
                                             }}
                                             style={!eventInfo?.mmp_event_id ? { opacity: 0.5 } : {}}
                                         >
@@ -588,6 +593,13 @@ const EventDashboard = () => {
                                             >
                                                 Save Grid
                                             </button>
+                                        </div>
+                                        <div className={styles.infoContainer}>
+                                            <p className={styles.infoText}>
+                                                <span>Note: </span>
+                                                The grid letters should from the names of the people
+                                                checked-in for the event.
+                                            </p>
                                         </div>
                                     </div>
                                 </Modal>

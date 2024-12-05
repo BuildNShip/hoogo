@@ -623,7 +623,7 @@
     justify-content: center;
     gap: 1rem;
 
-    height: calc(100vh - 12rem);
+    min-height: calc(100vh - 12rem);
     width: 100%;
 }
 
@@ -647,4 +647,28 @@
     width: 100%;
     gap: 0.5rem;
     flex-wrap: wrap;
+}
+
+.infoContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #2b2b2b;
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.infoText {
+    color: #fff;
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.8;
+
+    span {
+        color: #1ed45e;
+        font-weight: 600;
+    }
 }

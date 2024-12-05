@@ -9,6 +9,7 @@ import { BeatLoader } from "react-spinners";
 import { captureAndDownload, captureAndDownloadPost } from "./functions";
 import { EventType } from "../Dashboard/EventDashboard/types";
 import { motion, AnimatePresence } from "framer-motion";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 interface BingoItem {
     name: string;
@@ -158,6 +159,7 @@ const BingoCard = () => {
                                                     alt={cell.name}
                                                     className={styles.image}
                                                 />
+                                                <p className={styles.nameOverlay}>{cell.name}</p>
                                             </motion.div>
                                         ))}
                                     </motion.div>
@@ -193,7 +195,10 @@ const BingoCard = () => {
                                 {isDownloading.story ? (
                                     <BeatLoader color="#252525" size={8} />
                                 ) : (
-                                    "Download Story Card"
+                                    <div className={styles.row}>
+                                        <MdOutlineFileDownload size={25} />
+                                        <span>Instagram Story</span>
+                                    </div>
                                 )}
                             </motion.button>
 
@@ -214,7 +219,10 @@ const BingoCard = () => {
                                 {isDownloading.post ? (
                                     <BeatLoader color="#252525" size={8} />
                                 ) : (
-                                    "Download Post Card"
+                                    <div className={styles.row}>
+                                        <MdOutlineFileDownload size={25} />
+                                        <span>Instagram Post</span>
+                                    </div>
                                 )}
                             </motion.button>
                         </div>

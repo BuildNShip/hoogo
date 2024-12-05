@@ -56,6 +56,23 @@
     }
 }
 
+.nameOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.37);
+    padding: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    gap: 0.25rem;
+}
+
 .cell:hover {
     transform: scale(1.02);
     border-color: #1ed45e;

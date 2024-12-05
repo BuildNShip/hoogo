@@ -92,11 +92,15 @@ export const validateTicketCode = async (
     setError: React.Dispatch<React.SetStateAction<string>>
 ) => {
     setIsValidating(true);
+    const data = localStorage.getItem("ticketCode");
     return publicGateway
-        .post(commonUrls.validateTicket(eventName, ticketCode))
+        .post(commonUrls.validateTicket(eventName, ticketCode), {
+            name_validation: data ? false : true,
+        })
         .then((response) => {
             const userName = response.data.response.name;
             if (userName) localStorage.setItem("userName", userName);
+            if (ticketCode) localStorage.setItem("ticketCode", ticketCode);
             navigate("/" + eventName + "/" + ticketCode);
         })
         .catch((error) => {

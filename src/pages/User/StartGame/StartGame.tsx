@@ -69,9 +69,8 @@ const StartGame = () => {
                                     value={ticketCode}
                                     onChange={(e) => {
                                         setTicketCode(e.target.value);
-                                        if (error) {
-                                            setError("");
-                                        }
+
+                                        if (error) setError("");
                                     }}
                                 />
                                 {error && <p className={styles.errorText}>{error}</p>}

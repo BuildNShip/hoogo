@@ -356,7 +356,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         className={styles.textarea}
-                                        placeholder="When I met this person, I thought..."
+                                        placeholder="What are the unique elements you observe in this person being a Leader?"
                                     />
                                 </div>
 

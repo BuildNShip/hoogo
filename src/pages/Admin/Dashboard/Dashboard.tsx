@@ -9,18 +9,21 @@ import { createNewEvent } from "../../../apis/admin";
 import { useNavigate } from "react-router-dom";
 import { GoPeople } from "react-icons/go";
 import toast from "react-hot-toast";
+import { HashLoader } from "react-spinners";
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const [events, setEvents] = useState<EventType[]>();
     const [createEvent, setCreateEvent] = useState<CreateEventTypes>();
+    const [isEventsLoading, setIsEventsLoading] = useState<boolean>(false);
+
     const userName = localStorage.getItem("userEmail")?.split("@")[0];
     useEffect(() => {
-        if (createEvent && !createEvent.showModal) listUserEvents(setEvents);
+        if (createEvent && !createEvent.showModal) listUserEvents(setEvents, setIsEventsLoading);
     }, [createEvent]);
 
     useEffect(() => {
-        listUserEvents(setEvents);
+        listUserEvents(setEvents, setIsEventsLoading);
     }, []);
 
     const handleEventCreation = () => {
@@ -68,7 +71,7 @@ const Dashboard = () => {
                             </div>
 
                             <button className={styles.submitButton} onClick={handleEventCreation}>
-                                Confirm & Save
+                                Create Event
                             </button>
                         </Modal>
                     )}
@@ -78,43 +81,51 @@ const Dashboard = () => {
                     <p className={styles.pageDescription}>
                         Welcome to the dashboard! Here you can manage your events.
                     </p>
-                    <div className={styles.eventCardContainer}>
-                        {events &&
-                            events.map((event) => (
-                                <div key={event.id} className={styles.eventCard}>
-                                    <div className={styles.titleRow}>
-                                        <p className={styles.eventName}>
-                                            {event.name.length > 15
-                                                ? `${event.name.substring(0, 15)}...`
-                                                : event.name}
-                                        </p>
-                                        <p className={styles.participantCount}>
-                                            <GoPeople color="#fff" size={15} />{" "}
-                                            {event.participant_count} Participants
-                                        </p>
+                    {!isEventsLoading ? (
+                        <div className={styles.eventCardContainer}>
+                            {events &&
+                                events.map((event) => (
+                                    <div key={event.id} className={styles.eventCard}>
+                                        <div className={styles.titleRow}>
+                                            <p className={styles.eventName}>
+                                                {event.name.length > 15
+                                                    ? `${event.name.substring(0, 15)}...`
+                                                    : event.name}
+                                            </p>
+                                            <p className={styles.participantCount}>
+                                                <GoPeople color="#fff" size={15} />{" "}
+                                                {event.participant_count} Participants
+                                            </p>
+                                        </div>
+
+                                        <button
+                                            className={styles.createEventButton}
+                                            onClick={() => {
+                                                navigate(`/dashboard/${event.name}/`);
+                                            }}
+                                        >
+                                            Manage
+                                        </button>
                                     </div>
+                                ))}
 
-                                    <button
-                                        className={styles.createEventButton}
-                                        onClick={() => {
-                                            navigate(`/dashboard/${event.name}/`);
-                                        }}
-                                    >
-                                        Manage
-                                    </button>
-                                </div>
-                            ))}
-
-                        <div
-                            className={styles.eventCard}
-                            onClick={() => setCreateEvent({ name: "", showModal: true })}
-                        >
-                            <p className={styles.eventName}>Create New Event</p>
-                            <button className={`${styles.createEventButton} ${styles.active}`}>
-                                Create +
-                            </button>
+                            <div
+                                className={styles.eventCard}
+                                onClick={() => setCreateEvent({ name: "", showModal: true })}
+                            >
+                                <p className={styles.eventName}>Create New Event</p>
+                                <button className={`${styles.createEventButton} ${styles.active}`}>
+                                    Create +
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <div className={styles.loaderContainer}>
+                            <div className={styles.loader}>
+                                <HashLoader color="#fff" size={50} />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
             <Footer />

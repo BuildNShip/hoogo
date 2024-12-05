@@ -5,8 +5,10 @@ import { EventType } from "../pages/Admin/Dashboard/types";
 import { MMPEventListType } from "../pages/Admin/Dashboard/EventDashboard/types";
 
 export const listUserEvents = async (
-    setEvents: React.Dispatch<React.SetStateAction<EventType[] | undefined>>
+    setEvents: React.Dispatch<React.SetStateAction<EventType[] | undefined>>,
+    setIsEventsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+    setIsEventsLoading(true);
     privateGateway
         .get(commonUrls.listUserEvents)
         .then((response) => {
@@ -16,6 +18,9 @@ export const listUserEvents = async (
             toast.error(error?.response?.message.general[0] || "No events found", {
                 id: "listUserEvents",
             });
+        })
+        .finally(() => {
+            setIsEventsLoading(false);
         });
 };
 

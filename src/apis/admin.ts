@@ -16,7 +16,7 @@ export const createNewEvent = (name: string, navigate: NavigateFunction) => {
         })
         .catch((error) => {
             console.error(error);
-            toast.error("Failed to create event");
+            toast.error(error?.response?.data.message.general[0] || "Failed to create event");
         });
 };
 

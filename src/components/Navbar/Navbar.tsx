@@ -41,6 +41,11 @@ const Navbar = ({
                             </button>
                         )}
                         {isAuthenticated && (
+                            <p className={styles.userEmail}>
+                                Hi, {localStorage.getItem("userEmail")?.split("@")[0]}
+                            </p>
+                        )}
+                        {isAuthenticated && (
                             <button
                                 className={styles.navbarSecondaryCTA}
                                 onClick={() => {

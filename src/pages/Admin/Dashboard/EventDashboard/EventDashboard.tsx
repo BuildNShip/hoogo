@@ -48,7 +48,7 @@ const EventDashboard = () => {
     const [isQRLoaded, setIsQRLoaded] = useState(false);
     const [isdownloading, setIsDownloading] = useState(false);
     const [mmpEvents, setMmpEvents] = useState<MMPEventListType[]>();
-
+    const [eventNameInput, setEventNameInput] = useState("");
     const [generateGridConfirmation, setGenerateGridConfirmation] = useState(false);
     const [importingGrid, setImportingGrid] = useState(false);
     const [deleteEventConfirmation, setDeleteEventConfirmation] = useState(false);
@@ -81,6 +81,8 @@ const EventDashboard = () => {
                 showModal: false,
             });
 
+            setEventNameInput(eventInfo.name);
+
             if (!eventInfo.matrix || eventInfo.matrix.length === 0) {
                 setEventInfo({ ...eventInfo, matrix: emptyMatrix });
             }
@@ -89,11 +91,17 @@ const EventDashboard = () => {
 
     const handleUpdateName = () => {
         if (!eventInfo) return;
+
+        if (eventNameInput === eventInfo.name) {
+            setIsEditNameModalOpen(false);
+            return;
+        }
+
         const formData = new FormData();
-        formData.append("name", eventInfo?.name);
+        formData.append("name", eventNameInput);
         updateEvent(eventInfo?.id, formData).then(() => {
-            getEventInfo(eventInfo?.name, setEventInfo);
-            navigate(`/dashboard/${eventInfo?.name}`);
+            getEventInfo(eventNameInput, setEventInfo);
+            navigate(`/dashboard/${eventNameInput}`);
             setIsEditNameModalOpen(false);
         });
         toast.success("Event name updated successfully!");
@@ -403,7 +411,9 @@ const EventDashboard = () => {
                             {isEditNameModalOpen && (
                                 <Modal
                                     title="Edit Event Name"
-                                    onClose={() => setIsEditNameModalOpen(false)}
+                                    onClose={() => {
+                                        setIsEditNameModalOpen(false);
+                                    }}
                                 >
                                     <div className={styles.modalContent}>
                                         <label className={styles.modalLabel}>Event Name</label>
@@ -413,14 +423,15 @@ const EventDashboard = () => {
                                         </p>
                                         <input
                                             type="text"
-                                            value={eventInfo?.name}
+                                            value={
+                                                eventNameInput === ""
+                                                    ? eventInfo?.name
+                                                    : eventNameInput
+                                            }
                                             onChange={(e) => {
                                                 //only allow alphanumeric characters
                                                 if (/^[a-zA-Z0-9-&_]*$/.test(e.target.value))
-                                                    setEventInfo({
-                                                        ...eventInfo!,
-                                                        name: e.target.value,
-                                                    });
+                                                    setEventNameInput(e.target.value);
                                                 else {
                                                     toast.error(
                                                         "Only alphanumeric characters are allowed"

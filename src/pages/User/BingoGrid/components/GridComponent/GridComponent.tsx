@@ -37,6 +37,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
     const [showRulesModal, setShowRulesModal] = useState(false);
 
     const userName = localStorage.getItem("userName");
+
     const handleSubmit = () => {
         if (
             selectedCell &&
@@ -202,6 +203,14 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
 
         setRowsBingo(rowsBingo);
     }, [cells]);
+
+    useEffect(() => {
+        const firstTime = localStorage.getItem("firstTime");
+        if (!firstTime) {
+            setShowRulesModal(true);
+            localStorage.setItem("firstTime", "false");
+        }
+    }, [showRulesModal]);
 
     return (
         <>

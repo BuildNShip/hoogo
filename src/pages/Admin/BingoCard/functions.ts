@@ -16,7 +16,6 @@ export const captureAndDownload = async ({
     setIsDownloading({ story: true, post: false });
     if (gridRef.current && storyTemplateImage) {
         try {
-            console.log(gridRef.current);
             // Capture the grid as an image using html2canvas
             const gridCanvas = await html2canvas(gridRef.current, {
                 useCORS: true,

@@ -28,6 +28,11 @@ const Navbar = ({
                 </p>
                 {showActionButtons && (
                     <div className={styles.buttonsContainer}>
+                        {isAuthenticated && (
+                            <p className={styles.userEmail}>
+                                Hi, {localStorage.getItem("userEmail")?.split("@")[0]}
+                            </p>
+                        )}
                         {(!showLogin || setCreateEvent) && (
                             <button
                                 className={styles.navbarCTAButton}
@@ -40,11 +45,7 @@ const Navbar = ({
                                 {isAuthenticated ? "Create Event" : "Login"}
                             </button>
                         )}
-                        {isAuthenticated && (
-                            <p className={styles.userEmail}>
-                                Hi, {localStorage.getItem("userEmail")?.split("@")[0]}
-                            </p>
-                        )}
+
                         {isAuthenticated && (
                             <button
                                 className={styles.navbarSecondaryCTA}

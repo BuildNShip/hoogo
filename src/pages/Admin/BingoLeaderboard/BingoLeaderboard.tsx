@@ -49,7 +49,7 @@ const BingoLeaderboard = () => {
     const socketRef = useRef<WebSocket | null>(null);
     const isAuthenticated = localStorage.getItem("accessToken");
     const [showRules, setShowRules] = useState(false);
-    const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+    const [isQRModalOpen, setIsQRModalOpen] = useState(true);
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -77,8 +77,6 @@ const BingoLeaderboard = () => {
             try {
                 const updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
 
-                console.log("Updated Player", updatedPlayer);
-
                 setPlayers((prevPlayers) => {
                     let newPlayers = Array.isArray(updatedPlayer)
                         ? updatedPlayer
@@ -91,8 +89,6 @@ const BingoLeaderboard = () => {
                         !prevPlayers.some((player) => player.user_name === updatedPlayer.user_name)
                     ) {
                         newPlayers = [...prevPlayers, updatedPlayer];
-
-                        console.log("Here");
 
                         toast.success(`${updatedPlayer.user_name} joined the game!`, {
                             duration: 3000,
@@ -149,7 +145,12 @@ const BingoLeaderboard = () => {
         };
 
         socket.onclose = (event) => {
+            console.log(event);
             console.log("WebSocket connection closed:", event);
+            setTimeout(() => {
+                const newSocket = new WebSocket(websocketUrls.bingoLeaderboard(eventName));
+                socketRef.current = newSocket;
+            }, 3000);
             socketRef.current = null;
         };
 

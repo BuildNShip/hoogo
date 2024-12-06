@@ -49,7 +49,7 @@ const BingoLeaderboard = () => {
     const socketRef = useRef<WebSocket | null>(null);
     const isAuthenticated = localStorage.getItem("accessToken");
     const [showRules, setShowRules] = useState(false);
-    const [isQRModalOpen, setIsQRModalOpen] = useState(true);
+    const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -166,6 +166,8 @@ const BingoLeaderboard = () => {
         qrCode.update({
             data: new URL(`https://hoogo.makemypass.com/${eventName}`).href,
         });
+
+        setIsQRModalOpen(true);
     }, [eventName]);
 
     return (
@@ -377,7 +379,7 @@ const BingoLeaderboard = () => {
                             className={styles.showRulesText}
                             onClick={() => setShowRules(!showRules)}
                         >
-                            Show Bingo Rules
+                            click to view rules
                         </div>
                     </div>
                     <Footer />

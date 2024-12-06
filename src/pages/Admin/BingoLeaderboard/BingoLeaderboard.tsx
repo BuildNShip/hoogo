@@ -254,6 +254,9 @@ const BingoLeaderboard = () => {
                         height={window.innerHeight}
                         recycle={false}
                         numberOfPieces={500}
+                        style={{
+                            zIndex: 10001,
+                        }}
                     />
                     <Modal onClose={() => setBingoAnswers([])} title="Congratulations">
                         <HoogoCard bingoAnswers={bingoAnswers} />

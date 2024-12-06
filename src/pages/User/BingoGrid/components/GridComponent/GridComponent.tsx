@@ -348,15 +348,15 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                         Tell us about your new friend
                                     </label>
                                     <p className={styles.inputFieldDescription}>
-                                        What all did you learn about this person? (Min 10
-                                        characters)
+                                        What are the unique elements you observe in this person
+                                        being a Leader? (Min 10 characters)
                                     </p>
                                     <textarea
                                         id="description"
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         className={styles.textarea}
-                                        placeholder="When I met this person, I thought..."
+                                        placeholder="What are the unique elements you observe in this person being a Leader?"
                                     />
                                 </div>
 

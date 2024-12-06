@@ -53,7 +53,11 @@ const EventDashboard = () => {
     const [importingGrid, setImportingGrid] = useState(false);
     const [deleteEventConfirmation, setDeleteEventConfirmation] = useState(false);
     const [updateGridConfirmation, setUpdateGridConfirmation] = useState(false);
-    const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>();
+    const [uploadTemplates, setUploadTemplates] = useState<TemplateUploadType>({
+        postTemplate: null,
+        storyTemplate: null,
+        showModal: false,
+    });
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -107,16 +111,48 @@ const EventDashboard = () => {
     const updateTemplates = () => {
         if (!eventInfo) return;
 
-        const formData = new FormData();
-        if (uploadTemplates?.postTemplate && typeof uploadTemplates.postTemplate !== "string") {
-            formData.append("post_template", uploadTemplates.postTemplate);
-        }
-        if (uploadTemplates?.storyTemplate && typeof uploadTemplates.storyTemplate !== "string") {
-            formData.append("story_template", uploadTemplates.storyTemplate);
+        let dataChanged = false;
+        if (
+            uploadTemplates?.postTemplate !== eventInfo?.post_template ||
+            uploadTemplates?.storyTemplate !== eventInfo?.story_template
+        ) {
+            dataChanged = true;
         }
 
-        updateEvent(eventInfo?.id, formData);
-        toast.success("Templates uploaded successfully!");
+        if (dataChanged)
+            if (uploadTemplates?.storyTemplate && uploadTemplates?.postTemplate) {
+                const formData = new FormData();
+                if (
+                    uploadTemplates?.postTemplate &&
+                    typeof uploadTemplates.postTemplate !== "string"
+                ) {
+                    formData.append("post_template", uploadTemplates.postTemplate);
+                }
+                if (
+                    uploadTemplates?.storyTemplate &&
+                    typeof uploadTemplates.storyTemplate !== "string"
+                ) {
+                    formData.append("story_template", uploadTemplates.storyTemplate);
+                }
+
+                updateEvent(eventInfo?.id, formData).then(() => {
+                    setUploadTemplates((prev) => ({
+                        ...prev,
+                        showModal: false,
+                    }));
+                    toast.success("Templates uploaded successfully!");
+                });
+            } else {
+                toast.error(
+                    "Please upload both the templates, else default templates will be used"
+                );
+            }
+        else {
+            setUploadTemplates((prev) => ({
+                ...prev,
+                showModal: false,
+            }));
+        }
     };
 
     const handleMatrixUpdate = () => {
@@ -676,7 +712,8 @@ const EventDashboard = () => {
                                     <div className={styles.form}>
                                         <div className={styles.inputGroup}>
                                             <label htmlFor="postTemplate" className={styles.label}>
-                                                Upload the Post Template
+                                                Upload the Post Template{" "}
+                                                <span> (760px x 760px)</span>
                                             </label>
 
                                             <p className={styles.inputFieldDescription}>
@@ -714,6 +751,17 @@ const EventDashboard = () => {
                                                             }}
                                                         />
                                                     </a>
+                                                    <button
+                                                        className={styles.removeButton}
+                                                        onClick={() => {
+                                                            setUploadTemplates({
+                                                                ...uploadTemplates,
+                                                                storyTemplate: null,
+                                                            });
+                                                        }}
+                                                    >
+                                                        Remove
+                                                    </button>
                                                     <div
                                                         className={styles.closeButton}
                                                         title="Remove Image"
@@ -751,6 +799,7 @@ const EventDashboard = () => {
                                         <div className={styles.inputGroup}>
                                             <label htmlFor="storyTemplate" className={styles.label}>
                                                 Upload the Story Template
+                                                <span> (760px x 760px)</span>
                                             </label>
 
                                             <p className={styles.inputFieldDescription}>
@@ -788,6 +837,17 @@ const EventDashboard = () => {
                                                             }}
                                                         />
                                                     </a>
+                                                    <button
+                                                        className={styles.removeButton}
+                                                        onClick={() => {
+                                                            setUploadTemplates({
+                                                                ...uploadTemplates,
+                                                                storyTemplate: null,
+                                                            });
+                                                        }}
+                                                    >
+                                                        Remove
+                                                    </button>
                                                     <div
                                                         className={styles.closeButton}
                                                         title="Remove Image"

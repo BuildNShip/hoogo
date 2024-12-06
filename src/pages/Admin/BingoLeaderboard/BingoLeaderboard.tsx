@@ -168,15 +168,24 @@ const BingoLeaderboard = () => {
                                                                 />
                                                             ) : player.no_of_connections >= 20 ? (
                                                                 <MdNetworkWifi3Bar
-                                                                    title={player.no_of_connections.toString()}
+                                                                    title={
+                                                                        player.no_of_connections.toString() +
+                                                                        " connections"
+                                                                    }
                                                                 />
                                                             ) : player.no_of_connections >= 10 ? (
                                                                 <MdNetworkWifi2Bar
-                                                                    title={player.no_of_connections.toString()}
+                                                                    title={
+                                                                        player.no_of_connections.toString() +
+                                                                        " connections"
+                                                                    }
                                                                 />
                                                             ) : player.no_of_connections >= 1 ? (
                                                                 <MdNetworkWifi1Bar
-                                                                    title={player.no_of_connections.toString()}
+                                                                    title={
+                                                                        player.no_of_connections.toString() +
+                                                                        " connections"
+                                                                    }
                                                                 />
                                                             ) : null}
                                                         </div>

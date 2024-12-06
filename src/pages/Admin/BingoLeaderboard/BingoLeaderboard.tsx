@@ -227,9 +227,9 @@ const BingoLeaderboard = () => {
 
                         <div className={styles.leaderboardContainer}>
                             <>
-                                {players.length > 0 ? (
-                                    <div className={styles.leaderboardCenterContainer}>
-                                        <div className={styles.playerRowContainer}>
+                                <div className={styles.leaderboardCenterContainer}>
+                                    <div className={styles.playerRowContainer}>
+                                        {players.length > 0 ? (
                                             <AnimatePresence>
                                                 {players.map((player, playerIndex) => (
                                                     <motion.div
@@ -331,36 +331,36 @@ const BingoLeaderboard = () => {
                                                     </motion.div>
                                                 ))}
                                             </AnimatePresence>
-                                        </div>
-
-                                        {isQRModalOpen && (
-                                            <motion.div
-                                                initial={{ opacity: 0, x: "25%" }}
-                                                animate={{ opacity: 1, x: 0 }}
-                                                exit={{ opacity: 0, x: "25%" }}
-                                                transition={{ duration: 0.5 }}
-                                            >
-                                                <div ref={ref}></div>
-                                                <p className={styles.scanToJoin}>scan to network</p>
-                                            </motion.div>
+                                        ) : (
+                                            <>
+                                                <div className={styles.loaderContainer}>
+                                                    <PacmanLoader
+                                                        color="#1ED45E"
+                                                        loading
+                                                        size={25}
+                                                        aria-label="Loading Spinner"
+                                                        data-testid="loader"
+                                                    />
+                                                </div>
+                                                <p className={styles.loadingText}>
+                                                    Waiting for participants to join...
+                                                </p>
+                                            </>
                                         )}
                                     </div>
-                                ) : (
-                                    <div className={styles.centerContainer}>
-                                        <div className={styles.loaderContainer}>
-                                            <PacmanLoader
-                                                color="#1ED45E"
-                                                loading
-                                                size={25}
-                                                aria-label="Loading Spinner"
-                                                data-testid="loader"
-                                            />
-                                        </div>
-                                        <p className={styles.loadingText}>
-                                            Waiting for participants to join...
-                                        </p>
-                                    </div>
-                                )}
+
+                                    {isQRModalOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: "25%" }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: "25%" }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <div ref={ref}></div>
+                                            <p className={styles.scanToJoin}>scan to network</p>
+                                        </motion.div>
+                                    )}
+                                </div>
                             </>
                         </div>
 

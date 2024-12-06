@@ -1,0 +1,116 @@
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 600px;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.cell {
+    aspect-ratio: 1;
+    position: relative;
+    width: calc(20% - 0.4rem);
+    overflow: hidden;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    height: auto;
+    width: 200px;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #434343;
+    img {
+        width: 100%;
+    }
+}
+
+.nameOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.37);
+    padding: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: bold;
+    gap: 0.25rem;
+}
+
+.cell:hover {
+    transform: scale(1.02);
+    border-color: #1ed45e;
+}
+
+.cell:hover .image {
+    filter: brightness(0.7);
+}
+
+@media (min-width: 768px) {
+    .cell {
+        border-width: 3px;
+    }
+
+    .overlay {
+        padding: 1rem;
+    }
+
+    .name {
+        font-size: 1rem;
+    }
+
+    .liner {
+        font-size: 0.9rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .row {
+        gap: 0.25rem;
+    }
+
+    .cell {
+        border-width: 1px;
+    }
+
+    .overlay {
+        padding: 0.5rem;
+    }
+
+    .name {
+        font-size: 0.8rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .liner {
+        font-size: 0.7rem;
+        -webkit-line-clamp: 1;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+}

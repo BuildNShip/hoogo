@@ -219,6 +219,10 @@
     gap: 1rem;
 }
 
+.row {
+    color: #fff;
+}
+
 .leaderboardCenterContainer {
     min-height: calc(100vh - 12rem);
     width: 100%;
@@ -262,7 +266,7 @@
     justify-content: flex-start;
     gap: 1rem;
     width: calc(100% - 2rem);
-    padding: 1rem;
+    padding: 3rem;
 }
 
 .eventTitle {

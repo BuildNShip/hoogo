@@ -14,6 +14,9 @@ import Modal from "../../../components/Modal/Modal";
 import { IoQrCode } from "react-icons/io5";
 
 import QRCodeStyling from "qr-code-styling";
+import { getBingoMatrix } from "../../../apis/common";
+import HoogoCard from "./HoogoCard/HoogoCard";
+import Confetti from "react-confetti";
 
 const qrCode = new QRCodeStyling({
     width: 250,
@@ -42,6 +45,12 @@ interface Player {
     no_of_connections: number;
 }
 
+interface BingoItem {
+    name: string;
+    liner: string;
+    image: string;
+}
+
 const BingoLeaderboard = () => {
     const { eventName } = useParams();
     const [players, setPlayers] = useState<Player[]>([]);
@@ -53,11 +62,27 @@ const BingoLeaderboard = () => {
 
     const ref = useRef<HTMLDivElement>(null);
 
+    const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
+    const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null);
+
     useEffect(() => {
         if (ref.current && isQRModalOpen) {
             qrCode.append(ref.current);
         }
     }, [isQRModalOpen]);
+
+    useEffect(() => {
+        if (typeof selectedPlayer === "string") {
+            getBingoMatrix(eventName, selectedPlayer).then((response) => {
+                setBingoAnswers(response.answer);
+
+                setTimeout(() => {
+                    setBingoAnswers([]);
+                }, 5000);
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedPlayer]);
 
     useEffect(() => {
         if (!eventName) return;
@@ -77,7 +102,16 @@ const BingoLeaderboard = () => {
             try {
                 const updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
 
+                let currentPlayerScore = 0;
+
                 setPlayers((prevPlayers) => {
+                    if (!Array.isArray(updatedPlayer)) {
+                        const currentPlayer = prevPlayers.find(
+                            (player) => player.user_name === updatedPlayer.user_name
+                        );
+                        currentPlayerScore = currentPlayer?.score.filter(Boolean).length ?? 0;
+                    }
+
                     let newPlayers = Array.isArray(updatedPlayer)
                         ? updatedPlayer
                         : prevPlayers.map((player) =>
@@ -112,6 +146,18 @@ const BingoLeaderboard = () => {
                                 },
                             }
                         );
+                    }
+
+                    if (!Array.isArray(updatedPlayer)) {
+                        const updatedPlayerScore = updatedPlayer.score.filter(Boolean).length;
+
+                        console.log(currentPlayerScore, updatedPlayerScore);
+
+                        if (currentPlayerScore === 4 && updatedPlayerScore === 5) {
+                            setSelectedPlayer(updatedPlayer.user_name);
+                        }
+                    } else {
+                        console.log("No player completed the game yet.");
                     }
 
                     return newPlayers.sort((a, b) => {
@@ -199,6 +245,20 @@ const BingoLeaderboard = () => {
                         </div>
                     </div>
                 </Modal>
+            )}
+
+            {bingoAnswers.length > 0 && (
+                <>
+                    <Confetti
+                        width={window.innerWidth}
+                        height={window.innerHeight}
+                        recycle={false}
+                        numberOfPieces={500}
+                    />
+                    <Modal onClose={() => setBingoAnswers([])} title="Congratulations">
+                        <HoogoCard bingoAnswers={bingoAnswers} />
+                    </Modal>
+                </>
             )}
 
             <div className={styles.backgroundContainer}>

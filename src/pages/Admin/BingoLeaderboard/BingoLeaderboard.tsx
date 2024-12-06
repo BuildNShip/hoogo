@@ -10,6 +10,29 @@ import { formatTime } from "../../../functions";
 import toast from "react-hot-toast";
 import { MdNetworkWifi1Bar, MdNetworkWifi2Bar, MdNetworkWifi3Bar } from "react-icons/md";
 import { TiTick } from "react-icons/ti";
+import Modal from "../../../components/Modal/Modal";
+import { IoQrCode } from "react-icons/io5";
+
+import QRCodeStyling from "qr-code-styling";
+
+const qrCode = new QRCodeStyling({
+    width: 250,
+    height: 250,
+    image: "/qrLogo.svg",
+    dotsOptions: {
+        color: "#fff",
+        type: "rounded",
+    },
+    backgroundOptions: {
+        color: "#202020",
+    },
+    imageOptions: {
+        crossOrigin: "anonymous",
+
+        margin: 5, // Reduced margin to increase image size
+        imageSize: 0.4, // Added imageSize to increase the image size
+    },
+});
 
 interface Player {
     user_name: string;
@@ -25,6 +48,18 @@ const BingoLeaderboard = () => {
     const navigate = useNavigate();
     const socketRef = useRef<WebSocket | null>(null);
     const isAuthenticated = localStorage.getItem("accessToken");
+    const [showRules, setShowRules] = useState(false);
+    const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+    const [isQRLoaded, setIsQRLoaded] = useState(false);
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (ref.current && isQRModalOpen) {
+            qrCode.append(ref.current);
+            setIsQRLoaded(true);
+        }
+    }, [isQRModalOpen]);
 
     useEffect(() => {
         if (!eventName) return;
@@ -107,12 +142,75 @@ const BingoLeaderboard = () => {
         };
     }, [eventName]);
 
+    useEffect(() => {
+        qrCode.update({
+            data: new URL(`https://hoogo.makemypass.com/${eventName}`).href,
+        });
+    }, [eventName]);
+
     return (
         <>
+            {showRules && (
+                <Modal onClose={() => setShowRules(false)} title="Bingo Rules">
+                    <div className={styles.rulesContainer}>
+                        <div className={styles.rulesDescription}>
+                            <ul className={styles.rulesDescriptionContent}>
+                                <li className={styles.rulesDescriptionContentText}>
+                                    Each letter on the Bingo grid represents the starting letter of
+                                    a person's name.
+                                </li>
+                                <li className={styles.rulesDescriptionContentText}>
+                                    Network with people at the event to find individuals whose names
+                                    start with the letters on your grid.
+                                </li>
+                                <li className={styles.rulesDescriptionContentText}>
+                                    Take a selfie with each person you find and upload it as proof,
+                                    which marks a square on your grid.
+                                </li>
+                                <li className={styles.rulesDescriptionContentText}>
+                                    The first participant to complete any 5 in a row, column, or
+                                    diagonal wins the game!
+                                </li>
+                                <li className={styles.rulesDescriptionContentText}>
+                                    If you connect with at least 5 people, you get to share your
+                                    hoogos!
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </Modal>
+            )}
+
+            {isQRModalOpen && (
+                <Modal
+                    title="Joining QR Code"
+                    onClose={() => setIsQRModalOpen(false)}
+                    style={{
+                        width: "300px",
+                    }}
+                >
+                    <div className={styles.qrContainer}>
+                        <div
+                            className={styles.qrLoaderContainer}
+                            style={{ display: isQRLoaded ? "none" : "flex" }}
+                        >
+                            <PacmanLoader
+                                color="#1ED45E"
+                                size={25}
+                                className={styles.pacmanLoader}
+                            />
+                            <p className={styles.loaderText}>Hang tight! Generating QR Code...</p>
+                        </div>
+
+                        <div ref={ref}></div>
+                    </div>
+                </Modal>
+            )}
+
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
                     <div className={styles.container}>
-                        <img src="/live.gif" alt="logo" className={styles.liveGif} />
+                        {/* <img src="/live.gif" alt="logo" className={styles.liveGif} /> */}
                         {isAuthenticated && (
                             <div className={styles.headerActions}>
                                 <div
@@ -247,6 +345,23 @@ const BingoLeaderboard = () => {
                                 </div>
                             )}
                         </>
+
+                        <div
+                            className={styles.showEventQR}
+                            onClick={() => {
+                                setIsQRModalOpen(true);
+                                setIsQRLoaded(false);
+                            }}
+                        >
+                            <IoQrCode size={30} />
+                        </div>
+
+                        <div
+                            className={styles.showRulesText}
+                            onClick={() => setShowRules(!showRules)}
+                        >
+                            Show Bingo Rules
+                        </div>
                     </div>
                     <Footer />
                 </div>

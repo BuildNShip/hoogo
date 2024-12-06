@@ -10,6 +10,7 @@ import AuthCheck from "./components/AuthCheck";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import EventDashboard from "./pages/Admin/Dashboard/EventDashboard/EventDashboard";
 import EventQR from "./pages/User/EventQR/EventQR";
+import BingoRules from "./pages/User/BingoRules/BingoRules";
 
 const routes: RouteObject[] = [
     {
@@ -43,6 +44,10 @@ const routes: RouteObject[] = [
     {
         path: "/:eventName/qr",
         element: <EventQR />,
+    },
+    {
+        path: "/rules",
+        element: <BingoRules />,
     },
     {
         path: "/",

@@ -148,3 +148,7 @@
         font-size: 0.8rem;
     }
 }
+
+.highlightedRule {
+    color: #1ed45e;
+}

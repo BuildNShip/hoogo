@@ -34,6 +34,7 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
         setSelectedCell([index1, index2]);
     };
     const [numberOfImages, setNumberOfImages] = useState(0);
+    const [showRulesModal, setShowRulesModal] = useState(false);
 
     const userName = localStorage.getItem("userName");
     const handleSubmit = () => {
@@ -423,6 +424,36 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                         )}
                     </Modal>
                 )}
+                {showRulesModal && (
+                    <Modal onClose={() => setShowRulesModal(false)} title="Bingo Rules">
+                        <div className={styles.rulesContainer}>
+                            <div className={styles.rulesDescription}>
+                                <ul className={styles.rulesDescriptionContent}>
+                                    <li className={styles.rulesDescriptionContentText}>
+                                        Each letter on the Bingo grid represents the starting letter
+                                        of a person's name.
+                                    </li>
+                                    <li className={styles.rulesDescriptionContentText}>
+                                        Network with people at the event to find individuals whose
+                                        names start with the letters on your grid.
+                                    </li>
+                                    <li className={styles.rulesDescriptionContentText}>
+                                        Take a selfie with each person you find and upload it as
+                                        proof, which marks a square on your grid.
+                                    </li>
+                                    <li className={styles.rulesDescriptionContentText}>
+                                        The first participant to complete any 5 in a row, column, or
+                                        diagonal wins the game!
+                                    </li>
+                                    <li className={styles.rulesDescriptionContentText}>
+                                        If you connect with at least 5 people, you get to share your
+                                        hoogos!
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Modal>
+                )}
                 {letters && letters.length !== 0 ? (
                     <>
                         {rowsBingo.filter((row) => row).length === 5 && (
@@ -519,6 +550,9 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                         </p>
                     </>
                 )}
+                <p className={styles.rules} onClick={() => setShowRulesModal(true)}>
+                    View Bing Rules
+                </p>
             </div>
         </>
     );

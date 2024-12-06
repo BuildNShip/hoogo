@@ -9,6 +9,7 @@ const BingoRules: React.FC = () => {
         "Network with people at the event to find individuals whose names start with the letters on your grid.",
         "Take a selfie with each person you find and upload it as proof, which marks a square on your grid.",
         "The first participant to complete any 5 in a row, column, or diagonal wins the game!",
+        "If you connect with atleast 5 people, you get to share you hoogos!",
     ];
     return (
         <>
@@ -34,7 +35,14 @@ const BingoRules: React.FC = () => {
 
                             <div style={{ marginTop: "2rem" }}>
                                 {bingoRules.map((rule, index) => (
-                                    <div key={index} className={`${styles.playerRow} `}>
+                                    <div
+                                        key={index}
+                                        className={`${styles.playerRow} ${
+                                            index === bingoRules.length - 1
+                                                ? styles.highlightedRule
+                                                : ""
+                                        }`}
+                                    >
                                         <div className={styles.nameLink}>{rule}</div>
                                     </div>
                                 ))}

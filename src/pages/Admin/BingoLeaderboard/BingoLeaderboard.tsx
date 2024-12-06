@@ -166,8 +166,6 @@ const BingoLeaderboard = () => {
         qrCode.update({
             data: new URL(`https://hoogo.makemypass.com/${eventName}`).href,
         });
-
-        setIsQRModalOpen(true);
     }, [eventName]);
 
     return (

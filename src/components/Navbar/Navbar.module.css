@@ -23,6 +23,7 @@
     margin-top: 0;
     padding: 0.45rem 0.9rem; /* Reduced by 10% */
     transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 .navbarCTAButton:hover {
@@ -42,6 +43,7 @@
     font-size: 0.9rem;
     color: #ffffff;
     padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 
 .navbarSecondaryCTA:hover {

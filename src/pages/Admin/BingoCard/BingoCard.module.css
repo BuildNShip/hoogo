@@ -190,6 +190,7 @@
     margin-top: 0;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
+    cursor: pointer;
 }
 
 .playerName {
@@ -211,6 +212,7 @@
     padding: 0.5rem 1rem;
     margin-top: 1rem;
     min-width: 15rem;
+    cursor: pointer;
 }
 
 .buttonsContainer {

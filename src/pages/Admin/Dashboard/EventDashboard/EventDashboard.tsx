@@ -217,7 +217,7 @@ const EventDashboard = () => {
         <>
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
-                    <Navbar />
+                    <Navbar showLogin={true} />
                     {!isLoading ? (
                         <div className={styles.dashboardContainer}>
                             <div className={styles.eventThemeHeader}>

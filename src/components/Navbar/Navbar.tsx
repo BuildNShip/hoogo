@@ -28,7 +28,7 @@ const Navbar = ({
                 </p>
                 {showActionButtons && (
                     <div className={styles.buttonsContainer}>
-                        {!showLogin && (
+                        {(!showLogin || setCreateEvent) && (
                             <button
                                 className={styles.navbarCTAButton}
                                 onClick={() => {

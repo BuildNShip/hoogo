@@ -36,7 +36,7 @@ const qrCode = new QRCodeStyling({
 
 interface Player {
     user_name: string;
-    user_code: string;
+    connected_to: string;
     score: boolean[];
     completed_at: Date | null;
     no_of_connections: number;
@@ -50,16 +50,12 @@ const BingoLeaderboard = () => {
     const isAuthenticated = localStorage.getItem("accessToken");
     const [showRules, setShowRules] = useState(false);
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
-    const [isQRLoaded, setIsQRLoaded] = useState(false);
-
-    const [showQRInPage, setShowQRInPage] = useState(false);
 
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (ref.current && isQRModalOpen) {
             qrCode.append(ref.current);
-            setIsQRLoaded(true);
         }
     }, [isQRModalOpen]);
 
@@ -81,24 +77,45 @@ const BingoLeaderboard = () => {
             try {
                 const updatedPlayer: Player[] | Player = JSON.parse(event.data).response;
 
+                console.log("Updated Player", updatedPlayer);
+
                 setPlayers((prevPlayers) => {
                     let newPlayers = Array.isArray(updatedPlayer)
                         ? updatedPlayer
                         : prevPlayers.map((player) =>
-                              player.user_code === updatedPlayer.user_code ? updatedPlayer : player
+                              player.user_name === updatedPlayer.user_name ? updatedPlayer : player
                           );
 
                     if (
                         !Array.isArray(updatedPlayer) &&
-                        !prevPlayers.some((player) => player.user_code === updatedPlayer.user_code)
+                        !prevPlayers.some((player) => player.user_name === updatedPlayer.user_name)
                     ) {
                         newPlayers = [...prevPlayers, updatedPlayer];
+
+                        console.log("Here");
 
                         toast.success(`${updatedPlayer.user_name} joined the game!`, {
                             duration: 3000,
                             position: "bottom-right",
-                            id: updatedPlayer.user_code,
+                            id: updatedPlayer.user_name,
                         });
+                    } else if (
+                        !Array.isArray(updatedPlayer) &&
+                        updatedPlayer.connected_to &&
+                        updatedPlayer.user_name
+                    ) {
+                        toast.success(
+                            `${updatedPlayer.user_name} connected to ${updatedPlayer.connected_to}!`,
+                            {
+                                duration: 3000,
+                                position: "bottom-left",
+                                id: updatedPlayer.user_name,
+                                style: {
+                                    backgroundColor: "#2a2a2a",
+                                    color: "#ffffff",
+                                },
+                            }
+                        );
                     }
 
                     return newPlayers.sort((a, b) => {
@@ -150,14 +167,6 @@ const BingoLeaderboard = () => {
         });
     }, [eventName]);
 
-    useEffect(() => {
-        if (showQRInPage) {
-            qrCode.download({
-                name: `${eventName}_QRCode`,
-            });
-        }
-    }, [showQRInPage, eventName]);
-
     return (
         <>
             {showRules && (
@@ -187,41 +196,6 @@ const BingoLeaderboard = () => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                </Modal>
-            )}
-
-            {isQRModalOpen && (
-                <Modal
-                    title="Joining QR Code"
-                    onClose={() => setIsQRModalOpen(false)}
-                    style={{
-                        width: "300px",
-                    }}
-                >
-                    <div className={styles.qrContainer}>
-                        <div
-                            className={styles.qrLoaderContainer}
-                            style={{ display: isQRLoaded ? "none" : "flex" }}
-                        >
-                            <PacmanLoader
-                                color="#1ED45E"
-                                size={25}
-                                className={styles.pacmanLoader}
-                            />
-                            <p className={styles.loaderText}>Hang tight! Generating QR Code...</p>
-                        </div>
-
-                        <div ref={ref}></div>
-
-                        <button
-                            className={styles.showQRInPage}
-                            onClick={() => {
-                                setShowQRInPage(true);
-                            }}
-                        >
-                            Show In Page
-                        </button>
                     </div>
                 </Modal>
             )}
@@ -258,7 +232,7 @@ const BingoLeaderboard = () => {
                                             <AnimatePresence>
                                                 {players.map((player, playerIndex) => (
                                                     <motion.div
-                                                        key={player.user_code}
+                                                        key={player.user_name}
                                                         layout
                                                         initial={{ opacity: 0, y: 50 }}
                                                         animate={{ opacity: 1, y: 0 }}
@@ -271,7 +245,7 @@ const BingoLeaderboard = () => {
                                                         className={styles.playerRow}
                                                     >
                                                         <Link
-                                                            to={`/${eventName}/${player.user_code}/hoogocard`}
+                                                            to={`/${eventName}/${player.user_name}/hoogocard`}
                                                             className={styles.nameLink}
                                                         >
                                                             <div className={styles.row}>
@@ -279,7 +253,7 @@ const BingoLeaderboard = () => {
                                                                     {playerIndex + 1}.
                                                                 </span>
                                                                 {player.user_name ||
-                                                                    player.user_code}{" "}
+                                                                    player.user_name}{" "}
                                                                 {player.no_of_connections >= 25 ? (
                                                                     <TiTick
                                                                         color="#1ed45e"
@@ -357,6 +331,18 @@ const BingoLeaderboard = () => {
                                                 ))}
                                             </AnimatePresence>
                                         </div>
+
+                                        {isQRModalOpen && (
+                                            <motion.div
+                                                initial={{ opacity: 0, x: "25%" }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: "25%" }}
+                                                transition={{ duration: 0.5 }}
+                                            >
+                                                <div ref={ref}></div>
+                                                <p className={styles.scanToJoin}>scan to network</p>
+                                            </motion.div>
+                                        )}
                                     </div>
                                 ) : (
                                     <div className={styles.centerContainer}>
@@ -375,17 +361,15 @@ const BingoLeaderboard = () => {
                                     </div>
                                 )}
                             </>
-                            <div ref={ref}></div>
                         </div>
 
                         <div
                             className={styles.showEventQR}
                             onClick={() => {
-                                setIsQRModalOpen(true);
-                                setIsQRLoaded(false);
+                                setIsQRModalOpen((prev) => !prev);
                             }}
                         >
-                            <IoQrCode size={30} />
+                            <IoQrCode size={30} color={isQRModalOpen ? "#1ED45E" : "#fff"} />
                         </div>
 
                         <div

@@ -711,3 +711,19 @@
         font-weight: 600;
     }
 }
+.testTemplateButton {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    background-color: #2b2b2b;
+    color: #fff;
+    border: none;
+    opacity: 0.7;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+        opacity: 1;
+    }
+}

@@ -30,6 +30,10 @@ const routes: RouteObject[] = [
         element: <StartGame />,
     },
     {
+        path: "/:eventName/preview/templates",
+        element: <BingoCard />,
+    },
+    {
         path: "/:eventName/:ticketCode",
         element: <BingoGrid />,
     },
@@ -57,8 +61,6 @@ const routes: RouteObject[] = [
                 path: "/dashboard",
                 element: <Dashboard />,
             },
-            // /dashboard/:eventName Yet to Develop
-
             {
                 path: "/dashboard/:eventName/",
                 element: <EventDashboard />,

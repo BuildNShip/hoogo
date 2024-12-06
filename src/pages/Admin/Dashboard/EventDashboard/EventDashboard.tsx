@@ -901,6 +901,14 @@ const EventDashboard = () => {
                                         >
                                             Submit
                                         </button>
+                                        <button
+                                            className={styles.testTemplateButton}
+                                            onClick={() => {
+                                                navigate(`/${eventInfo?.name}/preview/templates`);
+                                            }}
+                                        >
+                                            Preview Templates
+                                        </button>
                                     </div>
                                 </Modal>
                             )}

@@ -36,6 +36,8 @@ const BingoCard = () => {
     const navigate = useNavigate();
     const isAuthenticated = localStorage.getItem("accessToken");
 
+    //check if there is query param of templateTest
+
     useEffect(() => {
         const img = new Image();
         img.src = eventInfo?.story_template || "";
@@ -49,9 +51,49 @@ const BingoCard = () => {
     }, [eventInfo]);
 
     useEffect(() => {
-        getBingoMatrix(eventName, ticketCode, setIsLoading, true).then((data) => {
-            setBingoAnswers(data.answer);
-        });
+        if (ticketCode) {
+            getBingoMatrix(eventName, ticketCode, setIsLoading, true).then((data) => {
+                setBingoAnswers(data.answer);
+            });
+        } else {
+            setBingoAnswers([
+                [
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                ],
+                [
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                ],
+                [
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                ],
+                [
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                ],
+                [
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                    { name: "Name", liner: "Description", image: dummyImageUrl },
+                ],
+            ]);
+        }
         if (eventName) getEventInfo(eventName, setEventInfo);
     }, [eventName, ticketCode]);
 
@@ -59,7 +101,7 @@ const BingoCard = () => {
         if (canvasRef.current) {
             const link = document.createElement("a");
             link.href = canvasRef.current.toDataURL("image/png");
-            link.download = `${ticketCode}_BingoPostCard.png`;
+            link.download = `${ticketCode ? ticketCode : "Preview"}_BingoPostCard.png`;
             link.click();
         }
     };
@@ -68,7 +110,7 @@ const BingoCard = () => {
         if (canvasRef.current) {
             const link = document.createElement("a");
             link.href = canvasRef.current.toDataURL("image/png");
-            link.download = `${ticketCode}_BingoStoryCard.png`;
+            link.download = `${ticketCode ? ticketCode : "Preivew"}_BingoStoryCard.png`;
             link.click();
         }
     };

@@ -401,7 +401,7 @@ const EventDashboard = () => {
                                                 navigate(`/${eventInfo?.name}/leaderboard`)
                                             }
                                         >
-                                            Show Leaderboard
+                                            Goto Game
                                         </button>
                                     </div>
                                 </div>

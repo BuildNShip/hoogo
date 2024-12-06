@@ -205,10 +205,10 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
     }, [cells]);
 
     useEffect(() => {
-        const firstTime = localStorage.getItem("firstTime");
+        const firstTime = sessionStorage.getItem("firstTime");
         if (!firstTime) {
             setShowRulesModal(true);
-            localStorage.setItem("firstTime", "false");
+            sessionStorage.setItem("firstTime", "false");
         }
     }, [showRulesModal]);
 
@@ -451,12 +451,12 @@ const GridComponent: React.FC<BingoGridProps> = ({ cells, setCells, letters }) =
                                         proof, which marks a square on your grid.
                                     </li>
                                     <li className={styles.rulesDescriptionContentText}>
-                                        The first participant to complete any 5 in a row, column, or
-                                        diagonal wins the game!
+                                        To complete a letter in BINGO, a participant must mark 5
+                                        cells in a row, column, or diagonal.
                                     </li>
                                     <li className={styles.rulesDescriptionContentText}>
-                                        If you connect with at least 5 people, you get to share your
-                                        hoogos!
+                                        The first participant to complete all 5 letters in BINGO
+                                        wins the game!
                                     </li>
                                 </ul>
                             </div>

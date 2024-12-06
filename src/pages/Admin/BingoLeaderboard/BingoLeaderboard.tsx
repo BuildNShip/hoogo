@@ -52,6 +52,8 @@ const BingoLeaderboard = () => {
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
     const [isQRLoaded, setIsQRLoaded] = useState(false);
 
+    const [showQRInPage, setShowQRInPage] = useState(false);
+
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -148,6 +150,14 @@ const BingoLeaderboard = () => {
         });
     }, [eventName]);
 
+    useEffect(() => {
+        if (showQRInPage) {
+            qrCode.download({
+                name: `${eventName}_QRCode`,
+            });
+        }
+    }, [showQRInPage, eventName]);
+
     return (
         <>
             {showRules && (
@@ -168,12 +178,12 @@ const BingoLeaderboard = () => {
                                     which marks a square on your grid.
                                 </li>
                                 <li className={styles.rulesDescriptionContentText}>
-                                    The first participant to complete any 5 in a row, column, or
-                                    diagonal wins the game!
+                                    To complete a letter in BINGO, a participant must mark 5 cells
+                                    in a row, column, or diagonal.
                                 </li>
                                 <li className={styles.rulesDescriptionContentText}>
-                                    If you connect with at least 5 people, you get to share your
-                                    hoogos!
+                                    The first participant to complete all 5 letters in BINGO wins
+                                    the game!
                                 </li>
                             </ul>
                         </div>
@@ -203,6 +213,15 @@ const BingoLeaderboard = () => {
                         </div>
 
                         <div ref={ref}></div>
+
+                        <button
+                            className={styles.showQRInPage}
+                            onClick={() => {
+                                setShowQRInPage(true);
+                            }}
+                        >
+                            Show In Page
+                        </button>
                     </div>
                 </Modal>
             )}
@@ -231,120 +250,133 @@ const BingoLeaderboard = () => {
                             </p>
                         )}
 
-                        <>
-                            {players.length > 0 ? (
-                                <div className={styles.leaderboardCenterContainer}>
-                                    <div className={styles.playerRowContainer}>
-                                        <AnimatePresence>
-                                            {players.map((player, playerIndex) => (
-                                                <motion.div
-                                                    key={player.user_code}
-                                                    layout
-                                                    initial={{ opacity: 0, y: 50 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -50 }}
-                                                    transition={{
-                                                        duration: 0.5,
-                                                        type: "spring",
-                                                    }}
-                                                    whileHover={{ scale: 1.05 }}
-                                                    className={styles.playerRow}
-                                                >
-                                                    <Link
-                                                        to={`/${eventName}/${player.user_code}/hoogocard`}
-                                                        className={styles.nameLink}
+                        <div className={styles.leaderboardContainer}>
+                            <>
+                                {players.length > 0 ? (
+                                    <div className={styles.leaderboardCenterContainer}>
+                                        <div className={styles.playerRowContainer}>
+                                            <AnimatePresence>
+                                                {players.map((player, playerIndex) => (
+                                                    <motion.div
+                                                        key={player.user_code}
+                                                        layout
+                                                        initial={{ opacity: 0, y: 50 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: -50 }}
+                                                        transition={{
+                                                            duration: 0.5,
+                                                            type: "spring",
+                                                        }}
+                                                        whileHover={{ scale: 1.05 }}
+                                                        className={styles.playerRow}
                                                     >
-                                                        <div className={styles.row}>
-                                                            <span className={styles.index}>
-                                                                {playerIndex + 1}.
-                                                            </span>
-                                                            {player.user_name || player.user_code}{" "}
-                                                            {player.no_of_connections >= 25 ? (
-                                                                <TiTick
-                                                                    color="#1ed45e"
-                                                                    title={player.no_of_connections.toString()}
-                                                                />
-                                                            ) : player.no_of_connections >= 20 ? (
-                                                                <MdNetworkWifi3Bar
-                                                                    title={
-                                                                        player.no_of_connections.toString() +
-                                                                        " connections"
-                                                                    }
-                                                                />
-                                                            ) : player.no_of_connections >= 10 ? (
-                                                                <MdNetworkWifi2Bar
-                                                                    title={
-                                                                        player.no_of_connections.toString() +
-                                                                        " connections"
-                                                                    }
-                                                                />
-                                                            ) : player.no_of_connections >= 1 ? (
-                                                                <MdNetworkWifi1Bar
-                                                                    title={
-                                                                        player.no_of_connections.toString() +
-                                                                        " connections"
-                                                                    }
-                                                                />
-                                                            ) : null}
-                                                        </div>
-                                                        {player.completed_at && (
-                                                            <div className={styles.completedAtText}>
-                                                                <IoIosTime />
-                                                                <p>
-                                                                    {formatTime(
-                                                                        new Date(
-                                                                            player.completed_at
-                                                                        )
-                                                                    )}
-                                                                </p>
+                                                        <Link
+                                                            to={`/${eventName}/${player.user_code}/hoogocard`}
+                                                            className={styles.nameLink}
+                                                        >
+                                                            <div className={styles.row}>
+                                                                <span className={styles.index}>
+                                                                    {playerIndex + 1}.
+                                                                </span>
+                                                                {player.user_name ||
+                                                                    player.user_code}{" "}
+                                                                {player.no_of_connections >= 25 ? (
+                                                                    <TiTick
+                                                                        color="#1ed45e"
+                                                                        title={player.no_of_connections.toString()}
+                                                                    />
+                                                                ) : player.no_of_connections >=
+                                                                  20 ? (
+                                                                    <MdNetworkWifi3Bar
+                                                                        title={
+                                                                            player.no_of_connections.toString() +
+                                                                            " connections"
+                                                                        }
+                                                                    />
+                                                                ) : player.no_of_connections >=
+                                                                  10 ? (
+                                                                    <MdNetworkWifi2Bar
+                                                                        title={
+                                                                            player.no_of_connections.toString() +
+                                                                            " connections"
+                                                                        }
+                                                                    />
+                                                                ) : player.no_of_connections >=
+                                                                  1 ? (
+                                                                    <MdNetworkWifi1Bar
+                                                                        title={
+                                                                            player.no_of_connections.toString() +
+                                                                            " connections"
+                                                                        }
+                                                                    />
+                                                                ) : null}
                                                             </div>
-                                                        )}
-                                                    </Link>
-
-                                                    <div className={styles.bingoLetters}>
-                                                        {["B", "I", "N", "G", "O"].map(
-                                                            (letter, letterIndex) => (
-                                                                <motion.button
-                                                                    key={letter}
-                                                                    className={`${
-                                                                        styles.letterButton
-                                                                    } ${
-                                                                        player.score[letterIndex]
-                                                                            ? styles.strikethrough
-                                                                            : ""
-                                                                    }`}
-                                                                    whileHover={{ scale: 1.1 }}
-                                                                    transition={{
-                                                                        duration: 0.2,
-                                                                    }}
+                                                            {player.completed_at && (
+                                                                <div
+                                                                    className={
+                                                                        styles.completedAtText
+                                                                    }
                                                                 >
-                                                                    {letter}
-                                                                </motion.button>
-                                                            )
-                                                        )}
-                                                    </div>
-                                                </motion.div>
-                                            ))}
-                                        </AnimatePresence>
+                                                                    <IoIosTime />
+                                                                    <p>
+                                                                        {formatTime(
+                                                                            new Date(
+                                                                                player.completed_at
+                                                                            )
+                                                                        )}
+                                                                    </p>
+                                                                </div>
+                                                            )}
+                                                        </Link>
+
+                                                        <div className={styles.bingoLetters}>
+                                                            {["B", "I", "N", "G", "O"].map(
+                                                                (letter, letterIndex) => (
+                                                                    <motion.button
+                                                                        key={letter}
+                                                                        className={`${
+                                                                            styles.letterButton
+                                                                        } ${
+                                                                            player.score[
+                                                                                letterIndex
+                                                                            ]
+                                                                                ? styles.strikethrough
+                                                                                : ""
+                                                                        }`}
+                                                                        whileHover={{ scale: 1.1 }}
+                                                                        transition={{
+                                                                            duration: 0.2,
+                                                                        }}
+                                                                    >
+                                                                        {letter}
+                                                                    </motion.button>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                    </motion.div>
+                                                ))}
+                                            </AnimatePresence>
+                                        </div>
                                     </div>
-                                </div>
-                            ) : (
-                                <div className={styles.centerContainer}>
-                                    <div className={styles.loaderContainer}>
-                                        <PacmanLoader
-                                            color="#1ED45E"
-                                            loading
-                                            size={25}
-                                            aria-label="Loading Spinner"
-                                            data-testid="loader"
-                                        />
+                                ) : (
+                                    <div className={styles.centerContainer}>
+                                        <div className={styles.loaderContainer}>
+                                            <PacmanLoader
+                                                color="#1ED45E"
+                                                loading
+                                                size={25}
+                                                aria-label="Loading Spinner"
+                                                data-testid="loader"
+                                            />
+                                        </div>
+                                        <p className={styles.loadingText}>
+                                            Waiting for participants to join...
+                                        </p>
                                     </div>
-                                    <p className={styles.loadingText}>
-                                        Waiting for participants to join...
-                                    </p>
-                                </div>
-                            )}
-                        </>
+                                )}
+                            </>
+                            <div ref={ref}></div>
+                        </div>
 
                         <div
                             className={styles.showEventQR}

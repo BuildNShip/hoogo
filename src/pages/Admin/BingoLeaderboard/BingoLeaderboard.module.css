@@ -358,3 +358,7 @@
     gap: 1rem;
     margin-top: 1rem;
 }
+
+.leaderboardContainer {
+    width: 100%;
+}

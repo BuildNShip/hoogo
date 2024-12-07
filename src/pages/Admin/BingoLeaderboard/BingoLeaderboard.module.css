@@ -230,6 +230,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
@@ -266,7 +267,15 @@
     justify-content: flex-start;
     gap: 1rem;
     width: calc(100% - 2rem);
-    padding: 3rem;
+    padding: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 0;
+}
+
+@media (max-width: 480px) {
+    .qrCodeContainer {
+        padding-top: 2rem;
+    }
 }
 
 .eventTitle {

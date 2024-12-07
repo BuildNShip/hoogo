@@ -291,6 +291,18 @@ const BingoLeaderboard = () => {
                         <div className={styles.leaderboardContainer}>
                             <>
                                 <div className={styles.leaderboardCenterContainer}>
+                                    {isQRModalOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: "-25%" }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: "-25%" }}
+                                            transition={{ duration: 0.5 }}
+                                            className={styles.qrCodeContainer}
+                                        >
+                                            <div ref={ref}></div>
+                                            <p className={styles.scanToJoin}>scan to network</p>
+                                        </motion.div>
+                                    )}
                                     <div className={styles.playerRowContainer}>
                                         {players.length > 0 ? (
                                             <AnimatePresence>
@@ -298,9 +310,9 @@ const BingoLeaderboard = () => {
                                                     <motion.div
                                                         key={player.user_name}
                                                         layout
-                                                        initial={{ opacity: 0, y: 50 }}
+                                                        initial={{ opacity: 0, y: -50 }}
                                                         animate={{ opacity: 1, y: 0 }}
-                                                        exit={{ opacity: 0, y: -50 }}
+                                                        exit={{ opacity: 0, y: 50 }}
                                                         transition={{
                                                             duration: 0.5,
                                                             type: "spring",
@@ -411,18 +423,6 @@ const BingoLeaderboard = () => {
                                             </>
                                         )}
                                     </div>
-
-                                    {isQRModalOpen && (
-                                        <motion.div
-                                            initial={{ opacity: 0, x: "25%" }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: "25%" }}
-                                            transition={{ duration: 0.5 }}
-                                        >
-                                            <div ref={ref}></div>
-                                            <p className={styles.scanToJoin}>scan to network</p>
-                                        </motion.div>
-                                    )}
                                 </div>
                             </>
                         </div>

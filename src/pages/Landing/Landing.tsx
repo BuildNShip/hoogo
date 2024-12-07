@@ -28,7 +28,18 @@ function Landing() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              from the <span>team of makemypass.com</span>
+              from the{" "}
+              <span>
+                team of
+                <a
+                  href="https://makemypass.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {" "}
+                  makemypass.com
+                </a>
+              </span>
             </motion.p>
             <motion.h1
               className={styles.title}

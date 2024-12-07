@@ -51,7 +51,7 @@
 
 a {
   text-decoration: none;
-  color: #ffff00;
+  color: #00ff85;
 }
 
 input:-webkit-autofill,
@@ -63,7 +63,6 @@ input:-webkit-autofill:active {
   color: #fff !important;
 }
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
-
 
 :root {
   --primary: #00ff85;

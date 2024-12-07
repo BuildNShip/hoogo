@@ -76,7 +76,8 @@ const BingoLeaderboard = () => {
         if (typeof selectedPlayer === "string") {
             getBingoMatrix(eventName, selectedPlayer).then((response) => {
                 setBingoAnswers(response.answer);
-
+                const audio = new Audio("/claps.wav")
+                audio.play();
                 setTimeout(() => {
                     setBingoAnswers([]);
                 }, 5000);
@@ -288,6 +289,10 @@ const BingoLeaderboard = () => {
                                 <span>{players.length}</span> people
                             </p>
                         )}
+
+                        <p className={styles.connections}>
+                       <span> {players.reduce((total, player) => total + player.no_of_connections, 0)}</span> connections
+                        </p>
 
                         <div className={styles.leaderboardContainer}>
                             <>

@@ -767,7 +767,7 @@ const EventDashboard = () => {
                                                         onClick={() => {
                                                             setUploadTemplates({
                                                                 ...uploadTemplates,
-                                                                storyTemplate: null,
+                                                                postTemplate: null,
                                                             });
                                                         }}
                                                     >
@@ -810,7 +810,7 @@ const EventDashboard = () => {
                                         <div className={styles.inputGroup}>
                                             <label htmlFor="storyTemplate" className={styles.label}>
                                                 Upload the Story Template
-                                                <span> (760px x 760px)</span>
+                                                <span> (760px x 1351px)</span>
                                             </label>
 
                                             <p className={styles.inputFieldDescription}>

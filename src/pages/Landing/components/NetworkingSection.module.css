@@ -1,6 +1,6 @@
 .networkingSection {
   background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
-  padding: 6rem 2rem;
+  padding: 3rem 2rem;
 }
 
 .networkingContent {
@@ -45,6 +45,7 @@
   text-align: center;
   border: 1px solid rgba(0, 255, 133, 0.1);
   flex: 1;
+  width: calc(100% / 3 - 4rem);
   min-width: 280px;
   max-width: 320px;
 }
@@ -134,9 +135,5 @@
   .unlockCard {
     margin: 0 1rem;
     padding: 1.5rem;
-  }
-
-  .featureCard {
-    min-width: 100%;
   }
 }

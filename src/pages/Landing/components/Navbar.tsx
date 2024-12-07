@@ -8,7 +8,6 @@ export default function Navbar() {
 
   const navItems = [
     { label: "How It Works", href: "#how-it-works" },
-    { label: "Features", href: "#features" },
     { label: "Rewards", href: "#rewards" },
   ];
 
@@ -32,20 +31,22 @@ export default function Navbar() {
           ))}
         </div>
 
-        <motion.button
-          className={styles.ctaButton}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Get Started
-        </motion.button>
+        <div className={styles.row}>
+          <motion.button
+            className={styles.ctaButton}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Get Started
+          </motion.button>
 
-        <button
-          className={styles.mobileMenuButton}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button
+            className={styles.mobileMenuButton}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Menu color="white" />
+          </button>
+        </div>
       </div>
 
       {isMenuOpen && (

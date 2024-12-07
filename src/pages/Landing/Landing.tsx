@@ -55,9 +55,11 @@ function Landing() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <button className={styles.ctaButton}>
-                Create Hoogo <ArrowRight size={20} />
-              </button>
+              <a href="/login">
+                <button className={styles.ctaButton}>
+                  Create Hoogo <ArrowRight size={20} />
+                </button>
+              </a>
               <div className={styles.rating}>
                 <span>★★★★★</span> 2461 players connected
               </div>
@@ -82,15 +84,19 @@ function Landing() {
           </motion.div>
         </section>
 
-        <HowToSection />
+        <div id="how-it-works">
+          <HowToSection />
+        </div>
         <NetworkingSection />
-        <UnlockRewards />
+        <div id="rewards">
+          <UnlockRewards />
+        </div>
         <TestimonialsSection />
       </main>
 
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p>&copy; 2024 Hoogo. All rights reserved.</p>
+          <p>&copy; 2024 Hoomans Project Pvt Ltd. All rights reserved.</p>
         </div>
       </footer>
     </div>

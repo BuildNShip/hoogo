@@ -5,27 +5,24 @@ import styles from "./HowToSection.module.css";
 const steps = [
   {
     icon: <Sparkles className={styles.stepIcon} />,
-    title: "Create Your Grid",
+    title: "Create Your Event",
     description:
-      "Design your custom Hoogo grid with fun networking prompts and challenges tailored to your event.",
-    image:
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "Create an event by just giving a name for the same. and connect with makemypass.com for some cool features.",
+    image: "/landing/ht1.png",
   },
   {
     icon: <Users className={styles.stepIcon} />,
-    title: "Connect & Play",
+    title: "Generate The Grid",
     description:
-      "Share your grid with event participants and start networking through engaging challenges.",
-    image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "Using the names of the people who have came for the event, generate the grid. and share the public link",
+    image: "/landing/ht2.png",
   },
   {
     icon: <Share2 className={styles.stepIcon} />,
-    title: "Share & Remember",
+    title: "Network & Share",
     description:
-      "Complete 5 cells to unlock your shareable Hoogo grid - a perfect memento of your networking success!",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+      "Now, let the magic happen. People can connect with each other and share their details with each other.",
+    image: "/landing/ht3.png",
   },
 ];
 

@@ -1,5 +1,5 @@
 .rewardsSection {
-  padding: 6rem 2rem;
+  padding: 3rem 2rem;
   background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-light) 100%);
 }
 
@@ -32,7 +32,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-bottom: 4rem;
 }
 
 .rewardCard {
@@ -110,7 +109,7 @@
   }
 
   .rewardsSection {
-    padding: 4rem 1rem;
+    padding: 2rem 1rem;
   }
 
   .title {

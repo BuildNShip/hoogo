@@ -72,7 +72,7 @@ function Landing() {
                 </button>
               </a>
               <div className={styles.rating}>
-                <span>★★★★★</span> 2461 players connected
+                <span>★★★★★</span> 2608 players connected
               </div>
             </motion.div>
           </motion.div>

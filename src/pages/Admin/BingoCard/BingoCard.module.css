@@ -68,8 +68,8 @@
     align-items: center;
     flex-direction: column;
     color: white;
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-size: 0.7rem;
+    font-weight: normal;
     gap: 0.25rem;
 }
 

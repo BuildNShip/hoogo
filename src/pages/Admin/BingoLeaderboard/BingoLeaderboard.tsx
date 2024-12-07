@@ -155,7 +155,7 @@ const BingoLeaderboard = () => {
                         console.log(currentPlayerScore, updatedPlayerScore);
 
                         if (currentPlayerScore === 4 && updatedPlayerScore === 5) {
-                            setSelectedPlayer(updatedPlayer.user_name);
+                            setSelectedPlayer(updatedPlayer.user_code || updatedPlayer.user_name);
                         }
                     } else {
                         console.log("No player completed the game yet.");

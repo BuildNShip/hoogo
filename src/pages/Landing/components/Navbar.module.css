@@ -1,0 +1,112 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.8);
+  border-bottom: 1px solid rgba(0, 255, 133, 0.1);
+}
+
+.navContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.desktopMenu {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navLink {
+  font-size: 0.9rem;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.2s;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.ctaButton {
+  background: var(--primary);
+  color: var(--bg-dark);
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.ctaButton:hover {
+  background: var(--primary-dark);
+}
+
+.mobileMenuButton {
+  display: none;
+  color: white;
+}
+
+.mobileMenu {
+  display: none;
+  padding: 1rem;
+  background: var(--bg-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 0.75rem;
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.mobileNavLink:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .desktopMenu {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: block;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+
+  .navContent {
+    padding: 0.75rem 1rem;
+  }
+}

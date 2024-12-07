@@ -1,365 +1,172 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-
 .container {
-    background-color: #111;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    position: sticky;
-    top: 0;
-    background-color: rgba(17, 17, 17, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 100;
-}
-
-.logo {
-    font-family: "Mona Sans", sans-serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ff85;
-}
-
-.navLinks {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.navLinks a {
-    font-family: "Poppins", sans-serif;
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-}
-
-.navLinks a:hover {
-    color: #00ff85;
-}
-
-.signUpButton {
-    background-color: #00ff85;
-    color: #111;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.signUpButton:hover {
-    background-color: #00cc6a;
-    transform: translateY(-2px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .main {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: space-between;
-    align-items: space;
+  flex: 1;
+  padding-top: 80px;
 }
 
-.content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.hero {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  gap: 4rem;
+}
+
+.heroContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
 }
 
 .preTitle {
-    font-family: "Poppins", sans-serif;
-    color: #666;
+  font-size: 1rem;
+  color: #666;
 }
 
 .preTitle span {
-    color: #00ff85;
+  color: var(--primary);
 }
 
 .title {
-    font-family: "Mona Sans", sans-serif;
-    font-size: 3.5rem;
-    font-weight: bold;
-    line-height: 1.2;
+  font-size: 3.5rem;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 .highlight {
-    color: #00ff85;
+  color: var(--primary);
 }
 
 .subtitle {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.125rem;
-    color: #888;
-    max-width: 500px;
+  font-size: 1.25rem;
+  color: #888;
+  line-height: 1.6;
 }
 
-.rating {
-    font-family: "Poppins", sans-serif;
-    color: #00ff85;
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
 .ctaButton {
-    background-color: #00ff85;
-    color: #111;
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    font-weight: 500;
-    border-radius: 4px;
-    font-family: "Poppins", sans-serif;
-    cursor: pointer;
-    transition: all 0.2s;
-    width: fit-content;
+  background: var(--primary);
+  color: var(--bg-dark);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .ctaButton:hover {
-    background-color: #00cc6a;
-    transform: translateY(-2px);
+  background: var(--primary-dark);
+  transform: translateY(-2px);
 }
 
-.imageGrid {
-    position: relative;
-    width: 100%;
-    max-width: 30rem;
-    aspect-ratio: 1;
-    background: rgba(0, 255, 133, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
+.rating {
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
-.gridImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.heroImageWrapper {
+  flex: 0.8;
+  aspect-ratio: 4/3;
+  border-radius: 16px;
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+
+  transition: transform 0.3s ease;
+}
+
+.imageAlert {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.75rem;
+  opacity: 0.8;
+
+  max-width: 18rem;
+  text-align: center;
+}
+
+.heroImageWrapper:hover .heroImage {
+  transform: scale(1.05);
 }
 
 .footer {
-    background-color: #0a0a0a;
-    padding: 4rem 2rem 2rem;
-    margin-top: auto;
+  background: var(--bg-dark);
+  padding: 2rem;
+  border-top: 1px solid rgba(0, 255, 133, 0.1);
 }
 
 .footerContent {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  color: #666;
 }
 
-.footerSection {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.footerSection h3 {
-    font-family: "Mona Sans", sans-serif;
-    color: #00ff85;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.footerSection h4 {
-    font-family: "Mona Sans", sans-serif;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.footerSection p,
-.footerSection a {
-    font-family: "Poppins", sans-serif;
-    color: #888;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-}
-
-.footerSection a:hover {
-    color: #00ff85;
-}
-
-.footerBottom {
-    max-width: 1200px;
-    margin: 3rem auto 0;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    font-family: "Poppins", sans-serif;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Testimonials Section */
-.testimonialsSection {
-    background-color: #0a0a0a;
-    padding: 4rem 2rem;
-}
-
-.testimonialsContent {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.testimonialsTitle {
-    font-family: "Mona Sans", sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: #fff;
-}
-
-.testimonialsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.testimonialCard {
-    background-color: #111;
-    border-radius: 8px;
+@media (max-width: 1024px) {
+  .hero {
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0, 255, 133, 0.1);
+    gap: 2rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
 }
 
-.testimonialQuote {
-    font-family: "Poppins", sans-serif;
-    color: #888;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    flex-grow: 1;
-    font-style: italic;
-}
-
-.testimonialAuthor {
-    text-align: left;
-}
-
-.testimonialName {
-    font-family: "Mona Sans", sans-serif;
-    color: #fff;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.testimonialRole {
-    font-family: "Poppins", sans-serif;
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Previous CSS remains the same, and add these styles at the end */
-.testimonialRating {
-    color: #00ff85;
-    font-size: 1.2rem;
-}
-
-/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .main {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
 
-    .content {
-        align-items: center;
-    }
+  .heroContent {
+    align-items: center;
+  }
 
-    .title {
-        font-size: 2.5rem;
-    }
+  .cta {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .navLinks {
-        display: none;
-    }
+  .title {
+    font-size: 2.5rem;
+  }
 
-    .footerContent {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .footerSection {
-        align-items: center;
-    }
-
-    .testimonialsGrid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Accessibility and Focus States */
-.ctaButton:focus,
-.signUpButton:focus {
-    outline: 2px solid #00ff85;
-    outline-offset: 2px;
-}
-
-/* Subtle Background Gradient */
-.container {
-    background: linear-gradient(135deg, #111 0%, #0a0a0a 100%);
-}
-
-/* Scrollbar Styling for Dark Theme */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #00ff85;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #00cc6a;
-}
-
-/* Additional Subtle Animations */
-@keyframes subtle-pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.imageGrid:hover {
-    animation: subtle-pulse 2s ease-in-out infinite;
-}
-
-/* Print Styles */
-@media print {
-    .container {
-        background: #fff;
-        color: #000;
-    }
+  .heroImageWrapper {
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 16/9;
+  }
 }

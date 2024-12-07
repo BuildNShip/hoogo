@@ -1,0 +1,115 @@
+.testimonials {
+    background: linear-gradient(180deg, var(--bg-light) 0%, var(--bg-dark) 100%);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+  
+  .highlight {
+    color: var(--primary);
+  }
+  
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 1.125rem;
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(0, 255, 133, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    border-color: rgba(0, 255, 133, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .quoteIcon {
+    color: var(--primary);
+    opacity: 0.5;
+    margin-bottom: 1rem;
+  }
+  
+  .text {
+    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-style: italic;
+  }
+  
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .authorAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-dark);
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  
+  .authorName {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .testimonials {
+      padding: 4rem 1rem;
+    }
+  
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .card {
+      padding: 1.5rem;
+    }
+  }

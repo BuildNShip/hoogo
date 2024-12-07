@@ -1,0 +1,142 @@
+.networkingSection {
+  background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+  padding: 6rem 2rem;
+}
+
+.networkingContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.sectionSubtitle {
+  font-size: 1.125rem;
+  text-align: center;
+  color: #888;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.highlight {
+  color: var(--primary);
+}
+
+.featuresGrid {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.featureCard {
+  background: rgba(17, 17, 17, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(0, 255, 133, 0.1);
+  flex: 1;
+  min-width: 280px;
+  max-width: 320px;
+}
+
+.featureIcon {
+  color: var(--primary);
+  width: 32px;
+  height: 32px;
+  margin-bottom: 1.5rem;
+}
+
+.featureCard h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.featureCard p {
+  color: #888;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.unlockFeature {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.unlockCard {
+  background: linear-gradient(
+    145deg,
+    rgba(0, 255, 133, 0.1) 0%,
+    rgba(0, 255, 133, 0.05) 100%
+  );
+  border-radius: 20px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 500px;
+  border: 1px solid rgba(0, 255, 133, 0.2);
+}
+
+.unlockCard h3 {
+  color: #fff;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.unlockCard p {
+  color: #888;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.unlockCard ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.unlockCard ul li {
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .networkingSection {
+    padding: 4rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .networkingSection {
+    padding: 3rem 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .unlockCard {
+    margin: 0 1rem;
+    padding: 1.5rem;
+  }
+
+  .featureCard {
+    min-width: 100%;
+  }
+}

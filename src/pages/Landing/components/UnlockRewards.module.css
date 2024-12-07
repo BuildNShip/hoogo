@@ -1,0 +1,119 @@
+.rewardsSection {
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+}
+
+.rewardsContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.highlight {
+  color: var(--primary);
+}
+
+.subtitle {
+  color: #888;
+  font-size: 1.125rem;
+  margin-bottom: 4rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rewardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.rewardCard {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 255, 133, 0.1);
+  transition: all 0.3s;
+}
+
+.rewardCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 133, 0.3);
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.rewardCard h3 {
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.rewardCard p {
+  color: #888;
+  line-height: 1.6;
+}
+
+.progressIndicator {
+  background: rgba(0, 255, 133, 0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 255, 133, 0.2);
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressIndicator p {
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .rewardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .rewardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rewardsSection {
+    padding: 4rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,117 @@
+.howToSection {
+  background-color: #0a0a0a;
+  padding: 6rem 2rem;
+}
+
+.howToContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-family: "Mona Sans", sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.sectionSubtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.125rem;
+  text-align: center;
+  color: #888;
+  margin-bottom: 4rem;
+}
+
+.highlight {
+  color: #00ff85;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.stepCard {
+  background: linear-gradient(145deg, #111 0%, #0f0f0f 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 255, 133, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stepCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 255, 133, 0.3);
+}
+
+.stepIconWrapper {
+  background: rgba(0, 255, 133, 0.1);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.stepIcon {
+  color: #00ff85;
+  width: 24px;
+  height: 24px;
+}
+
+.stepTitle {
+  font-family: "Mona Sans", sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.stepDescription {
+  font-family: "Poppins", sans-serif;
+  color: #888;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.stepImageWrapper {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.stepImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.stepCard:hover .stepImage {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .howToSection {
+    padding: 4rem 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}

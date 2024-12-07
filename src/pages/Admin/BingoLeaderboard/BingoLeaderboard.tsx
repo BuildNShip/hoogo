@@ -43,7 +43,7 @@ interface Player {
     score: boolean[];
     completed_at: Date | null;
     no_of_connections: number;
-    ticket_code: string;
+    user_code: string;
 }
 
 interface BingoItem {
@@ -323,7 +323,7 @@ const BingoLeaderboard = () => {
                                                     >
                                                         <Link
                                                             to={`/${eventName}/${
-                                                                player.ticket_code ||
+                                                                player.user_code ||
                                                                 player.user_name
                                                             }/hoogocard`}
                                                             className={styles.nameLink}

@@ -7,6 +7,7 @@ import NetworkingSection from "./components/NetworkingSection";
 import UnlockRewards from "./components/UnlockRewards";
 import HowToSection from "./components/HowToSection";
 import TestimonialsSection from "./components/TestimonialSection";
+import { BiSupport } from "react-icons/bi";
 
 function Landing() {
   return (
@@ -75,6 +76,12 @@ function Landing() {
                 <span>★★★★★</span> 2608 players connected
               </div>
             </motion.div>
+            <a href="https://wa.me/916238450178">
+              <p className={styles.contactUsText}>
+                <BiSupport size={20} />
+                Click Here for Team Support
+              </p>
+            </a>
           </motion.div>
 
           <motion.div

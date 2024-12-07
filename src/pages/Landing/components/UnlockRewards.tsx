@@ -20,7 +20,7 @@ export default function UnlockRewards() {
       icon: <Download />,
       title: "Digital Memento",
       description:
-        "Download a personalized memory of your event connections and experiences",
+        "Download a personalized memory(image in first section) of your event connections and experiences",
     },
   ];
 

@@ -32,13 +32,15 @@ export default function Navbar() {
         </div>
 
         <div className={styles.row}>
-          <motion.button
-            className={styles.ctaButton}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Get Started
-          </motion.button>
+          <a href="/login">
+            <motion.button
+              className={styles.ctaButton}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Get Started
+            </motion.button>
+          </a>
 
           <button
             className={styles.mobileMenuButton}

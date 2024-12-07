@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
 import styles from "./Navbar.module.css";
 

@@ -74,10 +74,10 @@ const BingoLeaderboard = () => {
 
     useEffect(() => {
         if (typeof selectedPlayer === "string") {
+            const audio = new Audio("/claps.wav")
+            audio.play();
             getBingoMatrix(eventName, selectedPlayer).then((response) => {
                 setBingoAnswers(response.answer);
-                const audio = new Audio("/claps.wav")
-                audio.play();
                 setTimeout(() => {
                     setBingoAnswers([]);
                 }, 5000);

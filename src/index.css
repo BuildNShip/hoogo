@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+
 * {
   font-family: "Mona Sans", sans-serif;
   margin: 0;
@@ -62,7 +65,6 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #fff !important;
   color: #fff !important;
 }
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
 
 :root {
   --primary: #00ff85;
@@ -95,11 +97,9 @@ h6 {
   pointer-events: none;
   z-index: 0;
   opacity: 0.1;
-  background-image: radial-gradient(
-      circle at 2% 5%,
+  background-image: radial-gradient(circle at 2% 5%,
       var(--primary) 0.5px,
-      transparent 1px
-    ),
+      transparent 1px),
     radial-gradient(circle at 98% 35%, var(--primary) 0.5px, transparent 1px),
     radial-gradient(circle at 50% 50%, var(--primary) 0.5px, transparent 1px),
     radial-gradient(circle at 85% 85%, var(--primary) 0.5px, transparent 1px);
@@ -111,6 +111,7 @@ h6 {
   0% {
     opacity: 0.05;
   }
+
   100% {
     opacity: 0.15;
   }
@@ -129,9 +130,11 @@ h6 {
     transform: translateX(-100%);
     opacity: 0;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     transform: translateX(200%);
     opacity: 0;

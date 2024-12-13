@@ -1,30 +1,38 @@
-const buildURL = (basePath: string) => (endpoint: string) => `${basePath}${endpoint}`;
+const buildURL = (basePath: string) => (endpoint: string) =>
+    `${basePath}${endpoint}`;
 
 const hoogoURL = buildURL("/hoogo");
 const buildVerseURL = buildURL("/buildverse");
 
 export const commonUrls = {
-    getBingoMatrix: (eventName: string, ticketCode: string) =>
-        hoogoURL(`/manage-game/${eventName}/get-bingo-matrix/${ticketCode}/`),
-    userInput: (eventName: string, ticketCode: string) =>
-        hoogoURL(`/manage-game/${eventName}/user-input/${ticketCode}/`),
-    getLeaderboard: (eventName: string) => hoogoURL(`/manage-game/${eventName}/leaderboard/`),
-    validateTicket: (eventName: string, ticketCode: string) =>
-        hoogoURL(`/manage-game/${eventName}/validate/${ticketCode}/`),
+    getBingoMatrix: (eventName: string) =>
+        hoogoURL(`/manage-game/${eventName}/get-bingo-matrix/`),
+    userInput: (eventName: string) =>
+        hoogoURL(`/manage-game/${eventName}/user-input/`),
+    getLeaderboard: (eventName: string) =>
+        hoogoURL(`/manage-game/${eventName}/leaderboard/`),
+    validateTicket: (eventName: string) =>
+        hoogoURL(`/manage-game/${eventName}/validate/`),
     onboardUser: hoogoURL("/common/onboard-user/"),
-    getEventInfo: (eventName: string) => hoogoURL(`/manage-event/${eventName}/get-info/`),
+    getEventInfo: (eventName: string) =>
+        hoogoURL(`/manage-event/${eventName}/get-info/`),
     listUserEvents: hoogoURL("/manage-event/user/list-events/"),
     listMmpEvents: hoogoURL("/manage-event/user/mmp/list-events/"),
 
     createEvent: hoogoURL("/manage-event/create/"),
-    updateEvent: (eventId: string) => hoogoURL(`/manage-event/${eventId}/update/`),
-    importGrid: (eventName: string) => hoogoURL(`/manage-game/${eventName}/grid/import/`),
-    deleteEvent: (eventId: string) => hoogoURL(`/manage-event/${eventId}/delete/`),
+    updateEvent: (eventId: string) =>
+        hoogoURL(`/manage-event/${eventId}/update/`),
+    importGrid: (eventName: string) =>
+        hoogoURL(`/manage-game/${eventName}/grid/import/`),
+    deleteEvent: (eventId: string) =>
+        hoogoURL(`/manage-event/${eventId}/delete/`),
 };
 
 export const websocketUrls = {
     bingoLeaderboard: (eventName: string) =>
-        `${import.meta.env.VITE_WS_URL}/hoogo/manage-game/${eventName}/leaderboard/`,
+        `${
+            import.meta.env.VITE_WS_URL
+        }/hoogo/manage-game/${eventName}/leaderboard/`,
 };
 
 export const buildVerse = {

@@ -43,7 +43,7 @@ export const captureAndDownload = async ({
                     gridImgObj.src = gridImage;
                     gridImgObj.crossOrigin = "anonymous";
                     gridImgObj.onload = () => {
-                        ctx.drawImage(gridImgObj, 85, 275, 583, 583); // Adjust positions as needed
+                        ctx.drawImage(gridImgObj, 125, 385, 823, 823); // Adjust positions as needed
                         downloadImage(); // Automatically download after merging
                     };
                 }
@@ -94,7 +94,7 @@ export const captureAndDownloadPost = async ({
                     gridImgObj.src = gridImage;
                     gridImgObj.crossOrigin = "anonymous";
                     gridImgObj.onload = () => {
-                        ctx.drawImage(gridImgObj, 75, 230, 350, 350);
+                        ctx.drawImage(gridImgObj, 106, 325, 500, 500);
                         downloadPostImage();
                     };
                 }

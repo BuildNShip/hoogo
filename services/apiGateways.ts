@@ -22,6 +22,18 @@ publicGateway.interceptors.request.use(
     }
 );
 
+publicGateway.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        if (!error.response) {
+            toast.error("Network error. Please check your internet connection.");
+        }
+        return Promise.reject(error);
+    }
+);
+
 export const privateGateway = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL as string,
     headers: {
@@ -57,6 +69,10 @@ privateGateway.interceptors.response.use(
         return response;
     },
     async function (error) {
+        if (!error.response) {
+            toast.error("Network error. Please check your internet connection.");
+            return Promise.reject(error);
+        }
         if (error.response?.data?.detail?.statusCode === 1000) {
             try {
                 const response = await publicGateway.post(buildVerse.getAccessToken, {

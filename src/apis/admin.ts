@@ -82,3 +82,15 @@ export const deleteEvent = (eventId: string, navigate: NavigateFunction) => {
             toast.error("Failed to delete event");
         });
 };
+
+
+export const getRandomImages = (eventName: string, setRandomImages: Dispatch<SetStateAction<string[]>>) => {
+    privateGateway
+        .get(commonUrls.getRandomImages(eventName))
+        .then((response) => {
+            setRandomImages(response.data.response);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}

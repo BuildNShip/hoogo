@@ -18,6 +18,8 @@ export const commonUrls = {
         hoogoURL(`/manage-event/${eventName}/get-info/`),
     listUserEvents: hoogoURL("/manage-event/user/list-events/"),
     listMmpEvents: hoogoURL("/manage-event/user/mmp/list-events/"),
+    getRandomImages: (eventName: string) =>
+        hoogoURL(`/manage-game/${eventName}/random/images/`),
 
     createEvent: hoogoURL("/manage-event/create/"),
     updateEvent: (eventId: string) =>

@@ -67,7 +67,7 @@ const BingoLeaderboard = () => {
     const [showRules, setShowRules] = useState(false);
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
-    const [randomImages, setRandomImages] = useState<string[]>([]);
+    // const [randomImages, setRandomImages] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
 
     const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
@@ -168,12 +168,12 @@ const BingoLeaderboard = () => {
                             }
                         );
 
-                        setRandomImages((prevImages) => {
-                            const updatedImages = [...prevImages];
-                            updatedImages.shift(); // Remove the first image
-                            updatedImages.push(updatedPlayer.image); // Add the new image
-                            return updatedImages;
-                        });
+                        // setRandomImages((prevImages) => {
+                        //     const updatedImages = [...prevImages];
+                        //     updatedImages.shift(); // Remove the first image
+                        //     updatedImages.push(updatedPlayer.image); // Add the new image
+                        //     return updatedImages;
+                        // });
                     }
 
                     if (!Array.isArray(updatedPlayer)) {
@@ -251,7 +251,7 @@ const BingoLeaderboard = () => {
         qrCode.update({
             data: new URL(`https://hoogo.makemypass.com/${eventName}`).href,
         });
-        if (eventName) getRandomImages(eventName, setRandomImages);
+        // if (eventName) getRandomImages(eventName, setRandomImages);
     }, [eventName]);
 
     return (
@@ -332,7 +332,7 @@ const BingoLeaderboard = () => {
 
             <div className={styles.backgroundContainer}>
                 <div className={styles.outerContainer}>
-                    <div className={styles.imageScrollLeft}>
+                    {/* <div className={styles.imageScrollLeft}>
                         <div className={styles.scrollContainer}>
                             {randomImages
                                 .concat(randomImages)
@@ -345,7 +345,7 @@ const BingoLeaderboard = () => {
                                     />
                                 ))}
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className={styles.container}>
                         {/* <img src="/live.gif" alt="logo" className={styles.liveGif} /> */}
@@ -609,7 +609,7 @@ const BingoLeaderboard = () => {
                             click to view rules
                         </div>
                     </div>
-                    <div className={styles.imageScrollRight}>
+                    {/* <div className={styles.imageScrollRight}>
                         <div className={styles.scrollContainer}>
                             {randomImages
                                 .concat(randomImages)
@@ -622,7 +622,7 @@ const BingoLeaderboard = () => {
                                     />
                                 ))}
                         </div>
-                    </div>
+                    </div> */}
                     <Footer />
                 </div>
             </div>

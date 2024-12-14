@@ -423,13 +423,6 @@
     animation: scrollImagesContinuous 30s linear infinite;
 }
 
-.imageScrollLeft img,
-.imageScrollRight img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
 @keyframes scrollImagesContinuous {
     0% {
         transform: translateY(0);
@@ -439,11 +432,7 @@
     }
 }
 
-
-.image{
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+.image {
     border-radius: 8px;
     margin: 0.5rem 0.5rem;
     filter: grayscale(100%);

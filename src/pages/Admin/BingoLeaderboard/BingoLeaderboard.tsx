@@ -21,6 +21,7 @@ import QRCodeStyling from "qr-code-styling";
 import { getBingoMatrix } from "../../../apis/common";
 import HoogoCard from "./HoogoCard/HoogoCard";
 import Confetti from "react-confetti";
+import { getRandomImages } from "../../../apis/admin";
 
 const qrCode = new QRCodeStyling({
     width: 250,
@@ -46,6 +47,7 @@ interface Player {
     connected_to: string;
     score: boolean[];
     completed_at: Date | null;
+    image: string;
     no_of_connections: number;
     user_code: string;
 }
@@ -65,6 +67,7 @@ const BingoLeaderboard = () => {
     const [showRules, setShowRules] = useState(false);
     const [isQRModalOpen, setIsQRModalOpen] = useState(false);
 
+    const [randomImages, setRandomImages] = useState<string[]>([]);
     const ref = useRef<HTMLDivElement>(null);
 
     const [bingoAnswers, setBingoAnswers] = useState<BingoItem[][]>([]);
@@ -164,6 +167,13 @@ const BingoLeaderboard = () => {
                                 },
                             }
                         );
+
+                        setRandomImages((prevImages) => {
+                            const updatedImages = [...prevImages];
+                            updatedImages.shift(); // Remove the first image
+                            updatedImages.push(updatedPlayer.image); // Add the new image
+                            return updatedImages;
+                        });
                     }
 
                     if (!Array.isArray(updatedPlayer)) {
@@ -241,29 +251,8 @@ const BingoLeaderboard = () => {
         qrCode.update({
             data: new URL(`https://hoogo.makemypass.com/${eventName}`).href,
         });
+        if (eventName) getRandomImages(eventName, setRandomImages);
     }, [eventName]);
-
-    const stockImages = [
-        "https://picsum.photos/500/500?random=0",
-        "https://picsum.photos/500/500?random=1",
-        "https://picsum.photos/500/500?random=2",
-        "https://picsum.photos/500/500?random=3",
-        "https://picsum.photos/500/500?random=4",
-        "https://picsum.photos/500/500?random=5",
-        "https://picsum.photos/500/500?random=7",
-        "https://picsum.photos/500/500?random=8",
-        "https://picsum.photos/500/500?random=9",
-        "https://picsum.photos/500/500?random=10",
-        "https://picsum.photos/500/500?random=11",
-        "https://picsum.photos/500/500?random=12",
-        "https://picsum.photos/500/500?random=13",
-        "https://picsum.photos/500/500?random=14",
-        "https://picsum.photos/500/500?random=15",
-        "https://picsum.photos/500/500?random=16",
-        "https://picsum.photos/500/500?random=17",
-        "https://picsum.photos/500/500?random=18",
-        "https://picsum.photos/500/500?random=19",
-    ];
 
     return (
         <>
@@ -345,11 +334,11 @@ const BingoLeaderboard = () => {
                 <div className={styles.outerContainer}>
                     <div className={styles.imageScrollLeft}>
                         <div className={styles.scrollContainer}>
-                            {stockImages
-                                .concat(stockImages)
+                            {randomImages
+                                .concat(randomImages)
                                 .map((src, index) => (
                                     <img
-                                      className={styles.image}
+                                        className={styles.image}
                                         key={index}
                                         src={src}
                                         alt={`Stock image ${index}`}
@@ -622,8 +611,8 @@ const BingoLeaderboard = () => {
                     </div>
                     <div className={styles.imageScrollRight}>
                         <div className={styles.scrollContainer}>
-                            {stockImages
-                                .concat(stockImages)
+                            {randomImages
+                                .concat(randomImages)
                                 .map((src, index) => (
                                     <img
                                         key={index}

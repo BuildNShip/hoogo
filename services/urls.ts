@@ -28,6 +28,8 @@ export const commonUrls = {
         hoogoURL(`/manage-game/${eventName}/grid/import/`),
     deleteEvent: (eventId: string) =>
         hoogoURL(`/manage-event/${eventId}/delete/`),
+
+    totalConnections: hoogoURL("/common/total-connections/")
 };
 
 export const websocketUrls = {

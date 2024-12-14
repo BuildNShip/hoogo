@@ -15,9 +15,12 @@ export const listUserEvents = async (
             setEvents(response.data.response);
         })
         .catch((error) => {
-            toast.error(error?.response?.message.general[0] || "No events found", {
-                id: "listUserEvents",
-            });
+            toast.error(
+                error?.response?.message.general[0] || "No events found",
+                {
+                    id: "listUserEvents",
+                }
+            );
         })
         .finally(() => {
             setIsEventsLoading(false);
@@ -25,7 +28,9 @@ export const listUserEvents = async (
 };
 
 export const listMmpEvents = async (
-    setEvents: React.Dispatch<React.SetStateAction<MMPEventListType[] | undefined>>
+    setEvents: React.Dispatch<
+        React.SetStateAction<MMPEventListType[] | undefined>
+    >
 ) => {
     privateGateway
         .get(commonUrls.listMmpEvents)
@@ -33,8 +38,34 @@ export const listMmpEvents = async (
             setEvents(response.data.response);
         })
         .catch((error) => {
-            toast.error(error?.response?.message.general[0] || "No events found", {
-                id: "listMmpEvents",
+            toast.error(
+                error?.response?.message.general[0] || "No events found",
+                {
+                    id: "listMmpEvents",
+                }
+            );
+        });
+};
+
+export const getTotalConnections = async (
+    setTotalConnections: React.Dispatch<
+        React.SetStateAction<
+            | {
+                  total_connections: number;
+                  total_users: number;
+              }
+            | undefined
+        >
+    >
+) => {
+    privateGateway
+        .get(commonUrls.totalConnections)
+        .then((response) => {
+            setTotalConnections(response.data.response);
+        })
+        .catch(() => {
+            toast.error("Something went wrong", {
+                id: "getTotalConnections",
             });
         });
 };

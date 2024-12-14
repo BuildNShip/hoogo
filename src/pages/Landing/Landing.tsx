@@ -8,117 +8,135 @@ import UnlockRewards from "./components/UnlockRewards";
 import HowToSection from "./components/HowToSection";
 import TestimonialsSection from "./components/TestimonialSection";
 import { BiSupport } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { getTotalConnections } from "../../apis/user";
 
 function Landing() {
-  return (
-    <div className={styles.container}>
-      <BackgroundEffects />
-      <Navbar />
+    const [totalConnections, setTotalConnections] = useState<{
+        total_connections: number;
+        total_users: number;
+    }>();
+    useEffect(() => {
+        getTotalConnections(setTotalConnections);
+    }, []);
+    return (
+        <div className={styles.container}>
+            <BackgroundEffects />
+            <Navbar />
 
-      <main className={styles.main}>
-        <section className={styles.hero}>
-          <motion.div
-            className={styles.heroContent}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <motion.p
-              className={styles.preTitle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              from the{" "}
-              <span>
-                team of
-                <a
-                  href="https://makemypass.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {" "}
-                  makemypass.com
-                </a>
-              </span>
-            </motion.p>
-            <motion.h1
-              className={styles.title}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <span className={styles.highlight}>Play</span> human bingo <br />
-              <span className={styles.highlight}>in-minutes,</span> not hours
-            </motion.h1>
-            <motion.p
-              className={styles.subtitle}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              Transform your networking experience at events with our
-              interactive human bingo platform. Make meaningful connections,
-              naturally.
-            </motion.p>
-            <motion.div
-              className={styles.cta}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <a href="/login">
-                <button className={styles.ctaButton}>
-                  Create Hoogo <ArrowRight size={20} />
-                </button>
-              </a>
-              <div className={styles.rating}>
-                <span>★★★★★</span> 2608 players connected
-              </div>
-            </motion.div>
-            <a href="https://wa.me/916238450178">
-              <p className={styles.contactUsText}>
-                <BiSupport size={20} />
-                Click Here for Team Support
-              </p>
-            </a>
-          </motion.div>
+            <main className={styles.main}>
+                <section className={styles.hero}>
+                    <motion.div
+                        className={styles.heroContent}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <motion.p
+                            className={styles.preTitle}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            from the{" "}
+                            <span>
+                                team of
+                                <a
+                                    href="https://makemypass.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {" "}
+                                    makemypass.com
+                                </a>
+                            </span>
+                        </motion.p>
+                        <motion.h1
+                            className={styles.title}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            <span className={styles.highlight}>Play</span> human
+                            bingo <br />
+                            <span className={styles.highlight}>
+                                in-minutes,
+                            </span>{" "}
+                            not hours
+                        </motion.h1>
+                        <motion.p
+                            className={styles.subtitle}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            Transform your networking experience at events with
+                            our interactive human bingo platform. Make
+                            meaningful connections, naturally.
+                        </motion.p>
+                        <motion.div
+                            className={styles.cta}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                        >
+                            <a href="/login">
+                                <button className={styles.ctaButton}>
+                                    Create Hoogo <ArrowRight size={20} />
+                                </button>
+                            </a>
+                            <div className={styles.rating}>
+                                <span>★★★★★</span>{" "}
+                                {totalConnections?.total_connections} players
+                                connected
+                            </div>
+                        </motion.div>
+                        <a href="https://wa.me/916238450178">
+                            <p className={styles.contactUsText}>
+                                <BiSupport size={20} />
+                                Click Here for Team Support
+                            </p>
+                        </a>
+                    </motion.div>
 
-          <motion.div
-            className={styles.heroImageWrapper}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <img
-              src="/landing/hero.png"
-              alt="People networking"
-              className={styles.heroImage}
-            />
-            <p className={styles.imageAlert}>
-              People networking get to share their experience as in above
-              templates
-            </p>
-          </motion.div>
-        </section>
+                    <motion.div
+                        className={styles.heroImageWrapper}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                    >
+                        <img
+                            src="/landing/hero.png"
+                            alt="People networking"
+                            className={styles.heroImage}
+                        />
+                        <p className={styles.imageAlert}>
+                            People networking get to share their experience as
+                            in above templates
+                        </p>
+                    </motion.div>
+                </section>
 
-        <div id="how-it-works">
-          <HowToSection />
+                <div id="how-it-works">
+                    <HowToSection />
+                </div>
+                <NetworkingSection />
+                <div id="rewards">
+                    <UnlockRewards />
+                </div>
+                <TestimonialsSection />
+            </main>
+
+            <footer className={styles.footer}>
+                <div className={styles.footerContent}>
+                    <p>
+                        &copy; 2024 Hoomans Project Pvt Ltd. All rights
+                        reserved.
+                    </p>
+                </div>
+            </footer>
         </div>
-        <NetworkingSection />
-        <div id="rewards">
-          <UnlockRewards />
-        </div>
-        <TestimonialsSection />
-      </main>
-
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p>&copy; 2024 Hoomans Project Pvt Ltd. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  );
+    );
 }
 
 export default Landing;

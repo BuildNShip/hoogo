@@ -1,400 +1,450 @@
 .backgroundContainer {
-  background-color: #1d1d1d;
+    background-color: #1d1d1d;
 }
 
 .outerContainer {
-  max-width: 70rem;
-  width: 100%;
-  margin: 0 auto;
+    max-width: 70rem;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  min-height: calc(100vh - 4rem);
-  width: 100%;
-  background-color: #1d1d1d;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 4rem);
+    width: 100%;
+    background-color: #1d1d1d;
 
-  position: relative;
+    position: relative;
 }
 
 .playerRowContainer {
-  max-height: 650px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: calc(100% - 2rem);
-  max-width: 30rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    max-height: 650px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: calc(100% - 2rem);
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
-  padding: 1rem;
+    padding: 1rem;
 }
 
 .index {
-  color: #fff;
-  font-size: 0.9rem;
-  opacity: 0.6;
+    color: #fff;
+    font-size: 0.9rem;
+    opacity: 0.6;
 }
 
 .title {
-  color: #1ed45e;
-  font-size: 1.75rem;
-  line-height: 1.4;
-  margin-bottom: 3rem;
-  text-align: center;
-  letter-spacing: 0.05em;
+    color: #1ed45e;
+    font-size: 1.75rem;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    text-align: center;
+    letter-spacing: 0.05em;
 }
 
 .playerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 4px;
-  transition: transform 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    transition: transform 0.2s ease;
 }
 
 .playerRow:hover {
-  transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.04);
+    transform: translateX(4px);
+    background: rgba(255, 255, 255, 0.04);
 }
 
 .nameLink {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
 
-  display: flex;
-  align-items: flex-start;
+    display: flex;
+    align-items: flex-start;
 
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .nameLink:hover {
-  color: #1ed45e;
+    color: #1ed45e;
 }
 
 .bingoLetters {
-  display: flex;
-  gap: 0.4rem;
+    display: flex;
+    gap: 0.4rem;
 }
 
 .letterButton {
-  width: 1.85rem;
-  height: 1.85rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  border: 1.5px solid #464646;
-  color: #616161;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border-radius: 3px;
-  cursor: pointer;
+    width: 1.85rem;
+    height: 1.85rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: 1.5px solid #464646;
+    color: #616161;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 .letterButton:hover {
-  border-color: rgba(30, 212, 94, 0.5);
-  color: rgba(30, 212, 94, 0.5);
+    border-color: rgba(30, 212, 94, 0.5);
+    color: rgba(30, 212, 94, 0.5);
 }
 
 .letterButton.strikethrough {
-  background-color: #1ed45e;
-  border-color: #1ed45e;
-  color: #252525;
-  transform: scale(0.95);
+    background-color: #1ed45e;
+    border-color: #1ed45e;
+    color: #252525;
+    transform: scale(0.95);
 }
 
 .footer {
-  margin-top: 2.5rem;
-  color: #1ed45e;
-  font-size: 0.8rem;
-  text-align: center;
-  opacity: 0.7;
-  letter-spacing: 0.1em;
-  animation: scrollText 20s linear infinite;
-  white-space: nowrap;
+    margin-top: 2.5rem;
+    color: #1ed45e;
+    font-size: 0.8rem;
+    text-align: center;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    animation: scrollText 20s linear infinite;
+    white-space: nowrap;
 }
 
 @keyframes scrollText {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 @media (min-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
+    .title {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-  }
+    .title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
 
-  .playerRow {
-    padding: 0.6rem 0.75rem;
-  }
+    .playerRow {
+        padding: 0.6rem 0.75rem;
+    }
 
-  .letterButton {
-    width: 1.75rem;
-    height: 1.75rem;
-    font-size: 0.8rem;
-  }
+    .letterButton {
+        width: 1.75rem;
+        height: 1.75rem;
+        font-size: 0.8rem;
+    }
 }
 
 .leaderboardHeadingText {
-  color: #1ed45e;
-  font-size: 1.9rem;
-  line-height: 1.4;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1rem;
+    color: #1ed45e;
+    font-size: 1.9rem;
+    line-height: 1.4;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .leaderboardHeadingDescription {
-  color: #fff;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin-bottom: 3rem;
-  text-align: center;
-  max-width: 30rem;
-  margin: auto;
-  margin-bottom: 1rem;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 30rem;
+    margin: auto;
+    margin-bottom: 1rem;
 }
 
 .liveGif {
-  max-width: 4rem;
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+    max-width: 4rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
 
 .participantCount {
-  color: #fff;
-  font-size: 0.9rem;
+    color: #fff;
+    font-size: 0.9rem;
 
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
 
-  opacity: 0.7;
+    opacity: 0.7;
 
-  span {
-    color: #1ed45e;
-  }
+    span {
+        color: #1ed45e;
+    }
 }
 
 .connections {
-  color: #fff;
-  font-size: 0.9rem;
+    color: #fff;
+    font-size: 0.9rem;
 
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 
-  opacity: 0.7;
+    opacity: 0.7;
 
-  span {
-    color: #1ed45e;
-  }
+    span {
+        color: #1ed45e;
+    }
 }
 
 .loaderContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2rem;
-  margin-left: -5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    margin-left: -5rem;
 }
 
 .centerContainer {
-  min-height: calc(100vh - 12rem);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 1rem;
+    min-height: calc(100vh - 12rem);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .row {
-  color: #fff;
+    color: #fff;
 }
 
 .leaderboardCenterContainer {
-  min-height: calc(100vh - 12rem);
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+    min-height: calc(100vh - 12rem);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .scanToJoin {
-  color: #fff;
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 1rem;
-  opacity: 0.7;
+    color: #fff;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 1rem;
+    opacity: 0.7;
 }
 
 .loadingText {
-  color: #fff;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  opacity: 0.7;
-  text-align: center;
+    color: #fff;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    opacity: 0.7;
+    text-align: center;
 }
 
 .completedAtText {
-  color: #fff;
-  font-size: 0.8rem;
-  opacity: 0.7;
-  text-align: center;
+    color: #fff;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-align: center;
 
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .headerActions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  width: calc(100% - 2rem);
-  padding: 2rem;
-  padding-top: 3rem;
-  padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: calc(100% - 2rem);
+    padding: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 0;
 }
 
 @media (max-width: 480px) {
-  .qrCodeContainer {
-    padding-top: 2rem;
-  }
+    .qrCodeContainer {
+        padding-top: 2rem;
+    }
 }
 
 .eventTitle {
-  font-size: 1.5rem;
-  color: #1ed45e;
+    font-size: 1.5rem;
+    color: #1ed45e;
 }
 
 .gobackButton {
-  border-radius: 8px;
-  border: none;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 0.5rem 0.75rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: Inter;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: Inter;
 }
 
 .eventDetails {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 1.5rem;
-  color: #ffffffd5;
-  strong {
-    color: #1ed45e;
-    margin-bottom: 0.5rem;
-  }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    color: #ffffffd5;
+    strong {
+        color: #1ed45e;
+        margin-bottom: 0.5rem;
+    }
 }
 
 .rulesContainer {
-  border-radius: 8px;
-  max-width: 600px;
-  width: calc(100% - 1rem);
-  margin: 0 auto;
-  padding: 1rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: calc(100% - 1rem);
+    margin: 0 auto;
+    padding: 1rem;
 }
 
 .rulesDescription {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .rulesDescriptionHeader {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #1ed45e;
-  text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1ed45e;
+    text-align: center;
 }
 
 .rulesDescriptionContent {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .rulesDescriptionContentText {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color: #ffffff;
-  opacity: 0.8;
-  text-align: justify;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #ffffff;
+    opacity: 0.8;
+    text-align: justify;
 }
 
 .showEventQR {
-  position: absolute;
-  font-size: 0.9rem;
-  opacity: 0.7;
-  left: 1rem;
-  bottom: 1rem;
-  color: #fff;
+    position: absolute;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    left: 1rem;
+    bottom: 1rem;
+    color: #fff;
 
-  &:hover {
-    color: #1ed45e;
-  }
+    &:hover {
+        color: #1ed45e;
+    }
 }
 
 .showRulesText {
-  position: absolute;
-  font-size: 0.9rem;
-  opacity: 0.7;
-  right: 1rem;
-  bottom: 1.5rem;
-  color: #fff;
+    position: absolute;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    right: 1rem;
+    bottom: 1.5rem;
+    color: #fff;
 
-  &:hover {
-    color: #1ed45e;
-  }
+    &:hover {
+        color: #1ed45e;
+    }
 }
 
 .qrContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .leaderboardContainer {
-  width: 100%;
+    width: 100%;
+}
+
+.imageScrollLeft,
+.imageScrollRight {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    overflow: hidden;
+}
+
+.imageScrollLeft {
+    left: 0;
+}
+
+.imageScrollRight {
+    right: 0;
+}
+
+.imageScrollLeft .scrollContainer,
+.imageScrollRight .scrollContainer {
+    display: flex;
+    flex-direction: column;
+    animation: scrollImagesContinuous 30s linear infinite;
+}
+
+.imageScrollLeft img,
+.imageScrollRight img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+@keyframes scrollImagesContinuous {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+
+.image{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0.5rem 0.5rem;
+    filter: grayscale(100%);
 }

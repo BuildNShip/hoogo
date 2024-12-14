@@ -437,3 +437,10 @@
     margin: 0.5rem 0.5rem;
     filter: grayscale(100%);
 }
+
+@media (max-width: 1400px) {
+    .imageScrollLeft,
+    .imageScrollRight {
+        display: none;
+    }
+}

@@ -21,7 +21,7 @@ import QRCodeStyling from "qr-code-styling";
 import { getBingoMatrix } from "../../../apis/common";
 import HoogoCard from "./HoogoCard/HoogoCard";
 import Confetti from "react-confetti";
-import { getRandomImages } from "../../../apis/admin";
+// import { getRandomImages } from "../../../apis/admin";
 
 const qrCode = new QRCodeStyling({
     width: 250,
